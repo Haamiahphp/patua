@@ -1,18 +1,34 @@
-import { neon } from "@neondatabase/serverless";
+import { neon, type NeonQueryFunction } from "@neondatabase/serverless";
 import { revalidateTag, unstable_cache } from "next/cache";
 import { isValidKey } from "./content-key";
 
-const sql = neon(process.env.DATABASE_URL!);
-
 export type ContentValue = string | { url: string; alt?: string };
+
+// Conexão preguiçosa: sem DATABASE_URL o site ainda renderiza (usa os
+// fallbacks hardcoded) e o build passa. Só a escrita exige banco.
+let _sql: NeonQueryFunction<false, false> | null | undefined;
+function db(): NeonQueryFunction<false, false> | null {
+  if (_sql === undefined) {
+    _sql = process.env.DATABASE_URL ? neon(process.env.DATABASE_URL) : null;
+  }
+  return _sql;
+}
 
 function tagFor(key: string): string {
   return `content:${key}`;
 }
 
 async function fetchContent(key: string): Promise<ContentValue | null> {
-  const rows = await sql`select value from content where key = ${key}`;
-  return rows.length ? (rows[0].value as ContentValue) : null;
+  const sql = db();
+  if (!sql) return null; // sem banco → cai no fallback
+  try {
+    const rows = await sql`select value from content where key = ${key}`;
+    return rows.length ? (rows[0].value as ContentValue) : null;
+  } catch (err) {
+    // erro transitório do banco não deve derrubar a página pública
+    console.error(`[content] falha ao ler "${key}":`, err);
+    return null;
+  }
 }
 
 export function getContent<T extends ContentValue>(
@@ -32,6 +48,8 @@ export async function setContent(
   value: ContentValue,
 ): Promise<void> {
   if (!isValidKey(key)) throw new Error(`chave inválida: ${key}`);
+  const sql = db();
+  if (!sql) throw new Error("DATABASE_URL não configurado — escrita indisponível");
   await sql`
     insert into content (key, value, updated_at)
     values (${key}, ${JSON.stringify(value)}::jsonb, now())
