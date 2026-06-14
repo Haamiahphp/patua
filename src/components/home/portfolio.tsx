@@ -1,26 +1,41 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import { COLLECTIONS, type Collection } from "@/lib/collections";
+import { getContent } from "@/lib/content";
+import { Editable } from "@/components/editor/editable";
 
-export function PortfolioSection() {
+export async function PortfolioSection() {
+  const heading = await getContent(
+    "home.portfolio.titulo",
+    "Coleções que carregam um conceito.",
+  );
+  const ctaLabel = await getContent(
+    "home.portfolio.cta",
+    "Ver todas as coleções",
+  );
+
   return (
     <section className="relative bg-[var(--color-bark-soft)] py-24 text-[var(--color-cream-light)] md:py-36">
       <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <Reveal>
-            <h2 className="font-display max-w-[20ch] text-[clamp(1.875rem,3.6vw,3rem)] leading-[var(--leading-tight)] tracking-[var(--tracking-snug)]">
-              Coleções que carregam um conceito.
-            </h2>
+            <Editable
+              id="home.portfolio.titulo"
+              as="h2"
+              className="font-display max-w-[20ch] text-[clamp(1.875rem,3.6vw,3rem)] leading-[var(--leading-tight)] tracking-[var(--tracking-snug)]"
+            >
+              {heading}
+            </Editable>
           </Reveal>
           <Reveal delay={0.15}>
             <Link
               href="/collections"
               className="inline-flex items-center justify-center rounded-[var(--radius-pill)] bg-[var(--color-cream-light)] px-6 py-3 text-sm font-medium text-[var(--color-bark)] transition-colors hover:bg-white"
             >
-              Ver todas as coleções
+              <Editable id="home.portfolio.cta" as="span">
+                {ctaLabel}
+              </Editable>
             </Link>
           </Reveal>
         </div>

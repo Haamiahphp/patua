@@ -40,6 +40,12 @@ export function Editable({ id, as = "span", className, children }: EditableProps
       contentEditable
       suppressContentEditableWarning
       onBlur={save}
+      // evita que o clique de edição navegue quando o texto está dentro de um <a>
+      // (o caret é posicionado no mousedown, então editar continua funcionando)
+      onClick={(e: React.MouseEvent) => {
+        e.stopPropagation();
+        e.preventDefault();
+      }}
       data-status={status}
       title={status === "error" ? "Falha ao salvar — tente novamente" : undefined}
       className={cn(

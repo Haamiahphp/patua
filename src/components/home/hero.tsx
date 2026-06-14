@@ -1,19 +1,17 @@
-"use client";
+import { getContent } from "@/lib/content";
+import { HeroCarousel, type Slide } from "./hero-carousel";
 
-import Image from "next/image";
-import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import { useCallback, useEffect, useState } from "react";
-
-type Slide = {
+type SlideSeed = {
+  key: string;
   piece: string;
   description: string;
   href: string;
   image: string;
 };
 
-const SLIDES: Slide[] = [
+const SLIDES: SlideSeed[] = [
   {
+    key: "home.hero.slide1",
     piece: "Cabeceira Andança",
     description:
       "Painel tramado que acolhe o quarto com presença quente, sem peso visual.",
@@ -21,6 +19,7 @@ const SLIDES: Slide[] = [
     image: "/images/hero/hero-cabeceira-andanca.png",
   },
   {
+    key: "home.hero.slide2",
     piece: "Cadeira Abraço",
     description:
       "Estrutura leve e tramado em diagonal. Uma cadeira que abraça quem nela se senta.",
@@ -28,6 +27,7 @@ const SLIDES: Slide[] = [
     image: "/images/hero/hero-cadeira-abraco.png",
   },
   {
+    key: "home.hero.slide3",
     piece: "Banco Xodó G",
     description:
       "Tramado expressivo em fios coloridos. Um banco generoso que atravessa salas, varandas e conversas longas.",
@@ -35,6 +35,7 @@ const SLIDES: Slide[] = [
     image: "/images/hero/hero-banco-xodo.png",
   },
   {
+    key: "home.hero.slide4",
     piece: "Poltrona Diretor",
     description:
       "Linhas retas, ergonomia precisa e tramado autoral. Uma poltrona para leituras longas.",
@@ -43,129 +44,16 @@ const SLIDES: Slide[] = [
   },
 ];
 
-const DURATION = 6500;
-
-export function Hero() {
-  const [index, setIndex] = useState(0);
-  const [hovering, setHovering] = useState(false);
-
-  const go = useCallback((dir: 1 | -1) => {
-    setIndex((i) => (i + dir + SLIDES.length) % SLIDES.length);
-  }, []);
-
-  useEffect(() => {
-    if (hovering) return;
-    const t = setTimeout(() => go(1), DURATION);
-    return () => clearTimeout(t);
-  }, [index, hovering, go]);
-
-  const current = SLIDES[index];
-
-  return (
-    <section
-      onMouseEnter={() => setHovering(true)}
-      onMouseLeave={() => setHovering(false)}
-      className="relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-[var(--color-bark)]"
-    >
-      <AnimatePresence mode="sync">
-        <motion.div
-          key={current.image}
-          initial={{ opacity: 0, scale: 1.06 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ opacity: { duration: 1.2 }, scale: { duration: 7, ease: "linear" } }}
-          className="absolute inset-0"
-        >
-          <Image
-            src={current.image}
-            alt={current.piece}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
-        </motion.div>
-      </AnimatePresence>
-
-      <div
-        aria-hidden
-        className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-black/55 via-black/20 to-transparent"
-      />
-
-      {/* Fusão com a seção terracotta logo abaixo */}
-      <div
-        aria-hidden
-        className="absolute inset-x-0 bottom-0 h-[140px] bg-gradient-to-t from-[var(--color-terracotta)] to-transparent"
-      />
-
-      <div className="absolute inset-x-0 bottom-0 z-10 mx-auto w-full max-w-[var(--container-page)] px-4 pb-10 md:px-10 md:pb-14">
-        <div className="grid items-end gap-6 md:grid-cols-12">
-          <div className="md:col-span-9">
-            <AnimatePresence mode="wait">
-              <motion.h1
-                key={current.piece}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                className="font-display text-[clamp(2.25rem,5.4vw,4.875rem)] font-medium leading-[var(--leading-display)] tracking-[var(--tracking-tight)] text-white"
-              >
-                {current.piece}
-              </motion.h1>
-            </AnimatePresence>
-
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={current.description}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.6, delay: 0.05 }}
-                className="mt-4 max-w-xl"
-              >
-                <p className="text-[var(--text-base)] leading-[var(--leading-body)] text-white/85">
-                  {current.description}
-                </p>
-                <Link
-                  href={current.href}
-                  className="mt-5 inline-block border-b border-white/40 pb-1 text-sm text-white transition-colors hover:border-white"
-                >
-                  Saiba Mais
-                </Link>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          <div className="flex items-center justify-end gap-2 md:col-span-3">
-            <NavButton dir="prev" onClick={() => go(-1)} />
-            <NavButton dir="next" onClick={() => go(1)} />
-          </div>
-        </div>
-      </div>
-    </section>
+export async function Hero() {
+  const slides: Slide[] = await Promise.all(
+    SLIDES.map(async (s) => ({
+      key: s.key,
+      piece: await getContent(`${s.key}.titulo`, s.piece),
+      description: await getContent(`${s.key}.descricao`, s.description),
+      href: s.href,
+      image: await getContent(`${s.key}.imagem`, { url: s.image, alt: s.piece }),
+    })),
   );
-}
 
-function NavButton({
-  dir,
-  onClick,
-}: {
-  dir: "prev" | "next";
-  onClick: () => void;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      aria-label={dir === "prev" ? "Slide anterior" : "Próximo slide"}
-      className="grid h-10 w-10 place-items-center rounded-full bg-[var(--color-cream-light)]/90 text-[var(--color-bark)] backdrop-blur-md transition-colors hover:bg-[var(--color-cream-light)]"
-    >
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-        {dir === "prev" ? (
-          <path d="M9 2L4 7L9 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        ) : (
-          <path d="M5 2L10 7L5 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        )}
-      </svg>
-    </button>
-  );
+  return <HeroCarousel slides={slides} />;
 }

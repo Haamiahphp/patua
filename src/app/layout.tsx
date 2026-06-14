@@ -6,9 +6,14 @@ import { ScrollToTop } from "@/components/scroll-to-top";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { getSession } from "@/lib/session";
+import { getContent } from "@/lib/content";
 import { EditorProvider } from "@/components/editor/editor-provider";
 import { EditToolbar } from "@/components/editor/edit-toolbar";
+import type { HeaderContent } from "@/components/site-header";
 import "./globals.css";
+
+const LOGO_LIGHT = "/images/g48RVMC75t4soXPzIMLxkJiktPs.png"; // cream empilhado
+const MENU_PORTRAIT = "/images/menu-xena.png";
 
 const rawline = localFont({
   src: [
@@ -48,13 +53,27 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const session = await getSession();
+  const headerContent: HeaderContent = {
+    logo: await getContent("site.header.logo", {
+      url: LOGO_LIGHT,
+      alt: "Patuá Artesania Brasileira",
+    }),
+    retrato: await getContent("site.header.retrato", {
+      url: MENU_PORTRAIT,
+      alt: "Patuá Ateliê",
+    }),
+    tagline: await getContent(
+      "site.header.tagline",
+      "Criando peças que habitam espaços",
+    ),
+  };
   return (
     <html lang="pt-BR" className={`${rawline.variable} ${fragmentMono.variable}`}>
       <body className="bg-[var(--color-cream)] text-[var(--color-bark)] antialiased">
         <EditorProvider isEditor={!!session}>
           <SmoothScroll>
             <ScrollToTop />
-            <SiteHeader />
+            <SiteHeader content={headerContent} />
             <main className="relative">{children}</main>
             <SiteFooter />
           </SmoothScroll>

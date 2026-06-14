@@ -12,6 +12,7 @@ type EditableImageProps = {
   height?: number;
   fill?: boolean;
   priority?: boolean;
+  sizes?: string;
   className?: string;
 };
 
@@ -23,6 +24,7 @@ export function EditableImage({
   height,
   fill,
   priority,
+  sizes,
   className,
 }: EditableImageProps) {
   const { isEditor, editMode } = useEditor();
@@ -39,6 +41,7 @@ export function EditableImage({
       height={height}
       fill={fill}
       priority={priority}
+      sizes={sizes}
       className={className}
     />
   );
@@ -74,13 +77,17 @@ export function EditableImage({
     }
   }
 
-  return (
-    <span className="relative inline-block">
-      {img}
+  const overlay = (
+    <>
       <button
         type="button"
-        onClick={() => inputRef.current?.click()}
-        className="absolute inset-0 flex items-center justify-center bg-black/40 text-sm font-medium text-white opacity-0 transition hover:opacity-100"
+        onClick={(e) => {
+          // não navegar quando a imagem está dentro de um <a>
+          e.stopPropagation();
+          e.preventDefault();
+          inputRef.current?.click();
+        }}
+        className="absolute inset-0 z-10 flex items-center justify-center bg-black/40 text-sm font-medium text-white opacity-0 transition hover:opacity-100"
       >
         {busy ? "Enviando…" : error ? "Erro — tente de novo" : "Trocar imagem"}
       </button>
@@ -91,6 +98,24 @@ export function EditableImage({
         hidden
         onChange={onPick}
       />
+    </>
+  );
+
+  // Imagens `fill` herdam o contêiner pai (já `relative`); não podem ser
+  // embrulhadas num span inline. As demais ganham um wrapper relativo próprio.
+  if (fill) {
+    return (
+      <>
+        {img}
+        {overlay}
+      </>
+    );
+  }
+
+  return (
+    <span className="relative inline-block">
+      {img}
+      {overlay}
     </span>
   );
 }

@@ -1,4 +1,6 @@
-import Image from "next/image";
+import { getContent } from "@/lib/content";
+import { Editable } from "@/components/editor/editable";
+import { EditableImage } from "@/components/editor/editable-image";
 
 type Step = {
   n: string;
@@ -44,7 +46,22 @@ const STEPS: Step[] = [
   },
 ];
 
-export function ProcessSection() {
+export async function ProcessSection() {
+  const heading = await getContent("home.process.titulo", "Processo Criativo");
+  const steps = await Promise.all(
+    STEPS.map(async (s) => {
+      const base = `home.process.step${s.n}`;
+      return {
+        n: s.n,
+        base,
+        title: await getContent(`${base}.titulo`, s.title),
+        subtitle: await getContent(`${base}.subtitulo`, s.subtitle),
+        body: await getContent(`${base}.corpo`, s.body),
+        image: await getContent(`${base}.imagem`, { url: s.image, alt: s.alt }),
+      };
+    }),
+  );
+
   return (
     <section className="relative bg-[var(--color-terracotta)] text-[var(--color-cream-light)]">
       <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">
@@ -52,42 +69,53 @@ export function ProcessSection() {
           {/* Coluna sticky com o título */}
           <div className="md:col-span-5 lg:col-span-5">
             <div className="sticky top-[120px] py-24 md:py-40">
-              <h2 className="font-display text-[clamp(3rem,7vw,5.5rem)] leading-[var(--leading-display)] tracking-[var(--tracking-tight)]">
-                Processo
-                <br />
-                Criativo
-              </h2>
+              <Editable
+                id="home.process.titulo"
+                as="h2"
+                className="font-display text-[clamp(3rem,7vw,5.5rem)] leading-[var(--leading-display)] tracking-[var(--tracking-tight)]"
+              >
+                {heading}
+              </Editable>
             </div>
           </div>
 
           {/* Coluna com os passos rolando */}
           <div className="md:col-span-7 lg:col-span-7">
             <ol className="flex flex-col">
-              {STEPS.map((step) => (
-                <li
-                  key={step.n}
-                  className="flex flex-col py-16 md:py-24"
-                >
+              {steps.map((step) => (
+                <li key={step.n} className="flex flex-col py-16 md:py-24">
                   <p className="font-display text-[24px] leading-[1.2] text-[var(--color-cream-light)] md:text-[30px]">
-                    <span>{step.n} — {step.title}</span>
+                    <span>
+                      {step.n} —{" "}
+                      <Editable id={`${step.base}.titulo`} as="span">
+                        {step.title}
+                      </Editable>
+                    </span>
                     <span className="ml-3 text-[var(--color-cream-light)]/85">
-                      {step.subtitle}
+                      <Editable id={`${step.base}.subtitulo`} as="span">
+                        {step.subtitle}
+                      </Editable>
                     </span>
                   </p>
 
                   <div className="relative mt-6 aspect-[4/3] overflow-hidden rounded-[2px] md:mt-8">
-                    <Image
-                      src={step.image}
-                      alt={step.alt}
+                    <EditableImage
+                      id={`${step.base}.imagem`}
+                      src={step.image.url}
+                      alt={step.image.alt ?? step.title}
                       fill
                       sizes="(max-width: 768px) 100vw, 45vw"
                       className="object-cover"
                     />
                   </div>
 
-                  <p className="mt-6 max-w-prose text-sm leading-[var(--leading-body)] text-[var(--color-cream-light)]/80 md:mt-8 md:text-base">
+                  <Editable
+                    id={`${step.base}.corpo`}
+                    as="p"
+                    className="mt-6 max-w-prose text-sm leading-[var(--leading-body)] text-[var(--color-cream-light)]/80 md:mt-8 md:text-base"
+                  >
                     {step.body}
-                  </p>
+                  </Editable>
                 </li>
               ))}
             </ol>

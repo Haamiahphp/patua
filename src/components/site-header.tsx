@@ -4,6 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Editable } from "@/components/editor/editable";
+import { EditableImage } from "@/components/editor/editable-image";
+
+export type HeaderContent = {
+  logo: { url: string; alt?: string };
+  retrato: { url: string; alt?: string };
+  tagline: string;
+};
 
 const NAV_PRIMARY = [
   { label: "Sobre", href: "/about" },
@@ -21,13 +29,10 @@ const INSTAGRAM = "https://www.instagram.com/patua.atelie";
 const TWITTER = "https://twitter.com/patua_atelie";
 const EMAIL = "contato@patuaartesania.com.br";
 
-const LOGO_DARK = "/images/8ROIB5K6sLAAD3NNobziImOXXyQ.png";  // olive horizontal
-const LOGO_LIGHT = "/images/g48RVMC75t4soXPzIMLxkJiktPs.png"; // cream empilhado
-const MENU_PORTRAIT = "/images/menu-xena.png";
-
-export function SiteHeader() {
+export function SiteHeader({ content }: { content: HeaderContent }) {
   const [open, setOpen] = useState(false);
   const year = new Date().getFullYear();
+  const { logo, retrato, tagline } = content;
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -50,9 +55,10 @@ export function SiteHeader() {
         />
         <div className="relative mx-auto flex h-[88px] w-full max-w-[var(--container-page)] items-center justify-between px-4 md:px-10">
           <Link href="/" aria-label="Patuá Ateliê — início" className="block">
-            <Image
-              src={LOGO_LIGHT}
-              alt="Patuá Artesania Brasileira"
+            <EditableImage
+              id="site.header.logo"
+              src={logo.url}
+              alt={logo.alt ?? "Patuá Artesania Brasileira"}
               width={587}
               height={288}
               priority
@@ -99,8 +105,8 @@ export function SiteHeader() {
                   aria-label="Patuá Ateliê"
                 >
                   <Image
-                    src={LOGO_LIGHT}
-                    alt="Patuá Artesania Brasileira"
+                    src={logo.url}
+                    alt={logo.alt ?? "Patuá Artesania Brasileira"}
                     width={587}
                     height={288}
                     className="h-16 w-auto"
@@ -111,9 +117,10 @@ export function SiteHeader() {
               {/* Foto centralizada */}
               <div className="flex flex-1 items-center justify-center px-10">
                 <div className="relative aspect-square w-[min(60%,440px)] overflow-hidden bg-[var(--color-cream-light)]">
-                  <Image
-                    src={MENU_PORTRAIT}
-                    alt="Patuá Ateliê"
+                  <EditableImage
+                    id="site.header.retrato"
+                    src={retrato.url}
+                    alt={retrato.alt ?? "Patuá Ateliê"}
                     fill
                     sizes="(max-width: 768px) 0, 30vw"
                     className="object-cover"
@@ -123,9 +130,13 @@ export function SiteHeader() {
 
               {/* Bottom row */}
               <div className="grid grid-cols-2 items-end gap-6 px-10 pb-10 text-sm text-[var(--color-cream-light)]/90">
-                <p className="max-w-[24ch] leading-[var(--leading-body)]">
-                  Criando peças que habitam espaços
-                </p>
+                <Editable
+                  id="site.header.tagline"
+                  as="p"
+                  className="max-w-[24ch] leading-[var(--leading-body)]"
+                >
+                  {tagline}
+                </Editable>
                 <p className="text-center text-[var(--color-cream-light)]/70">
                   © {year}. Patuá Ateliê
                 </p>

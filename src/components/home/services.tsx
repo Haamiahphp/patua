@@ -1,27 +1,39 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import { CATEGORIES, type Category } from "@/lib/catalog";
+import { getContent } from "@/lib/content";
+import { Editable } from "@/components/editor/editable";
 
-export function ServicesSection() {
+export async function ServicesSection() {
+  const heading = await getContent(
+    "home.services.titulo",
+    "Criamos peças onde arte, matéria e autoria se encontram.",
+  );
+  const ctaLabel = await getContent("home.services.cta", "Ver todas as peças");
+
   return (
     <section className="relative bg-[var(--color-mustard)] py-24 text-[var(--color-cream-light)] md:py-32">
       <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">
         {/* Header */}
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <Reveal>
-            <h2 className="font-display max-w-[20ch] text-[clamp(1.875rem,3.6vw,3rem)] leading-[var(--leading-tight)] tracking-[var(--tracking-snug)]">
-              Criamos peças onde arte, matéria e autoria se encontram.
-            </h2>
+            <Editable
+              id="home.services.titulo"
+              as="h2"
+              className="font-display max-w-[20ch] text-[clamp(1.875rem,3.6vw,3rem)] leading-[var(--leading-tight)] tracking-[var(--tracking-snug)]"
+            >
+              {heading}
+            </Editable>
           </Reveal>
           <Reveal delay={0.15}>
             <Link
               href="/services/todas"
               className="inline-flex items-center justify-center rounded-[var(--radius-pill)] bg-[var(--color-cream-light)] px-6 py-3 text-sm font-medium text-[var(--color-bark)] transition-colors hover:bg-white"
             >
-              Ver todas as peças
+              <Editable id="home.services.cta" as="span">
+                {ctaLabel}
+              </Editable>
             </Link>
           </Reveal>
         </div>

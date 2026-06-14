@@ -1,27 +1,47 @@
-import Image from "next/image";
 import { WhatsappIcon, InstagramIcon, FacebookIcon } from "@/components/icons";
+import { getContent } from "@/lib/content";
+import { Editable } from "@/components/editor/editable";
+import { EditableImage } from "@/components/editor/editable-image";
 
 const WHATSAPP = "https://wa.me/5521975397680";
 const INSTAGRAM = "https://www.instagram.com/patua.atelie";
 const FACEBOOK = "https://www.facebook.com/patua.atelie";
-const EMAIL = "contato@patuaartesania.com.br";
 // TODO: substituir pelo link real da página da Patuá no Casoca (cliente vai enviar)
 const CASOCA = "https://www.casoca.com.br";
 const LOGO_HORIZONTAL = "/images/8ROIB5K6sLAAD3NNobziImOXXyQ.png";
 
-export function SiteFooter() {
+export async function SiteFooter() {
   const year = new Date().getFullYear();
+  const logo = await getContent("site.footer.logo", {
+    url: LOGO_HORIZONTAL,
+    alt: "Patuá — Artesania Brasileira",
+  });
+  const titulo = await getContent("site.footer.titulo", "Acompanhe a Patuá");
+  const endereco = await getContent(
+    "site.footer.endereco",
+    "Laranjeiras, Rio de Janeiro · Brasil",
+  );
+  const email = await getContent(
+    "site.footer.email",
+    "contato@patuaartesania.com.br",
+  );
+  const telefone = await getContent("site.footer.telefone", "(21) 97539-7680");
+  const casocaLabel = await getContent(
+    "site.footer.casoca",
+    "Para arquitetos e designers",
+  );
+
   return (
     <footer className="relative bg-[var(--color-mustard)] text-[var(--color-olive)]">
       <div className="mx-auto w-full max-w-[var(--container-page)] px-4 py-20 md:px-10 md:py-28">
         {/* Logo monumental */}
         <div className="flex justify-center">
-          <Image
-            src={LOGO_HORIZONTAL}
-            alt="Patuá — Artesania Brasileira"
+          <EditableImage
+            id="site.footer.logo"
+            src={logo.url}
+            alt={logo.alt ?? "Patuá — Artesania Brasileira"}
             width={802}
             height={206}
-            priority={false}
             className="h-auto w-[clamp(320px,55vw,720px)]"
           />
         </div>
@@ -33,22 +53,29 @@ export function SiteFooter() {
         <div className="grid gap-12 py-14 md:grid-cols-12 md:gap-10 md:py-20">
           {/* Título */}
           <div className="md:col-span-5">
-            <h2 className="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[1] tracking-[var(--tracking-tight)] text-[var(--color-olive)]">
-              Acompanhe
-              <br />a Patuá
-            </h2>
+            <Editable
+              id="site.footer.titulo"
+              as="h2"
+              className="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[1] tracking-[var(--tracking-tight)] text-[var(--color-olive)]"
+            >
+              {titulo}
+            </Editable>
           </div>
 
           {/* Contato + redes */}
           <div className="flex flex-col gap-8 md:col-span-7 md:items-end md:text-right">
             <div className="space-y-2 text-base md:text-lg">
-              <p>Laranjeiras, Rio de Janeiro · Brasil</p>
+              <Editable id="site.footer.endereco" as="p">
+                {endereco}
+              </Editable>
               <p>
                 <a
-                  href={`mailto:${EMAIL}`}
+                  href={`mailto:${email}`}
                   className="underline underline-offset-[6px] transition-opacity hover:opacity-75"
                 >
-                  {EMAIL}
+                  <Editable id="site.footer.email" as="span">
+                    {email}
+                  </Editable>
                 </a>
               </p>
             </div>
@@ -61,7 +88,9 @@ export function SiteFooter() {
               className="inline-flex items-center gap-2.5 text-base transition-opacity hover:opacity-75 md:text-lg"
             >
               <WhatsappIcon className="h-5 w-5" />
-              (21) 97539-7680
+              <Editable id="site.footer.telefone" as="span">
+                {telefone}
+              </Editable>
             </a>
 
             {/* Redes sociais com ícones */}
@@ -109,7 +138,9 @@ export function SiteFooter() {
                 <path d="M19 21V11l-6-4" />
                 <path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01" />
               </svg>
-              Para arquitetos e designers
+              <Editable id="site.footer.casoca" as="span">
+                {casocaLabel}
+              </Editable>
             </a>
           </div>
         </div>
