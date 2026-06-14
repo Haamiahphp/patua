@@ -28,6 +28,7 @@ export function EditableImage({
   const { isEditor, editMode } = useEditor();
   const [url, setUrl] = useState(src);
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const img = (
@@ -45,23 +46,32 @@ export function EditableImage({
   if (!isEditor || !editMode) return img;
 
   async function onPick(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
+    const input = e.target;
+    const file = input.files?.[0];
     if (!file) return;
     setBusy(true);
-    const fd = new FormData();
-    fd.append("file", file);
-    const up = await fetch("/api/upload", { method: "POST", body: fd }).then((r) =>
-      r.json(),
-    );
-    if (up.url) {
-      setUrl(up.url);
-      await fetch("/api/content", {
+    setError(false);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const up = await fetch("/api/upload", { method: "POST", body: fd }).then(
+        (r) => r.json(),
+      );
+      if (!up.url) throw new Error("upload sem url");
+      const saved = await fetch("/api/content", {
         method: "PUT",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ key: id, value: { url: up.url, alt } }),
       });
+      if (!saved.ok) throw new Error("falha ao salvar");
+      setUrl(up.url);
+    } catch {
+      setError(true);
+    } finally {
+      setBusy(false);
+      // permite re-selecionar o mesmo arquivo
+      input.value = "";
     }
-    setBusy(false);
   }
 
   return (
@@ -72,7 +82,7 @@ export function EditableImage({
         onClick={() => inputRef.current?.click()}
         className="absolute inset-0 flex items-center justify-center bg-black/40 text-sm font-medium text-white opacity-0 transition hover:opacity-100"
       >
-        {busy ? "Enviando…" : "Trocar imagem"}
+        {busy ? "Enviando…" : error ? "Erro — tente de novo" : "Trocar imagem"}
       </button>
       <input
         ref={inputRef}
