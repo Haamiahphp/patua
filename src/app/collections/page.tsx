@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/reveal";
+import { Editable } from "@/components/editor/editable";
+import { getContent } from "@/lib/content";
 import { COLLECTIONS } from "@/lib/collections";
 
 export const metadata: Metadata = {
@@ -10,22 +12,43 @@ export const metadata: Metadata = {
     "Peças organizadas por contexto, processo e conceito — Coleções Andança, Cobogó, Xodó e Restauros.",
 };
 
-export default function CollectionsIndex() {
+export default async function CollectionsIndex() {
+  const eyebrow = await getContent("collections.eyebrow", "Coleções & Restauros");
+  const titulo = await getContent(
+    "collections.titulo",
+    "Peças organizadas por contexto, processo e conceito.",
+  );
+  const intro = await getContent(
+    "collections.intro",
+    "Aqui as peças não se agrupam por função, mas por história. Cada coleção carrega um conceito; cada restauro, uma segunda vida.",
+  );
+
   return (
     <>
       <section className="bg-[var(--color-cream)] pt-32 pb-12 md:pt-40 md:pb-20">
         <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">
           <Reveal>
-            <span className="text-xs uppercase tracking-[0.3em] text-[var(--color-bark)]/60">
-              Coleções & Restauros
-            </span>
-            <h1 className="font-display mt-5 max-w-[20ch] text-[clamp(2.75rem,5.4vw,5rem)] leading-[1.05] tracking-[var(--tracking-tight)] text-[var(--color-bark)]">
-              Peças organizadas por contexto, processo e conceito.
-            </h1>
-            <p className="mt-8 max-w-[58ch] text-base leading-[var(--leading-body)] text-[var(--color-bark)]/80 md:text-lg">
-              Aqui as peças não se agrupam por função, mas por história. Cada
-              coleção carrega um conceito; cada restauro, uma segunda vida.
-            </p>
+            <Editable
+              id="collections.eyebrow"
+              as="span"
+              className="text-xs uppercase tracking-[0.3em] text-[var(--color-bark)]/60"
+            >
+              {eyebrow}
+            </Editable>
+            <Editable
+              id="collections.titulo"
+              as="h1"
+              className="font-display mt-5 max-w-[20ch] text-[clamp(2.75rem,5.4vw,5rem)] leading-[1.05] tracking-[var(--tracking-tight)] text-[var(--color-bark)]"
+            >
+              {titulo}
+            </Editable>
+            <Editable
+              id="collections.intro"
+              as="p"
+              className="mt-8 max-w-[58ch] text-base leading-[var(--leading-body)] text-[var(--color-bark)]/80 md:text-lg"
+            >
+              {intro}
+            </Editable>
           </Reveal>
         </div>
       </section>

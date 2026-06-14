@@ -2,6 +2,9 @@
 
 import Image from "next/image";
 import { Reveal, SplitWords } from "@/components/reveal";
+import { useEditor } from "@/components/editor/editor-provider";
+import { Editable } from "@/components/editor/editable";
+import { EditableImage } from "@/components/editor/editable-image";
 
 type ServicesHeroProps = {
   image: string;
@@ -10,6 +13,11 @@ type ServicesHeroProps = {
   label?: string;
   description?: string;
   size?: "full" | "compact";
+  // Quando informados, os respectivos campos viram editáveis inline (admin).
+  imageId?: string;
+  titleId?: string;
+  labelId?: string;
+  descriptionId?: string;
 };
 
 export function ServicesHero({
@@ -19,7 +27,13 @@ export function ServicesHero({
   label,
   description,
   size = "full",
+  imageId,
+  titleId,
+  labelId,
+  descriptionId,
 }: ServicesHeroProps) {
+  const { isEditor, editMode } = useEditor();
+  const editing = isEditor && editMode;
   const heightClass =
     size === "compact"
       ? "h-[62svh] min-h-[440px]"
@@ -27,14 +41,26 @@ export function ServicesHero({
 
   return (
     <section className={`relative ${heightClass} w-full overflow-hidden bg-[var(--color-bark)]`}>
-      <Image
-        src={image}
-        alt={imageAlt}
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-      />
+      {imageId ? (
+        <EditableImage
+          id={imageId}
+          src={image}
+          alt={imageAlt}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+      ) : (
+        <Image
+          src={image}
+          alt={imageAlt}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+      )}
 
       <div
         aria-hidden
@@ -50,7 +76,13 @@ export function ServicesHero({
           className="font-display max-w-5xl text-[clamp(2rem,5.4vw,4.875rem)] font-medium leading-[var(--leading-display)] tracking-[var(--tracking-tight)] text-[var(--color-cream-light)]"
           style={{ textShadow: "0 2px 24px rgba(0,0,0,0.35)" }}
         >
-          <SplitWords text={title} />
+          {titleId && editing ? (
+            <Editable id={titleId} as="span">
+              {title}
+            </Editable>
+          ) : (
+            <SplitWords text={title} />
+          )}
         </h1>
 
         <Reveal delay={0.4}>
@@ -65,16 +97,32 @@ export function ServicesHero({
                   aria-hidden
                   className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--color-cream-light)]"
                 />
-                <span>{label}</span>
+                {labelId ? (
+                  <Editable id={labelId} as="span">
+                    {label}
+                  </Editable>
+                ) : (
+                  <span>{label}</span>
+                )}
               </div>
             ) : null}
             {description ? (
-              <p
-                className="max-w-md text-base leading-[var(--leading-body)] text-[var(--color-cream-light)] md:col-span-7 md:col-start-6 md:text-xl"
-                style={{ textShadow: "0 2px 24px rgba(0,0,0,0.35)" }}
-              >
-                {description}
-              </p>
+              descriptionId ? (
+                <Editable
+                  id={descriptionId}
+                  as="p"
+                  className="max-w-md text-base leading-[var(--leading-body)] text-[var(--color-cream-light)] md:col-span-7 md:col-start-6 md:text-xl"
+                >
+                  {description}
+                </Editable>
+              ) : (
+                <p
+                  className="max-w-md text-base leading-[var(--leading-body)] text-[var(--color-cream-light)] md:col-span-7 md:col-start-6 md:text-xl"
+                  style={{ textShadow: "0 2px 24px rgba(0,0,0,0.35)" }}
+                >
+                  {description}
+                </p>
+              )
             ) : null}
           </div>
         </Reveal>

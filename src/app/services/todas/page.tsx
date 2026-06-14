@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ServicesHero } from "@/components/services-hero";
 import { Reveal } from "@/components/reveal";
 import { CATEGORIES } from "@/lib/catalog";
+import { getContent } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Todas as peças · Patuá Ateliê",
@@ -11,17 +12,32 @@ export const metadata: Metadata = {
     "Todas as peças autorais do Patuá reunidas em um só lugar — bancos, banquetas, cadeiras, poltronas, cabeceiras e objetos tecidos à mão.",
 };
 
-export default function AllPiecesPage() {
+export default async function AllPiecesPage() {
   const categories = CATEGORIES.filter((c) => c.products.length > 0);
+
+  const heroImage = await getContent("services.todas.hero.imagem", {
+    url: "/images/about/about-capa.png",
+    alt: "Ateliê Patuá — peças autorais em produção",
+  });
+  const heroTitle = await getContent("services.todas.hero.titulo", "Todas as peças");
+  const heroLabel = await getContent("services.todas.hero.label", "Peças");
+  const heroDescription = await getContent(
+    "services.todas.hero.descricao",
+    "Cada peça autoral do Patuá, reunida em um só lugar. Sem ambientação — só a peça, como ela é.",
+  );
 
   return (
     <>
       <ServicesHero
-        image="/images/about/about-capa.png"
-        imageAlt="Ateliê Patuá — peças autorais em produção"
-        title="Todas as peças"
-        label="Peças"
-        description="Cada peça autoral do Patuá, reunida em um só lugar. Sem ambientação — só a peça, como ela é."
+        imageId="services.todas.hero.imagem"
+        image={heroImage.url}
+        imageAlt={heroImage.alt ?? "Ateliê Patuá — peças autorais em produção"}
+        titleId="services.todas.hero.titulo"
+        title={heroTitle}
+        labelId="services.todas.hero.label"
+        label={heroLabel}
+        descriptionId="services.todas.hero.descricao"
+        description={heroDescription}
         size="compact"
       />
 
