@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useEditor } from "./editor-provider";
+import { cn } from "@/lib/cn";
 
 type EditableProps = {
   id: string;
@@ -13,7 +14,9 @@ type EditableProps = {
 export function Editable({ id, as = "span", className, children }: EditableProps) {
   const { isEditor, editMode } = useEditor();
   const ref = useRef<HTMLElement>(null);
-  const [status, setStatus] = useState<"idle" | "saving" | "saved">("idle");
+  const [status, setStatus] = useState<"idle" | "saving" | "saved" | "error">(
+    "idle",
+  );
   const Tag = as as React.ElementType;
 
   if (!isEditor || !editMode) {
@@ -28,7 +31,7 @@ export function Editable({ id, as = "span", className, children }: EditableProps
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ key: id, value }),
     });
-    setStatus(res.ok ? "saved" : "idle");
+    setStatus(res.ok ? "saved" : "error");
   }
 
   return (
@@ -38,7 +41,12 @@ export function Editable({ id, as = "span", className, children }: EditableProps
       suppressContentEditableWarning
       onBlur={save}
       data-status={status}
-      className={`${className ?? ""} cursor-text rounded-sm outline-dashed outline-1 outline-[var(--color-terracotta)] focus:outline-2 data-[status=saving]:opacity-60`}
+      title={status === "error" ? "Falha ao salvar — tente novamente" : undefined}
+      className={cn(
+        className,
+        "cursor-text rounded-sm outline-dashed outline-1 outline-[var(--color-terracotta)] focus:outline-2",
+        "data-[status=saving]:opacity-60 data-[status=error]:outline-2 data-[status=error]:outline-red-600",
+      )}
     >
       {children}
     </Tag>
