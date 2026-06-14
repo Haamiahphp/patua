@@ -4,7 +4,9 @@ import bcrypt from "bcryptjs";
 export const SESSION_COOKIE = "patua_session";
 
 function secret(): Uint8Array {
-  return new TextEncoder().encode(process.env.SESSION_SECRET!);
+  const key = process.env.SESSION_SECRET;
+  if (!key) throw new Error("SESSION_SECRET not set");
+  return new TextEncoder().encode(key);
 }
 
 export async function verifyPassword(plain: string, hash: string): Promise<boolean> {
