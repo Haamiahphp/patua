@@ -2,10 +2,10 @@ import { NextResponse } from "next/server";
 import { verifyPassword, createSession, SESSION_COOKIE } from "@/lib/auth";
 
 export async function POST(req: Request) {
+  const hash = process.env.ADMIN_PASSWORD_HASH;
   const { username, password } = await req.json();
   const okUser = username === process.env.ADMIN_USERNAME;
-  const okPass =
-    okUser && (await verifyPassword(password ?? "", process.env.ADMIN_PASSWORD_HASH!));
+  const okPass = okUser && !!hash && (await verifyPassword(password ?? "", hash));
   if (!okUser || !okPass) {
     return NextResponse.json({ error: "Credenciais inválidas" }, { status: 401 });
   }

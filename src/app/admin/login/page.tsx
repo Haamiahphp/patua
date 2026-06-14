@@ -33,15 +33,19 @@ export default function LoginPage() {
         <h1 className="mb-6 text-xl font-medium text-[var(--color-bark)]">
           Painel Patuá
         </h1>
-        <label className="mb-1 block text-sm text-[var(--color-bark)]/70">Usuário</label>
+        <label htmlFor="username" className="mb-1 block text-sm text-[var(--color-bark)]/70">Usuário</label>
         <input
+          id="username"
+          required
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           className="mb-4 w-full rounded-lg border border-black/10 px-3 py-2"
           autoComplete="username"
         />
-        <label className="mb-1 block text-sm text-[var(--color-bark)]/70">Senha</label>
+        <label htmlFor="password" className="mb-1 block text-sm text-[var(--color-bark)]/70">Senha</label>
         <input
+          id="password"
+          required
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
