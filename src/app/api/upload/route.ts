@@ -6,7 +6,12 @@ export async function POST(req: Request) {
   if (!(await getSession())) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
-  const form = await req.formData();
+  let form: FormData;
+  try {
+    form = await req.formData();
+  } catch {
+    return NextResponse.json({ error: "formulário inválido" }, { status: 400 });
+  }
   const file = form.get("file");
   if (!(file instanceof File)) {
     return NextResponse.json({ error: "arquivo ausente" }, { status: 400 });
@@ -18,6 +23,12 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "imagem muito grande (máx 8MB)" }, { status: 400 });
   }
   const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, "-");
-  const blob = await put(`patua/${Date.now()}-${safeName}`, file, { access: "public" });
-  return NextResponse.json({ url: blob.url });
+  try {
+    const blob = await put(`patua/${Date.now()}-${safeName}`, file, {
+      access: "public",
+    });
+    return NextResponse.json({ url: blob.url });
+  } catch {
+    return NextResponse.json({ error: "falha ao salvar imagem" }, { status: 500 });
+  }
 }
