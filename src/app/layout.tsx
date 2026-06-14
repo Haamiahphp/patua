@@ -5,6 +5,9 @@ import { SmoothScroll } from "@/components/smooth-scroll";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { getSession } from "@/lib/session";
+import { EditorProvider } from "@/components/editor/editor-provider";
+import { EditToolbar } from "@/components/editor/edit-toolbar";
 import "./globals.css";
 
 const rawline = localFont({
@@ -41,18 +44,22 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const session = await getSession();
   return (
     <html lang="pt-BR" className={`${rawline.variable} ${fragmentMono.variable}`}>
       <body className="bg-[var(--color-cream)] text-[var(--color-bark)] antialiased">
-        <SmoothScroll>
-          <ScrollToTop />
-          <SiteHeader />
-          <main className="relative">{children}</main>
-          <SiteFooter />
-        </SmoothScroll>
+        <EditorProvider isEditor={!!session}>
+          <SmoothScroll>
+            <ScrollToTop />
+            <SiteHeader />
+            <main className="relative">{children}</main>
+            <SiteFooter />
+          </SmoothScroll>
+          <EditToolbar />
+        </EditorProvider>
       </body>
     </html>
   );
