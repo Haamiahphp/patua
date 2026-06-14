@@ -1,26 +1,146 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* ── Cores extraídas do patua.framer.website ─────────────────── */
+  --color-cream: #ece4d9;          /* superfície principal      */
+  --color-cream-light: #fff3db;    /* superfície clara, elevada */
+  --color-bark: #51301f;           /* tinta principal           */
+  --color-bark-soft: #8a6b4c;
+  --color-bark-light: #aa8867;
+  --color-terracotta: #b95744;     /* destaque                  */
+  --color-terracotta-deep: #7a3110;/* hover/pressed             */
+  --color-mustard: #bfa035;
+  --color-olive: #746d16;
+  --color-amber: #e39e2a;
+  --color-stone: #727566;          /* texto secundário/legenda  */
+  --color-mist: #ababab;           /* divisores/desabilitado    */
+  --color-ink: #000000;
+  --color-paper: #ffffff;
+
+  --color-background: var(--color-cream);
+  --color-foreground: var(--color-bark);
+  --color-muted: var(--color-stone);
+  --color-border: rgba(81, 48, 31, 0.12);
+
+  /* ── Tipografia ─────────────────────────────────────────────── */
+  --font-sans: var(--font-rawline), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-rawline), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-fragment), ui-monospace, "SFMono-Regular", monospace;
+
+  /* Escala derivada dos font-sizes do site (12 → 140px) */
+  --text-xs: 0.75rem;     /* 12 — eyebrows, micro labels */
+  --text-sm: 0.875rem;    /* 14 — captions, pequenas */
+  --text-base: 1rem;      /* 16 — body                   */
+  --text-md: 1.25rem;     /* 20 — body grande, lead      */
+  --text-lg: 1.4375rem;   /* 23 — h4                     */
+  --text-xl: 1.625rem;    /* 26 — h3                     */
+  --text-2xl: 1.875rem;   /* 30 — h2                     */
+  --text-3xl: 2.25rem;    /* 36 — h1                     */
+  --text-display-sm: 2.625rem;   /* 42  */
+  --text-display-md: 3.25rem;    /* 52  */
+  --text-display-lg: 4.875rem;   /* 78  */
+  --text-display-xl: 8.75rem;    /* 140 — hero monumental */
+
+  --leading-display: 0.9;
+  --leading-tight: 1.1;
+  --leading-heading: 1.2;
+  --leading-body: 1.4;
+
+  --tracking-tight: -0.04em;
+  --tracking-snug: -0.02em;
+  --tracking-wide: 0.18em;
+  --tracking-eyebrow: 0.3em;
+
+  /* ── Espaçamentos verticais (124 / 68 / 41 do Framer) ────────── */
+  --space-section-lg: 7.75rem;   /* 124 */
+  --space-section-md: 4.25rem;   /* 68  */
+  --space-section-sm: 2.5625rem; /* 41  */
+
+  /* ── Containers ──────────────────────────────────────────────── */
+  --container-page: 1400px;
+  --container-prose: 1100px;
+  --container-narrow: 760px;
+
+  /* ── Raios ───────────────────────────────────────────────────── */
+  --radius-soft: 1.25rem;
+  --radius-pill: 500px;
+
+  /* ── Curva de easing padrão ─────────────────────────────────── */
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--color-background);
+  color: var(--color-foreground);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv01";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Scroll reveal helpers */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+::selection {
+  background: var(--color-terracotta);
+  color: var(--color-cream-light);
+}
+
+/* Tipo */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.balanced {
+  text-wrap: balance;
+}
+
+.pretty {
+  text-wrap: pretty;
 }
