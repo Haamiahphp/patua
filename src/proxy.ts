@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { verifySession, SESSION_COOKIE } from "@/lib/auth";
 
-const PROTECTED_API = ["/api/content", "/api/upload"];
+const PROTECTED_API = ["/api/content", "/api/upload", "/api/blog"];
 
 export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -19,5 +19,10 @@ export async function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/api/content/:path*", "/api/upload/:path*", "/admin/:path*"],
+  matcher: [
+    "/api/content/:path*",
+    "/api/upload/:path*",
+    "/api/blog/:path*",
+    "/admin/:path*",
+  ],
 };

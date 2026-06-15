@@ -9,6 +9,7 @@ import { getSession } from "@/lib/session";
 import { getContent } from "@/lib/content";
 import { EditorProvider } from "@/components/editor/editor-provider";
 import { EditToolbar } from "@/components/editor/edit-toolbar";
+import { HideOnAdmin } from "@/components/hide-on-admin";
 import type { HeaderContent } from "@/components/site-header";
 import "./globals.css";
 
@@ -73,11 +74,17 @@ export default async function RootLayout({
         <EditorProvider isEditor={!!session}>
           <SmoothScroll>
             <ScrollToTop />
-            <SiteHeader content={headerContent} />
+            <HideOnAdmin>
+              <SiteHeader content={headerContent} />
+            </HideOnAdmin>
             <main className="relative">{children}</main>
-            <SiteFooter />
+            <HideOnAdmin>
+              <SiteFooter />
+            </HideOnAdmin>
           </SmoothScroll>
-          <EditToolbar />
+          <HideOnAdmin>
+            <EditToolbar />
+          </HideOnAdmin>
         </EditorProvider>
       </body>
     </html>

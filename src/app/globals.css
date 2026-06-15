@@ -144,3 +144,80 @@ html.lenis body {
 .pretty {
   text-wrap: pretty;
 }
+
+/* Corpo de texto do blog (render público + editor Tiptap) */
+.prose-patua {
+  color: var(--color-bark);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+.prose-patua > * + * {
+  margin-top: 1.25em;
+}
+.prose-patua h2 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.15;
+  margin-top: 1.8em;
+}
+.prose-patua h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+  line-height: 1.2;
+  margin-top: 1.5em;
+}
+.prose-patua a {
+  color: var(--color-terracotta);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-patua strong {
+  font-weight: 700;
+}
+.prose-patua em {
+  font-style: italic;
+}
+.prose-patua ul,
+.prose-patua ol {
+  padding-left: 1.4em;
+}
+.prose-patua ul {
+  list-style: disc;
+}
+.prose-patua ol {
+  list-style: decimal;
+}
+.prose-patua li + li {
+  margin-top: 0.4em;
+}
+.prose-patua blockquote {
+  border-left: 3px solid var(--color-terracotta);
+  padding-left: 1.1em;
+  color: var(--color-bark-soft);
+  font-style: italic;
+}
+.prose-patua img {
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+}
+.prose-patua code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+.prose-patua pre {
+  font-family: var(--font-mono);
+  background: rgba(0, 0, 0, 0.05);
+  padding: 1em;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+/* Placeholder vazio do editor não precisa de estilos extras */
+.prose-patua:focus {
+  outline: none;
+}
