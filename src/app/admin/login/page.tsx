@@ -20,7 +20,7 @@ export default function LoginPage() {
       body: JSON.stringify({ username, password }),
     });
     setLoading(false);
-    if (res.ok) router.push("/");
+    if (res.ok) router.push("/admin");
     else setError("Credenciais inválidas");
   }
 
