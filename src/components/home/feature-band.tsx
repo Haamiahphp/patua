@@ -89,7 +89,7 @@ export async function FeatureBand({
           <div aria-hidden className="absolute inset-0 bg-black/35" />
 
           <div className="absolute inset-0 z-10 flex items-center">
-            <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">
+            <div className="mx-auto w-full max-w-[var(--container-prose)] px-6 md:px-14 lg:px-20">
               <Reveal>
                 {/* Marca ── título (mesma linha no desktop) */}
                 <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-10">
