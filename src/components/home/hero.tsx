@@ -30,15 +30,6 @@ const SLIDES: SlideSeed[] = [
     image: "/images/hero/carol.jpg",
   },
   {
-    key: "home.hero.ecommerce",
-    piece: "Escolha a sua peça Patuá.",
-    description:
-      "Artesania brasileira, design autoral e qualidade percebida em cada detalhe. Compre on-line.",
-    href: "https://www.patuaartesania.com.br/loja",
-    cta: "Ir para a loja",
-    image: "/images/hero/ecommerce.jpg",
-  },
-  {
     key: "home.hero.cabeceira",
     piece: "Cabeceira Andança",
     description:
