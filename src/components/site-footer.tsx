@@ -10,7 +10,7 @@ const FACEBOOK = "https://www.facebook.com/patua.atelie";
 // TODO: substituir pelo link real da página da Patuá no Casoca (cliente vai enviar)
 const CASOCA = "https://www.casoca.com.br";
 
-const CREAM = "#ede4d7";
+const CREAM = "#fff3db";
 const GREEN = "#3e3f1f";
 
 export async function SiteFooter() {
