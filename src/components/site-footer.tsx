@@ -167,7 +167,7 @@ export async function SiteFooter() {
       {/* ── Base verde com onda ── */}
       <div
         style={{ backgroundColor: GREEN }}
-        className="relative min-h-[420px] overflow-hidden md:min-h-[520px]"
+        className="relative overflow-hidden"
       >
         {/* Onda separando o creme do verde */}
         <svg
@@ -188,35 +188,20 @@ export async function SiteFooter() {
           />
         </svg>
 
-        {/* Foto do banquinho, canto inferior esquerdo */}
-        <div className="pointer-events-none absolute bottom-0 left-0 w-[58%] max-w-[520px] sm:w-[46%] md:w-[38%]">
+        {/* Wordmark + copyright, centralizados */}
+        <div className="relative mx-auto flex max-w-[var(--container-page)] flex-col items-center px-4 pb-10 pt-[110px] md:px-10 md:pb-14 md:pt-[170px]">
           <Image
-            src="/images/footer-stool.jpg"
-            alt="Banquinho tramado da Patuá"
-            width={469}
-            height={293}
-            className="h-auto w-full"
+            src="/images/wordmark-cream.png"
+            alt="Patuá — Artesania Brasileira"
+            width={802}
+            height={206}
+            className="h-auto w-[clamp(240px,34vw,460px)]"
           />
+          <hr className="mt-7 w-full max-w-[520px] border-t border-[var(--color-cream-light)]/25" />
+          <p className="mt-8 text-center text-xs text-[var(--color-cream-light)]/70 md:text-sm">
+            © {year} Patuá Artesania — Todos os direitos reservados.
+          </p>
         </div>
-
-        {/* Wordmark + copyright */}
-        <div className="relative mx-auto flex h-full min-h-[420px] max-w-[var(--container-page)] flex-col items-center justify-end px-4 pb-10 pt-[90px] md:min-h-[520px] md:items-end md:justify-center md:px-10 md:pb-0">
-          <div className="flex w-full max-w-[560px] flex-col items-center md:items-start">
-            <Image
-              src="/images/wordmark-cream.png"
-              alt="Patuá — Artesania Brasileira"
-              width={802}
-              height={206}
-              className="h-auto w-[clamp(240px,34vw,460px)]"
-            />
-            <hr className="mt-6 w-full border-t border-[var(--color-cream-light)]/25" />
-          </div>
-        </div>
-
-        {/* Copyright */}
-        <p className="absolute inset-x-0 bottom-5 text-center text-xs text-[var(--color-cream-light)]/70 md:text-sm">
-          © {year} Patuá Artesania — Todos os direitos reservados.
-        </p>
       </div>
     </footer>
   );
