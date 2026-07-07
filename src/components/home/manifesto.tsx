@@ -3,41 +3,114 @@ import { getContent } from "@/lib/content";
 import { Editable } from "@/components/editor/editable";
 import { EditableImage } from "@/components/editor/editable-image";
 
-const WORDMARK_FALLBACK = "/images/g48RVMC75t4soXPzIMLxkJiktPs.png"; // 587×288 cream empilhado
-const TEXT_FALLBACK =
-  "Encante-se com peças que unem brasilidade, design autoral e contemporaneidade, fio a fio.";
+const IMAGE_FALLBACK = "/images/ph-manifesto.jpg";
+
+const PARAGRAFOS = [
+  {
+    key: "home.manifesto.p1",
+    text: "Vivemos cercados de coisas feitas para durar pouco, mas escolhemos outro caminho.",
+  },
+  {
+    key: "home.manifesto.p2",
+    text: "Acreditamos no tempo como matéria-prima, na conversa antes do desenho, no cuidado e na atenção a cada detalhe.",
+  },
+  {
+    key: "home.manifesto.p3",
+    text: "Cada peça nasce do encontro entre pessoas, matérias, espaços, histórias e personalidades.",
+  },
+  {
+    key: "home.manifesto.p4",
+    text: "Criamos em coautoria, valorizamos a brasilidade e desenvolvemos peças para permanecer, acompanhar histórias e atravessar gerações.",
+  },
+];
 
 export async function Manifesto() {
-  const wordmark = await getContent("home.manifesto.wordmark", {
-    url: WORDMARK_FALLBACK,
-    alt: "Patuá — Artesania Brasileira",
+  const eyebrow = await getContent("home.manifesto.eyebrow", "Manifesto Patuá");
+  const assinatura = await getContent(
+    "home.manifesto.assinatura",
+    "Patuá e você.",
+  );
+  const assinaturaSub = await getContent(
+    "home.manifesto.assinatura_sub",
+    "Porque acreditamos que as histórias mais bonitas são construídas juntas.",
+  );
+  const imagem = await getContent("home.manifesto.imagem", {
+    url: IMAGE_FALLBACK,
+    alt: "Peça Patuá — poltrona de tramado autoral",
   });
-  const text = await getContent("home.manifesto.texto", TEXT_FALLBACK);
+  const paragrafos = await Promise.all(
+    PARAGRAFOS.map(async (p) => ({
+      key: p.key,
+      text: await getContent(p.key, p.text),
+    })),
+  );
 
   return (
-    <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-[var(--color-terracotta)] py-[var(--space-section-md)] text-[var(--color-cream-light)] md:py-[var(--space-section-lg)]">
-      <div className="mx-auto flex w-full max-w-[var(--container-prose)] flex-col items-center px-4 text-center md:px-10">
-        <Reveal>
-          <EditableImage
-            id="home.manifesto.wordmark"
-            src={wordmark.url}
-            alt={wordmark.alt ?? "Patuá — Artesania Brasileira"}
-            width={587}
-            height={288}
-            priority
-            className="h-auto w-[clamp(320px,52vw,720px)]"
-          />
-        </Reveal>
+    <section className="relative overflow-hidden bg-[#241811] text-[var(--color-cream-light)]">
+      <div className="mx-auto grid w-full max-w-[var(--container-page)] items-center gap-12 px-4 py-24 md:grid-cols-12 md:gap-16 md:px-10 md:py-36">
+        {/* Texto */}
+        <div className="md:col-span-6 lg:col-span-6">
+          <Reveal>
+            <Editable
+              id="home.manifesto.eyebrow"
+              as="p"
+              className="font-mono text-xs uppercase tracking-[var(--tracking-eyebrow)] text-[var(--color-amber)]"
+            >
+              {eyebrow}
+            </Editable>
+          </Reveal>
 
-        <Reveal delay={0.3} className="mt-20 md:mt-28">
-          <Editable
-            id="home.manifesto.texto"
-            as="p"
-            className="mx-auto max-w-[44ch] text-lg leading-[var(--leading-body)] text-[var(--color-cream-light)]/90 md:text-xl"
-          >
-            {text}
-          </Editable>
-        </Reveal>
+          <div className="mt-10 space-y-6">
+            {paragrafos.map((p, i) => (
+              <Reveal key={p.key} delay={0.1 + i * 0.08}>
+                <Editable
+                  id={p.key}
+                  as="p"
+                  className="max-w-[46ch] text-lg leading-[var(--leading-body)] text-[var(--color-cream-light)]/90 md:text-xl"
+                >
+                  {p.text}
+                </Editable>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal delay={0.5} className="mt-12">
+            <span
+              aria-hidden
+              className="block h-px w-14 bg-[var(--color-amber)]/70"
+            />
+            <Editable
+              id="home.manifesto.assinatura"
+              as="p"
+              className="font-display mt-8 text-[clamp(2rem,4vw,3rem)] italic leading-[1.05] tracking-[var(--tracking-tight)] text-[var(--color-amber)]"
+            >
+              {assinatura}
+            </Editable>
+            <Editable
+              id="home.manifesto.assinatura_sub"
+              as="p"
+              className="mt-4 max-w-[40ch] text-base leading-[var(--leading-body)] text-[var(--color-cream-light)]/80 md:text-lg"
+            >
+              {assinaturaSub}
+            </Editable>
+          </Reveal>
+        </div>
+
+        {/* Peça */}
+        <div className="md:col-span-6 lg:col-span-6">
+          <Reveal delay={0.2}>
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[2px] md:aspect-[5/6]">
+              <EditableImage
+                id="home.manifesto.imagem"
+                src={imagem.url}
+                alt={imagem.alt ?? "Peça Patuá"}
+                fill
+                sizes="(max-width: 768px) 100vw, 45vw"
+                className="object-cover"
+              />
+            </div>
+          </Reveal>
+        </div>
       </div>
     </section>
   );

@@ -71,7 +71,7 @@ export function CtaForm() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="descricao" className="text-sm text-[var(--color-cream-light)]/90">
+        <label htmlFor="descricao" className="text-sm text-[var(--color-bark)]/80">
           Descrição
         </label>
         <textarea
@@ -82,13 +82,13 @@ export function CtaForm() {
           placeholder="Escreva sua mensagem aqui"
           rows={5}
           required
-          className="resize-y rounded-[6px] border border-[var(--color-cream-light)]/30 bg-[var(--color-cream-light)]/10 px-4 py-3 text-[var(--color-cream-light)] placeholder:text-[var(--color-cream-light)]/55 focus:border-[var(--color-cream-light)] focus:outline-none"
+          className="resize-y rounded-[6px] border border-[var(--color-bark)]/20 bg-white/60 px-4 py-3 text-[var(--color-bark)] placeholder:text-[var(--color-stone)] focus:border-[var(--color-terracotta)] focus:outline-none"
         />
       </div>
 
       <button
         type="submit"
-        className="mt-2 inline-flex items-center justify-center rounded-[var(--radius-pill)] bg-[var(--color-cream-light)] px-6 py-4 text-base font-medium text-[var(--color-bark)] transition-colors hover:bg-white"
+        className="mt-2 inline-flex items-center justify-center rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-6 py-4 text-base font-medium text-[var(--color-cream-light)] transition-colors hover:bg-[var(--color-terracotta-deep)]"
       >
         Enviar
       </button>
@@ -115,7 +115,7 @@ function Field({
 }) {
   return (
     <div className="flex flex-col gap-2">
-      <label htmlFor={name} className="text-sm text-[var(--color-cream-light)]/90">
+      <label htmlFor={name} className="text-sm text-[var(--color-bark)]/80">
         {label}
       </label>
       <input
@@ -126,7 +126,7 @@ function Field({
         onChange={onChange}
         placeholder={placeholder}
         required={required}
-        className="rounded-[6px] border border-[var(--color-cream-light)]/30 bg-[var(--color-cream-light)]/10 px-4 py-3 text-[var(--color-cream-light)] placeholder:text-[var(--color-cream-light)]/55 focus:border-[var(--color-cream-light)] focus:outline-none"
+        className="rounded-[6px] border border-[var(--color-bark)]/20 bg-white/60 px-4 py-3 text-[var(--color-bark)] placeholder:text-[var(--color-stone)] focus:border-[var(--color-terracotta)] focus:outline-none"
       />
     </div>
   );

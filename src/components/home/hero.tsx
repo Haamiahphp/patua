@@ -6,41 +6,63 @@ type SlideSeed = {
   piece: string;
   description: string;
   href: string;
+  cta: string;
   image: string;
 };
 
+// 6 banners rotativos, na ordem definida pela cliente:
+// Slogan · Carol Risi · E-commerce · Cabeceira Andança · Poltrona Diretor · Cadeira Abraço
 const SLIDES: SlideSeed[] = [
   {
-    key: "home.hero.slide1",
+    key: "home.hero.slogan",
+    piece: "Quando é Patuá, você sente.",
+    description: "O cuidado com cada detalhe faz diferença.",
+    href: "/collections",
+    cta: "Conheça a Patuá",
+    image: "/images/hero/ph-slogan.jpg",
+  },
+  {
+    key: "home.hero.carol",
+    piece: "Carol Risi",
+    description: "Design como gesto, escuta e construção de sentido.",
+    href: "/about",
+    cta: "Conheça a história",
+    image: "/images/atelie-portrait.png",
+  },
+  {
+    key: "home.hero.ecommerce",
+    piece: "Escolha a sua peça Patuá.",
+    description:
+      "Artesania brasileira, design autoral e qualidade percebida em cada detalhe. Compre on-line.",
+    href: "https://www.patuaartesania.com.br/loja",
+    cta: "Ir para a loja",
+    image: "/images/colecoes/colecao-xodo.png",
+  },
+  {
+    key: "home.hero.cabeceira",
     piece: "Cabeceira Andança",
     description:
-      "Painel tramado que acolhe o quarto com presença quente, sem peso visual.",
+      "Cabeceira, quadro, duas faces. Uma peça que muda junto com você.",
     href: "/services/cabeceira",
+    cta: "Saiba mais",
     image: "/images/hero/hero-cabeceira-andanca.png",
   },
   {
-    key: "home.hero.slide2",
-    piece: "Cadeira Abraço",
-    description:
-      "Estrutura leve e tramado em diagonal. Uma cadeira que abraça quem nela se senta.",
-    href: "/services/cadeiras",
-    image: "/images/hero/hero-cadeira-abraco.png",
-  },
-  {
-    key: "home.hero.slide3",
-    piece: "Banco Xodó G",
-    description:
-      "Tramado expressivo em fios coloridos. Um banco generoso que atravessa salas, varandas e conversas longas.",
-    href: "/services/bancos",
-    image: "/images/hero/hero-banco-xodo.png",
-  },
-  {
-    key: "home.hero.slide4",
+    key: "home.hero.poltrona",
     piece: "Poltrona Diretor",
     description:
-      "Linhas retas, ergonomia precisa e tramado autoral. Uma poltrona para leituras longas.",
+      "Releitura de uma peça clássica. Linhas retas, ergonomia precisa e tramado autoral.",
     href: "/services/poltronas",
+    cta: "Saiba mais",
     image: "/images/hero/hero-poltrona-diretor.png",
+  },
+  {
+    key: "home.hero.cadeira",
+    piece: "Cadeira Abraço",
+    description: "Uma peça com estrutura leve, desenhada para acolher.",
+    href: "/services/cadeiras",
+    cta: "Saiba mais",
+    image: "/images/hero/hero-cadeira-abraco.png",
   },
 ];
 
@@ -51,6 +73,7 @@ export async function Hero() {
       piece: await getContent(`${s.key}.titulo`, s.piece),
       description: await getContent(`${s.key}.descricao`, s.description),
       href: s.href,
+      cta: await getContent(`${s.key}.cta`, s.cta),
       image: await getContent(`${s.key}.imagem`, { url: s.image, alt: s.piece }),
     })),
   );

@@ -8,10 +8,11 @@ import { Editable } from "@/components/editor/editable";
 import { EditableImage } from "@/components/editor/editable-image";
 
 export type Slide = {
-  key: string; // ex: "home.hero.slide1"
+  key: string; // ex: "home.hero.slogan"
   piece: string;
   description: string;
   href: string;
+  cta: string;
   image: { url: string; alt?: string };
 };
 
@@ -69,10 +70,10 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
         className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-black/55 via-black/20 to-transparent"
       />
 
-      {/* Fusão com a seção terracotta logo abaixo */}
+      {/* Fusão com o Manifesto (fundo quente escuro) logo abaixo */}
       <div
         aria-hidden
-        className="absolute inset-x-0 bottom-0 h-[140px] bg-gradient-to-t from-[var(--color-terracotta)] to-transparent"
+        className="absolute inset-x-0 bottom-0 h-[140px] bg-gradient-to-t from-[#241811] to-transparent"
       />
 
       <div className="absolute inset-x-0 bottom-0 z-10 mx-auto w-full max-w-[var(--container-page)] px-4 pb-10 md:px-10 md:pb-14">
@@ -116,7 +117,7 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
                   href={current.href}
                   className="mt-5 inline-block border-b border-white/40 pb-1 text-sm text-white transition-colors hover:border-white"
                 >
-                  Saiba Mais
+                  {current.cta}
                 </Link>
               </motion.div>
             </AnimatePresence>
