@@ -36,7 +36,7 @@ const SLIDES: SlideSeed[] = [
       "Artesania brasileira, design autoral e qualidade percebida em cada detalhe. Compre on-line.",
     href: "https://www.patuaartesania.com.br/loja",
     cta: "Ir para a loja",
-    image: "/images/colecoes/colecao-xodo.png",
+    image: "/images/hero/ecommerce.jpg",
   },
   {
     key: "home.hero.cabeceira",
@@ -45,7 +45,7 @@ const SLIDES: SlideSeed[] = [
       "Cabeceira, quadro, duas faces. Uma peça que muda junto com você.",
     href: "/services/cabeceira",
     cta: "Saiba mais",
-    image: "/images/hero/hero-cabeceira-andanca.png",
+    image: "/images/hero/cabeceira.jpg",
   },
   {
     key: "home.hero.poltrona",

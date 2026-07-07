@@ -14,14 +14,14 @@ export type FeatureBandProps = {
   href: string;
   image: string;
   imageAlt: string;
-  /** Inverte a ordem (imagem à esquerda) */
+  /** Alinha o texto à direita (imagem "espelhada") */
   reverse?: boolean;
 };
 
 /**
- * Faixa editorial clara — texto num lado, imagem no outro.
- * Base clara com destaque em terracota, no espírito das referências
- * (Breton / Audo) enviadas pela cliente.
+ * Faixa imersiva full-bleed com texto sobreposto — no espírito da
+ * referência Breton (design brasileiro) enviada pela cliente:
+ * imagem ocupando toda a largura, marca + filete + título por cima.
  */
 export async function FeatureBand({
   base,
@@ -43,73 +43,81 @@ export async function FeatureBand({
   ]);
 
   return (
-    <section className="relative bg-[var(--color-cream)] text-[var(--color-bark)]">
+    <section className="relative h-[82vh] min-h-[560px] w-full overflow-hidden bg-[var(--color-bark)]">
+      <EditableImage
+        id={`${base}.imagem`}
+        src={img.url}
+        alt={img.alt ?? imageAlt}
+        fill
+        sizes="100vw"
+        className="object-cover"
+      />
+
+      {/* Degradê suave para legibilidade do texto */}
       <div
-        className={`mx-auto grid w-full max-w-[var(--container-page)] items-center gap-10 px-4 py-20 md:grid-cols-2 md:gap-16 md:px-10 md:py-28 ${
-          reverse ? "md:[&>*:first-child]:order-2" : ""
+        aria-hidden
+        className={`absolute inset-0 ${
+          reverse
+            ? "bg-gradient-to-l from-black/55 via-black/20 to-transparent md:to-[65%]"
+            : "bg-gradient-to-r from-black/55 via-black/20 to-transparent md:to-[65%]"
         }`}
-      >
-        {/* Texto */}
-        <Reveal>
-          <div className="flex items-center gap-4">
+      />
+
+      <div className="absolute inset-0 z-10 flex items-center">
+        <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">
+          <Reveal
+            className={`flex max-w-[40rem] flex-col ${reverse ? "ml-auto items-start text-left md:items-end md:text-right" : "items-start text-left"}`}
+          >
+            {/* Marca + filete */}
+            <div
+              className={`flex items-center gap-5 ${reverse ? "md:flex-row-reverse" : ""}`}
+            >
+              <Editable
+                id={`${base}.eyebrow`}
+                as="span"
+                className="font-mono text-xs uppercase tracking-[var(--tracking-eyebrow)] text-white/85"
+              >
+                {eb}
+              </Editable>
+              <span aria-hidden className="h-px w-20 bg-white/45 md:w-28" />
+            </div>
+
             <Editable
-              id={`${base}.eyebrow`}
-              as="span"
-              className="font-mono text-xs uppercase tracking-[var(--tracking-eyebrow)] text-[var(--color-terracotta)]"
+              id={`${base}.titulo`}
+              as="h2"
+              className="font-display mt-6 max-w-[18ch] text-[clamp(2rem,4.4vw,3.75rem)] leading-[var(--leading-tight)] tracking-[var(--tracking-snug)] text-white"
             >
-              {eb}
+              {tt}
             </Editable>
-            <span
-              aria-hidden
-              className="h-px w-16 bg-[var(--color-terracotta)]/40"
-            />
-          </div>
 
-          <Editable
-            id={`${base}.titulo`}
-            as="h2"
-            className="font-display mt-6 max-w-[16ch] text-[clamp(2rem,4.2vw,3.5rem)] leading-[var(--leading-tight)] tracking-[var(--tracking-snug)]"
-          >
-            {tt}
-          </Editable>
-
-          <Editable
-            id={`${base}.corpo`}
-            as="p"
-            className="mt-6 max-w-[44ch] text-base leading-[var(--leading-body)] text-[var(--color-stone)] md:text-lg"
-          >
-            {bd}
-          </Editable>
-
-          <Link
-            href={href}
-            className="group mt-9 inline-flex items-center gap-3 text-sm font-medium text-[var(--color-bark)]"
-          >
-            <Editable id={`${base}.cta`} as="span" className="border-b border-[var(--color-bark)]/30 pb-1 transition-colors group-hover:border-[var(--color-terracotta)] group-hover:text-[var(--color-terracotta)]">
-              {ct}
-            </Editable>
-            <span
-              aria-hidden
-              className="transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:translate-x-1"
+            <Editable
+              id={`${base}.corpo`}
+              as="p"
+              className="mt-6 max-w-[42ch] text-base leading-[var(--leading-body)] text-white/85 md:text-lg"
             >
-              →
-            </span>
-          </Link>
-        </Reveal>
+              {bd}
+            </Editable>
 
-        {/* Imagem */}
-        <Reveal delay={0.15}>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-[2px] md:aspect-[5/4]">
-            <EditableImage
-              id={`${base}.imagem`}
-              src={img.url}
-              alt={img.alt ?? imageAlt}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-            />
-          </div>
-        </Reveal>
+            <Link
+              href={href}
+              className="group mt-9 inline-flex items-center gap-3 text-sm font-medium text-white"
+            >
+              <Editable
+                id={`${base}.cta`}
+                as="span"
+                className="border-b border-white/40 pb-1 transition-colors group-hover:border-white"
+              >
+                {ct}
+              </Editable>
+              <span
+                aria-hidden
+                className="transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:translate-x-1"
+              >
+                →
+              </span>
+            </Link>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
