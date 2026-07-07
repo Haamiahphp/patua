@@ -22,15 +22,15 @@ export async function B2BSection() {
     }),
     getContent("home.b2b.imagem2", {
       url: IMG2_FALLBACK,
-      alt: "Projeto com poltronas Patuá",
+      alt: "Projeto com peça Patuá",
     }),
   ]);
 
   return (
-    <section className="relative bg-[var(--color-cream-light)] text-[var(--color-bark)]">
-      <div className="mx-auto grid w-full max-w-[var(--container-page)] items-center gap-10 px-4 py-20 md:grid-cols-12 md:gap-12 md:px-10 md:py-28">
+    <section className="relative w-full overflow-hidden bg-[var(--color-cream-light)] text-[var(--color-bark)]">
+      <div className="grid items-stretch md:grid-cols-[minmax(0,38%)_1fr]">
         {/* Texto */}
-        <div className="md:col-span-4">
+        <div className="flex flex-col justify-center px-4 py-16 md:py-24 md:pr-12 md:pl-10 lg:pl-16">
           <Reveal>
             <Editable
               id="home.b2b.eyebrow"
@@ -55,7 +55,7 @@ export async function B2BSection() {
             </Editable>
             <Link
               href="/contact-us"
-              className="mt-9 inline-flex items-center justify-center rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-7 py-3.5 text-sm font-medium text-[var(--color-cream-light)] transition-colors hover:bg-[var(--color-terracotta-deep)]"
+              className="mt-9 inline-flex items-center justify-center self-start rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-7 py-3.5 text-sm font-medium text-[var(--color-cream-light)] transition-colors hover:bg-[var(--color-terracotta-deep)]"
             >
               <Editable id="home.b2b.cta" as="span">
                 {cta}
@@ -64,32 +64,28 @@ export async function B2BSection() {
           </Reveal>
         </div>
 
-        {/* Duas fotos ambientadas */}
-        <div className="grid gap-4 md:col-span-8 md:grid-cols-2 md:gap-6">
-          <Reveal delay={0.1}>
-            <div className="relative aspect-[3/4] overflow-hidden rounded-[2px]">
-              <EditableImage
-                id="home.b2b.imagem1"
-                src={img1.url}
-                alt={img1.alt ?? "Ambiente com peça Patuá"}
-                fill
-                sizes="(max-width: 768px) 100vw, 33vw"
-                className="object-cover"
-              />
-            </div>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <div className="relative aspect-[3/4] overflow-hidden rounded-[2px] md:mt-12">
-              <EditableImage
-                id="home.b2b.imagem2"
-                src={img2.url}
-                alt={img2.alt ?? "Projeto com peça Patuá"}
-                fill
-                sizes="(max-width: 768px) 100vw, 33vw"
-                className="object-cover"
-              />
-            </div>
-          </Reveal>
+        {/* Duas fotos ambientadas — full-bleed, cobrindo a seção */}
+        <div className="grid min-h-[62vh] grid-cols-2 gap-1.5 md:min-h-[80vh] md:gap-2">
+          <div className="relative overflow-hidden">
+            <EditableImage
+              id="home.b2b.imagem1"
+              src={img1.url}
+              alt={img1.alt ?? "Ambiente com peça Patuá"}
+              fill
+              sizes="(max-width: 768px) 50vw, 31vw"
+              className="object-cover"
+            />
+          </div>
+          <div className="relative overflow-hidden">
+            <EditableImage
+              id="home.b2b.imagem2"
+              src={img2.url}
+              alt={img2.alt ?? "Projeto com peça Patuá"}
+              fill
+              sizes="(max-width: 768px) 50vw, 31vw"
+              className="object-cover"
+            />
+          </div>
         </div>
       </div>
     </section>
