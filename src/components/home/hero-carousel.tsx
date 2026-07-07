@@ -65,9 +65,10 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
         </motion.div>
       </AnimatePresence>
 
+      {/* Degradê escuro bem suave atrás do texto (lateral esquerda) */}
       <div
         aria-hidden
-        className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-black/55 via-black/20 to-transparent"
+        className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/20 to-transparent md:via-black/15 md:to-[65%]"
       />
 
       {/* Fusão com o Manifesto (fundo quente escuro) logo abaixo */}
@@ -76,9 +77,14 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
         className="absolute inset-x-0 bottom-0 h-[140px] bg-gradient-to-t from-[#241811] to-transparent"
       />
 
-      <div className="absolute inset-x-0 bottom-0 z-10 mx-auto w-full max-w-[var(--container-page)] px-4 pb-10 md:px-10 md:pb-14">
-        <div className="grid items-end gap-6 md:grid-cols-12">
-          <div className="md:col-span-9">
+      {/* Texto — lateral esquerda, centralizado na vertical */}
+      <div className="absolute inset-0 z-10 flex items-center">
+        <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">
+          <div className="max-w-[34rem]">
+            <p className="font-mono text-xs uppercase tracking-[var(--tracking-eyebrow)] text-white/80">
+              Patuá
+            </p>
+
             <AnimatePresence mode="wait">
               <motion.div
                 key={current.piece}
@@ -90,12 +96,14 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
                 <Editable
                   id={`${current.key}.titulo`}
                   as="h1"
-                  className="font-display text-[clamp(2.25rem,5.4vw,4.875rem)] font-medium leading-[var(--leading-display)] tracking-[var(--tracking-tight)] text-white"
+                  className="font-display mt-5 text-[clamp(2.25rem,4.6vw,4.25rem)] font-medium leading-[var(--leading-display)] tracking-[var(--tracking-tight)] text-white"
                 >
                   {current.piece}
                 </Editable>
               </motion.div>
             </AnimatePresence>
+
+            <span aria-hidden className="mt-7 block h-px w-14 bg-white/45" />
 
             <AnimatePresence mode="wait">
               <motion.div
@@ -104,7 +112,7 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
                 transition={{ duration: 0.6, delay: 0.05 }}
-                className="mt-4 max-w-xl"
+                className="mt-6 max-w-md"
               >
                 <Editable
                   id={`${current.key}.descricao`}
@@ -115,19 +123,20 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
                 </Editable>
                 <Link
                   href={current.href}
-                  className="mt-5 inline-block border-b border-white/40 pb-1 text-sm text-white transition-colors hover:border-white"
+                  className="mt-6 inline-block border-b border-white/40 pb-1 text-sm text-white transition-colors hover:border-white"
                 >
                   {current.cta}
                 </Link>
               </motion.div>
             </AnimatePresence>
           </div>
-
-          <div className="flex items-center justify-end gap-2 md:col-span-3">
-            <NavButton dir="prev" onClick={() => go(-1)} />
-            <NavButton dir="next" onClick={() => go(1)} />
-          </div>
         </div>
+      </div>
+
+      {/* Navegação */}
+      <div className="absolute bottom-8 right-4 z-20 flex items-center gap-2 md:bottom-10 md:right-10">
+        <NavButton dir="prev" onClick={() => go(-1)} />
+        <NavButton dir="next" onClick={() => go(1)} />
       </div>
     </section>
   );
