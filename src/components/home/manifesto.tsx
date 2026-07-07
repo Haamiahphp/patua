@@ -3,7 +3,7 @@ import { getContent } from "@/lib/content";
 import { Editable } from "@/components/editor/editable";
 import { EditableImage } from "@/components/editor/editable-image";
 
-const IMAGE_FALLBACK = "/images/ph-manifesto.jpg";
+const IMAGE_FALLBACK = "/images/manifesto.jpg";
 
 const PARAGRAFOS = [
   {

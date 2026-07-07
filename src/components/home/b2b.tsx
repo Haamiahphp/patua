@@ -4,8 +4,8 @@ import { getContent } from "@/lib/content";
 import { Editable } from "@/components/editor/editable";
 import { EditableImage } from "@/components/editor/editable-image";
 
-const IMG1_FALLBACK = "/images/processo/processo-4-presenca.png";
-const IMG2_FALLBACK = "/images/hero/hero-poltrona-diretor.png";
+const IMG1_FALLBACK = "/images/b2b-1.jpg";
+const IMG2_FALLBACK = "/images/b2b-2.jpg";
 
 export async function B2BSection() {
   const [eyebrow, title, body, cta, img1, img2] = await Promise.all([

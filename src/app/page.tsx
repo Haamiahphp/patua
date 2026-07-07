@@ -23,7 +23,7 @@ export default function Home() {
         body="Conheça as coleções autorais da Patuá — cada tramado carrega uma história, uma cor e um ritmo próprios."
         cta="Conheça a nossa coleção"
         href="/collections"
-        image="/images/ph-colecao.jpg"
+        image="/images/colecao.jpg"
         imageAlt="Coleção Patuá em tramado colorido"
       />
 
@@ -41,7 +41,7 @@ export default function Home() {
         body="Para preservar a história e devolver permanência ao que merece durar."
         cta="Conheça as peças de restauro"
         href="/collections/restauro"
-        image="/images/colecoes/restauro.png"
+        image="/images/restauro-band.jpg"
         imageAlt="Peça restaurada pela Patuá"
         reverse
       />

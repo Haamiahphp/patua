@@ -19,7 +19,7 @@ const SLIDES: SlideSeed[] = [
     description: "O cuidado com cada detalhe faz diferença.",
     href: "/collections",
     cta: "Conheça a Patuá",
-    image: "/images/hero/ph-slogan.jpg",
+    image: "/images/hero/slogan.jpg",
   },
   {
     key: "home.hero.carol",
@@ -27,7 +27,7 @@ const SLIDES: SlideSeed[] = [
     description: "Design como gesto, escuta e construção de sentido.",
     href: "/about",
     cta: "Conheça a história",
-    image: "/images/atelie-portrait.png",
+    image: "/images/hero/carol.jpg",
   },
   {
     key: "home.hero.ecommerce",

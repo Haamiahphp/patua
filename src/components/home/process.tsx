@@ -20,7 +20,7 @@ const STEPS: Step[] = [
     Icon: MessageCircle,
     title: "Escuta",
     body: "Tudo começa com uma conversa com você para entender as suas preferências e necessidades.",
-    image: "/images/processo/processo-1-origem.jpg",
+    image: "/images/processo/etapa-1.jpg",
     alt: "Conversa e escuta no início do processo",
   },
   {
@@ -28,7 +28,7 @@ const STEPS: Step[] = [
     Icon: PenLine,
     title: "Coautoria",
     body: "Desenhamos as possibilidades e apresentamos a você, de acordo com seus gostos e desejos.",
-    image: "/images/processo/processo-2-coautoria.png",
+    image: "/images/processo/etapa-2.jpg",
     alt: "Desenho das possibilidades da peça",
   },
   {
@@ -36,7 +36,7 @@ const STEPS: Step[] = [
     Icon: Layers,
     title: "Escolha de materiais",
     body: "Escolhemos materiais, cores e tramados que traduzem identidade e dialogam com o ambiente.",
-    image: "/images/tramas/trama-05.jpeg",
+    image: "/images/processo/etapa-3.jpg",
     alt: "Fios e materiais para o tramado",
   },
   {
@@ -44,7 +44,7 @@ const STEPS: Step[] = [
     Icon: Hand,
     title: "Feito à mão",
     body: "Cada peça é tramada cuidadosamente, com técnica e atenção a cada detalhe.",
-    image: "/images/processo/processo-3-trama.png",
+    image: "/images/processo/etapa-4.jpg",
     alt: "Tramado feito à mão, fio a fio",
   },
   {
@@ -52,7 +52,7 @@ const STEPS: Step[] = [
     Icon: Heart,
     title: "A peça chega até você",
     body: "E começa a fazer parte das histórias do seu lar.",
-    image: "/images/processo/processo-4-presenca.png",
+    image: "/images/processo/etapa-5.jpg",
     alt: "A peça no ambiente, fazendo parte da casa",
   },
 ];
