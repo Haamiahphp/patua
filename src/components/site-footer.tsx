@@ -1,22 +1,29 @@
+import Image from "next/image";
+import { MapPin, Mail } from "lucide-react";
 import { WhatsappIcon, InstagramIcon, FacebookIcon } from "@/components/icons";
 import { getContent } from "@/lib/content";
 import { Editable } from "@/components/editor/editable";
-import { EditableImage } from "@/components/editor/editable-image";
 
 const WHATSAPP = "https://wa.me/5521975397680";
 const INSTAGRAM = "https://www.instagram.com/patua.atelie";
 const FACEBOOK = "https://www.facebook.com/patua.atelie";
 // TODO: substituir pelo link real da página da Patuá no Casoca (cliente vai enviar)
 const CASOCA = "https://www.casoca.com.br";
-const LOGO_HORIZONTAL = "/images/8ROIB5K6sLAAD3NNobziImOXXyQ.png";
+
+const CREAM = "#ede4d7";
+const GREEN = "#3e3f1f";
 
 export async function SiteFooter() {
   const year = new Date().getFullYear();
-  const logo = await getContent("site.footer.logo", {
-    url: LOGO_HORIZONTAL,
-    alt: "Patuá — Artesania Brasileira",
-  });
   const titulo = await getContent("site.footer.titulo", "Acompanhe a Patuá");
+  const descricao = await getContent(
+    "site.footer.descricao",
+    "Conecte-se com o nosso processo artesanal, novidades e inspirações do Brasil.",
+  );
+  const script = await getContent(
+    "site.footer.script",
+    "quando é Patuá você sente",
+  );
   const endereco = await getContent(
     "site.footer.endereco",
     "Laranjeiras, Rio de Janeiro · Brasil",
@@ -32,125 +39,183 @@ export async function SiteFooter() {
   );
 
   return (
-    <footer className="relative bg-[var(--color-mustard)] text-[var(--color-olive)]">
-      <div className="mx-auto w-full max-w-[var(--container-page)] px-4 py-20 md:px-10 md:py-28">
-        {/* Logo monumental */}
-        <div className="flex justify-center">
-          <EditableImage
-            id="site.footer.logo"
-            src={logo.url}
-            alt={logo.alt ?? "Patuá — Artesania Brasileira"}
-            width={802}
-            height={206}
-            className="h-auto w-[clamp(320px,55vw,720px)]"
-          />
-        </div>
-
-        {/* Divisor */}
-        <hr className="mt-16 border-t border-[var(--color-olive)]/30 md:mt-24" />
-
-        {/* Acompanhe a Patuá */}
-        <div className="grid gap-12 py-14 md:grid-cols-12 md:gap-10 md:py-20">
-          {/* Título */}
-          <div className="md:col-span-5">
-            <Editable
-              id="site.footer.titulo"
-              as="h2"
-              className="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[1] tracking-[var(--tracking-tight)] text-[var(--color-olive)]"
-            >
-              {titulo}
-            </Editable>
-          </div>
-
-          {/* Contato + redes */}
-          <div className="flex flex-col gap-8 md:col-span-7 md:items-end md:text-right">
-            <div className="space-y-2 text-base md:text-lg">
-              <Editable id="site.footer.endereco" as="p">
-                {endereco}
+    <footer className="relative">
+      {/* ── Topo creme ── */}
+      <div style={{ backgroundColor: CREAM }} className="text-[var(--color-bark)]">
+        <div className="mx-auto w-full max-w-[var(--container-page)] px-4 py-16 md:px-10 md:py-24">
+          <div className="grid gap-10 md:grid-cols-2 md:gap-0">
+            {/* Acompanhe */}
+            <div className="md:pr-16">
+              <Editable
+                id="site.footer.titulo"
+                as="h2"
+                className="font-display text-[clamp(2.25rem,4.6vw,3.75rem)] leading-[1.02] tracking-[var(--tracking-tight)]"
+              >
+                {titulo}
               </Editable>
-              <p>
+              <Editable
+                id="site.footer.descricao"
+                as="p"
+                className="mt-6 max-w-[34ch] text-base leading-[var(--leading-body)] text-[var(--color-stone)]"
+              >
+                {descricao}
+              </Editable>
+              <Editable
+                id="site.footer.script"
+                as="p"
+                className="mt-7 font-[family-name:var(--font-script)] text-[clamp(1.75rem,3vw,2.5rem)] leading-none text-[var(--color-terracotta)]"
+              >
+                {script}
+              </Editable>
+            </div>
+
+            {/* Contatos */}
+            <div className="flex flex-col gap-7 md:border-l md:border-[color:var(--color-bark)]/15 md:pl-16">
+              <div className="space-y-4 text-base text-[var(--color-bark)]">
+                <p className="flex items-center gap-3">
+                  <MapPin
+                    className="h-5 w-5 shrink-0 text-[var(--color-terracotta)]"
+                    strokeWidth={1.6}
+                    aria-hidden
+                  />
+                  <Editable id="site.footer.endereco" as="span">
+                    {endereco}
+                  </Editable>
+                </p>
                 <a
                   href={`mailto:${email}`}
-                  className="underline underline-offset-[6px] transition-opacity hover:opacity-75"
+                  className="flex items-center gap-3 transition-opacity hover:opacity-70"
                 >
+                  <Mail
+                    className="h-5 w-5 shrink-0 text-[var(--color-terracotta)]"
+                    strokeWidth={1.6}
+                    aria-hidden
+                  />
                   <Editable id="site.footer.email" as="span">
                     {email}
                   </Editable>
                 </a>
-              </p>
-            </div>
+                <a
+                  href={WHATSAPP}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 transition-opacity hover:opacity-70"
+                >
+                  <WhatsappIcon className="h-5 w-5 shrink-0 text-[var(--color-terracotta)]" />
+                  <Editable id="site.footer.telefone" as="span">
+                    {telefone}
+                  </Editable>
+                </a>
+              </div>
 
-            {/* Telefone com ícone do WhatsApp */}
-            <a
-              href={WHATSAPP}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 text-base transition-opacity hover:opacity-75 md:text-lg"
-            >
-              <WhatsappIcon className="h-5 w-5" />
-              <Editable id="site.footer.telefone" as="span">
-                {telefone}
-              </Editable>
-            </a>
+              <hr className="border-t border-[color:var(--color-bark)]/15" />
 
-            {/* Redes sociais com ícones */}
-            <div className="flex items-center gap-5">
+              {/* Redes */}
+              <div className="flex items-center gap-5 text-[var(--color-bark)]">
+                <a
+                  href={INSTAGRAM}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram da Patuá"
+                  className="transition-opacity hover:opacity-70"
+                >
+                  <InstagramIcon className="h-6 w-6" />
+                </a>
+                <a
+                  href={FACEBOOK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook da Patuá"
+                  className="transition-opacity hover:opacity-70"
+                >
+                  <FacebookIcon className="h-6 w-6" />
+                </a>
+              </div>
+
+              {/* Para arquitetos e designers */}
               <a
-                href={INSTAGRAM}
+                href={CASOCA}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Instagram da Patuá"
-                className="transition-opacity hover:opacity-75"
+                className="inline-flex w-fit items-center gap-2.5 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-6 py-3.5 text-sm font-medium text-[var(--color-cream-light)] transition-colors hover:bg-[var(--color-terracotta-deep)]"
               >
-                <InstagramIcon className="h-6 w-6" />
-              </a>
-              <a
-                href={FACEBOOK}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook da Patuá"
-                className="transition-opacity hover:opacity-75"
-              >
-                <FacebookIcon className="h-6 w-6" />
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
+                  <path d="M3 21h18" />
+                  <path d="M5 21V7l8-4v18" />
+                  <path d="M19 21V11l-6-4" />
+                  <path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01" />
+                </svg>
+                <Editable id="site.footer.casoca" as="span">
+                  {casocaLabel}
+                </Editable>
               </a>
             </div>
+          </div>
+        </div>
+      </div>
 
-            {/* Para arquitetos e designers → Casoca */}
-            <a
-              href={CASOCA}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 rounded-[var(--radius-pill)] border border-[var(--color-olive)]/40 px-5 py-3 text-sm font-medium text-[var(--color-olive)] transition-colors hover:bg-[var(--color-olive)] hover:text-[var(--color-mustard)]"
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden
-              >
-                <path d="M3 21h18" />
-                <path d="M5 21V7l8-4v18" />
-                <path d="M19 21V11l-6-4" />
-                <path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01" />
-              </svg>
-              <Editable id="site.footer.casoca" as="span">
-                {casocaLabel}
-              </Editable>
-            </a>
+      {/* ── Base verde com onda ── */}
+      <div
+        style={{ backgroundColor: GREEN }}
+        className="relative min-h-[420px] overflow-hidden md:min-h-[520px]"
+      >
+        {/* Onda separando o creme do verde */}
+        <svg
+          viewBox="0 0 1440 120"
+          preserveAspectRatio="none"
+          aria-hidden
+          className="absolute inset-x-0 top-0 h-[70px] w-full md:h-[110px]"
+        >
+          <path
+            d="M0,0 H1440 V52 C1160,104 980,18 700,52 C440,84 250,20 0,60 Z"
+            fill={CREAM}
+          />
+          <path
+            d="M0,60 C250,20 440,84 700,52 C980,18 1160,104 1440,52"
+            fill="none"
+            stroke="#c8a86a"
+            strokeWidth="2.5"
+          />
+        </svg>
+
+        {/* Foto do banquinho, canto inferior esquerdo */}
+        <div className="pointer-events-none absolute bottom-0 left-0 w-[58%] max-w-[520px] sm:w-[46%] md:w-[38%]">
+          <Image
+            src="/images/footer-stool.jpg"
+            alt="Banquinho tramado da Patuá"
+            width={469}
+            height={293}
+            className="h-auto w-full"
+          />
+        </div>
+
+        {/* Wordmark + copyright */}
+        <div className="relative mx-auto flex h-full min-h-[420px] max-w-[var(--container-page)] flex-col items-center justify-end px-4 pb-10 pt-[90px] md:min-h-[520px] md:items-end md:justify-center md:px-10 md:pb-0">
+          <div className="flex w-full max-w-[560px] flex-col items-center md:items-start">
+            <Image
+              src="/images/wordmark-cream.png"
+              alt="Patuá — Artesania Brasileira"
+              width={802}
+              height={206}
+              className="h-auto w-[clamp(240px,34vw,460px)]"
+            />
+            <hr className="mt-6 w-full border-t border-[var(--color-cream-light)]/25" />
           </div>
         </div>
 
-        {/* Divisor */}
-        <hr className="border-t border-[var(--color-olive)]/30" />
-
         {/* Copyright */}
-        <p className="pt-8 text-center text-sm text-[var(--color-olive)]/85">
-          © {year}. Patuá Ateliê — Todos os direitos reservados.
+        <p className="absolute inset-x-0 bottom-5 text-center text-xs text-[var(--color-cream-light)]/70 md:text-sm">
+          © {year} Patuá Artesania — Todos os direitos reservados.
         </p>
       </div>
     </footer>

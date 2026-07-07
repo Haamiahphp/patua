@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Fragment_Mono } from "next/font/google";
+import { Fragment_Mono, Dancing_Script } from "next/font/google";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { SiteHeader } from "@/components/site-header";
@@ -33,6 +33,13 @@ const fragmentMono = Fragment_Mono({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-fragment",
+  display: "swap",
+});
+
+const dancingScript = Dancing_Script({
+  weight: ["400", "500", "600"],
+  subsets: ["latin"],
+  variable: "--font-script",
   display: "swap",
 });
 
@@ -69,7 +76,10 @@ export default async function RootLayout({
     ),
   };
   return (
-    <html lang="pt-BR" className={`${rawline.variable} ${fragmentMono.variable}`}>
+    <html
+      lang="pt-BR"
+      className={`${rawline.variable} ${fragmentMono.variable} ${dancingScript.variable}`}
+    >
       <body className="bg-[var(--color-cream)] text-[var(--color-bark)] antialiased">
         <EditorProvider isEditor={!!session}>
           <SmoothScroll>
