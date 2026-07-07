@@ -20,9 +20,7 @@ export default function Home() {
         base="home.colecao"
         eyebrow="Patuá"
         title="Coleções que celebram a brasilidade em cada detalhe."
-        body="Conheça as coleções autorais da Patuá — cada tramado carrega uma história, uma cor e um ritmo próprios."
-        cta="Conheça a nossa coleção"
-        href="/collections"
+        boldWord="brasilidade"
         image="/images/colecao.jpg"
         imageAlt="Coleção Patuá em tramado colorido"
       />

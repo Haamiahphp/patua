@@ -9,14 +9,34 @@ export type FeatureBandProps = {
   base: string;
   eyebrow: string;
   title: string;
-  body: string;
-  cta: string;
-  href: string;
   image: string;
   imageAlt: string;
+  /** Parágrafo de apoio. Se omitido, não é renderizado. */
+  body?: string;
+  /** CTA + destino. Só renderiza o link se ambos forem passados. */
+  cta?: string;
+  href?: string;
+  /** Palavra do título a destacar em negrito. */
+  boldWord?: string;
   /** Alinha o texto à direita (imagem "espelhada") */
   reverse?: boolean;
 };
+
+/** Destaca `boldWord` dentro do título mantendo o restante em peso normal. */
+function renderTitle(title: string, boldWord?: string): React.ReactNode {
+  if (!boldWord || !title.includes(boldWord)) return title;
+  const parts = title.split(boldWord);
+  return parts.flatMap((part, i) =>
+    i < parts.length - 1
+      ? [
+          part,
+          <strong key={i} className="font-semibold">
+            {boldWord}
+          </strong>,
+        ]
+      : [part],
+  );
+}
 
 /**
  * Faixa imersiva full-bleed com texto sobreposto — no espírito da
@@ -27,20 +47,24 @@ export async function FeatureBand({
   base,
   eyebrow,
   title,
+  image,
+  imageAlt,
   body,
   cta,
   href,
-  image,
-  imageAlt,
+  boldWord,
   reverse = false,
 }: FeatureBandProps) {
   const [eb, tt, bd, ct, img] = await Promise.all([
     getContent(`${base}.eyebrow`, eyebrow),
     getContent(`${base}.titulo`, title),
-    getContent(`${base}.corpo`, body),
-    getContent(`${base}.cta`, cta),
+    getContent(`${base}.corpo`, body ?? ""),
+    getContent(`${base}.cta`, cta ?? ""),
     getContent(`${base}.imagem`, { url: image, alt: imageAlt }),
   ]);
+
+  const showBody = Boolean(body && bd);
+  const showCta = Boolean(cta && href && ct);
 
   return (
     <section className="relative h-[82vh] min-h-[560px] w-full overflow-hidden bg-[var(--color-bark)]">
@@ -58,8 +82,8 @@ export async function FeatureBand({
         aria-hidden
         className={`absolute inset-0 ${
           reverse
-            ? "bg-gradient-to-l from-black/55 via-black/20 to-transparent md:to-[65%]"
-            : "bg-gradient-to-r from-black/55 via-black/20 to-transparent md:to-[65%]"
+            ? "bg-gradient-to-l from-black/60 via-black/25 to-transparent md:to-[62%]"
+            : "bg-gradient-to-r from-black/60 via-black/25 to-transparent md:to-[62%]"
         }`}
       />
 
@@ -87,35 +111,39 @@ export async function FeatureBand({
               as="h2"
               className="font-display mt-6 max-w-[18ch] text-[clamp(2rem,4.4vw,3.75rem)] leading-[var(--leading-tight)] tracking-[var(--tracking-snug)] text-white"
             >
-              {tt}
+              {renderTitle(tt, boldWord)}
             </Editable>
 
-            <Editable
-              id={`${base}.corpo`}
-              as="p"
-              className="mt-6 max-w-[42ch] text-base leading-[var(--leading-body)] text-white/85 md:text-lg"
-            >
-              {bd}
-            </Editable>
-
-            <Link
-              href={href}
-              className="group mt-9 inline-flex items-center gap-3 text-sm font-medium text-white"
-            >
+            {showBody && (
               <Editable
-                id={`${base}.cta`}
-                as="span"
-                className="border-b border-white/40 pb-1 transition-colors group-hover:border-white"
+                id={`${base}.corpo`}
+                as="p"
+                className="mt-6 max-w-[42ch] text-base leading-[var(--leading-body)] text-white/85 md:text-lg"
               >
-                {ct}
+                {bd}
               </Editable>
-              <span
-                aria-hidden
-                className="transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:translate-x-1"
+            )}
+
+            {showCta && (
+              <Link
+                href={href!}
+                className="group mt-9 inline-flex items-center gap-3 text-sm font-medium text-white"
               >
-                →
-              </span>
-            </Link>
+                <Editable
+                  id={`${base}.cta`}
+                  as="span"
+                  className="border-b border-white/40 pb-1 transition-colors group-hover:border-white"
+                >
+                  {ct}
+                </Editable>
+                <span
+                  aria-hidden
+                  className="transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:translate-x-1"
+                >
+                  →
+                </span>
+              </Link>
+            )}
           </Reveal>
         </div>
       </div>
