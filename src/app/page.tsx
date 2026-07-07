@@ -34,14 +34,13 @@ export default function Home() {
       {/* 6 — Peças de Restauro */}
       <FeatureBand
         base="home.restauro"
-        eyebrow="Restauro"
+        eyebrow="Patuá"
         title="Peças de Restauro"
+        boldWord="Restauro"
         body="Para preservar a história e devolver permanência ao que merece durar."
-        cta="Conheça as peças de restauro"
-        href="/collections/restauro"
         image="/images/restauro-band.jpg"
         imageAlt="Peça restaurada pela Patuá"
-        reverse
+        variant="split"
       />
 
       {/* 7 — Explore nossos tramados */}

@@ -18,8 +18,14 @@ export type FeatureBandProps = {
   href?: string;
   /** Palavra do título a destacar em negrito. */
   boldWord?: string;
-  /** Alinha o texto à direita (imagem "espelhada") */
+  /** Alinha o texto à direita (imagem "espelhada"). Só no layout "stack". */
   reverse?: boolean;
+  /**
+   * "stack": marca + filete no topo, título embaixo (esquerda).
+   * "split": marca à esquerda ── título à direita na mesma linha (estilo
+   * Breton "design brasileiro"), subtítulo embaixo à direita.
+   */
+  variant?: "stack" | "split";
 };
 
 /** Destaca `boldWord` dentro do título mantendo o restante em peso normal. */
@@ -40,8 +46,7 @@ function renderTitle(title: string, boldWord?: string): React.ReactNode {
 
 /**
  * Faixa imersiva full-bleed com texto sobreposto — no espírito da
- * referência Breton (design brasileiro) enviada pela cliente:
- * imagem ocupando toda a largura, marca + filete + título por cima.
+ * referência Breton enviada pela cliente.
  */
 export async function FeatureBand({
   base,
@@ -54,6 +59,7 @@ export async function FeatureBand({
   href,
   boldWord,
   reverse = false,
+  variant = "stack",
 }: FeatureBandProps) {
   const [eb, tt, bd, ct, img] = await Promise.all([
     getContent(`${base}.eyebrow`, eyebrow),
@@ -77,76 +83,143 @@ export async function FeatureBand({
         className="object-cover"
       />
 
-      {/* Degradê suave para legibilidade do texto */}
-      <div
-        aria-hidden
-        className={`absolute inset-0 ${
-          reverse
-            ? "bg-gradient-to-l from-black/60 via-black/25 to-transparent md:to-[62%]"
-            : "bg-gradient-to-r from-black/60 via-black/25 to-transparent md:to-[62%]"
-        }`}
-      />
+      {variant === "split" ? (
+        <>
+          {/* Scrim uniforme para o texto que atravessa a faixa toda */}
+          <div aria-hidden className="absolute inset-0 bg-black/35" />
 
-      <div className="absolute inset-0 z-10 flex items-center">
-        <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">
-          <Reveal
-            className={`flex max-w-[40rem] flex-col ${reverse ? "ml-auto items-start text-left md:items-end md:text-right" : "items-start text-left"}`}
-          >
-            {/* Marca + filete */}
-            <div
-              className={`flex items-center gap-5 ${reverse ? "md:flex-row-reverse" : ""}`}
-            >
-              <Editable
-                id={`${base}.eyebrow`}
-                as="span"
-                className="font-mono text-xs uppercase tracking-[var(--tracking-eyebrow)] text-white/85"
-              >
-                {eb}
-              </Editable>
-              <span aria-hidden className="h-px w-20 bg-white/45 md:w-28" />
-            </div>
+          <div className="absolute inset-0 z-10 flex items-center">
+            <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">
+              <Reveal>
+                {/* Marca ── título (mesma linha no desktop) */}
+                <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-10">
+                  <Editable
+                    id={`${base}.eyebrow`}
+                    as="span"
+                    className="font-mono text-xs uppercase tracking-[var(--tracking-eyebrow)] text-white/85 md:whitespace-nowrap"
+                  >
+                    {eb}
+                  </Editable>
+                  <span
+                    aria-hidden
+                    className="hidden h-px flex-1 bg-white/40 md:block"
+                  />
+                  <Editable
+                    id={`${base}.titulo`}
+                    as="h2"
+                    className="font-display text-[clamp(2rem,4.4vw,3.75rem)] leading-[var(--leading-tight)] tracking-[var(--tracking-snug)] text-white md:whitespace-nowrap md:text-right"
+                  >
+                    {renderTitle(tt, boldWord)}
+                  </Editable>
+                </div>
 
-            <Editable
-              id={`${base}.titulo`}
-              as="h2"
-              className="font-display mt-6 max-w-[18ch] text-[clamp(2rem,4.4vw,3.75rem)] leading-[var(--leading-tight)] tracking-[var(--tracking-snug)] text-white"
-            >
-              {renderTitle(tt, boldWord)}
-            </Editable>
+                {showBody && (
+                  <Editable
+                    id={`${base}.corpo`}
+                    as="p"
+                    className="mt-6 max-w-[42ch] text-base leading-[var(--leading-body)] text-white/85 md:ml-auto md:text-right md:text-lg"
+                  >
+                    {bd}
+                  </Editable>
+                )}
 
-            {showBody && (
-              <Editable
-                id={`${base}.corpo`}
-                as="p"
-                className="mt-6 max-w-[42ch] text-base leading-[var(--leading-body)] text-white/85 md:text-lg"
-              >
-                {bd}
-              </Editable>
-            )}
+                {showCta && (
+                  <Link
+                    href={href!}
+                    className="group mt-8 inline-flex items-center gap-3 text-sm font-medium text-white md:ml-auto md:justify-end"
+                  >
+                    <Editable
+                      id={`${base}.cta`}
+                      as="span"
+                      className="border-b border-white/40 pb-1 transition-colors group-hover:border-white"
+                    >
+                      {ct}
+                    </Editable>
+                    <span aria-hidden>→</span>
+                  </Link>
+                )}
 
-            {showCta && (
-              <Link
-                href={href!}
-                className="group mt-9 inline-flex items-center gap-3 text-sm font-medium text-white"
-              >
-                <Editable
-                  id={`${base}.cta`}
-                  as="span"
-                  className="border-b border-white/40 pb-1 transition-colors group-hover:border-white"
-                >
-                  {ct}
-                </Editable>
                 <span
                   aria-hidden
-                  className="transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:translate-x-1"
+                  className="mt-10 block h-px w-16 bg-white/40 md:mx-auto"
+                />
+              </Reveal>
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          {/* Degradê lateral para legibilidade do texto */}
+          <div
+            aria-hidden
+            className={`absolute inset-0 ${
+              reverse
+                ? "bg-gradient-to-l from-black/60 via-black/25 to-transparent md:to-[62%]"
+                : "bg-gradient-to-r from-black/60 via-black/25 to-transparent md:to-[62%]"
+            }`}
+          />
+
+          <div className="absolute inset-0 z-10 flex items-center">
+            <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">
+              <Reveal
+                className={`flex max-w-[40rem] flex-col ${reverse ? "ml-auto items-start text-left md:items-end md:text-right" : "items-start text-left"}`}
+              >
+                <div
+                  className={`flex items-center gap-5 ${reverse ? "md:flex-row-reverse" : ""}`}
                 >
-                  →
-                </span>
-              </Link>
-            )}
-          </Reveal>
-        </div>
-      </div>
+                  <Editable
+                    id={`${base}.eyebrow`}
+                    as="span"
+                    className="font-mono text-xs uppercase tracking-[var(--tracking-eyebrow)] text-white/85"
+                  >
+                    {eb}
+                  </Editable>
+                  <span aria-hidden className="h-px w-20 bg-white/45 md:w-28" />
+                </div>
+
+                <Editable
+                  id={`${base}.titulo`}
+                  as="h2"
+                  className="font-display mt-6 max-w-[18ch] text-[clamp(2rem,4.4vw,3.75rem)] leading-[var(--leading-tight)] tracking-[var(--tracking-snug)] text-white"
+                >
+                  {renderTitle(tt, boldWord)}
+                </Editable>
+
+                {showBody && (
+                  <Editable
+                    id={`${base}.corpo`}
+                    as="p"
+                    className="mt-6 max-w-[42ch] text-base leading-[var(--leading-body)] text-white/85 md:text-lg"
+                  >
+                    {bd}
+                  </Editable>
+                )}
+
+                {showCta && (
+                  <Link
+                    href={href!}
+                    className="group mt-9 inline-flex items-center gap-3 text-sm font-medium text-white"
+                  >
+                    <Editable
+                      id={`${base}.cta`}
+                      as="span"
+                      className="border-b border-white/40 pb-1 transition-colors group-hover:border-white"
+                    >
+                      {ct}
+                    </Editable>
+                    <span
+                      aria-hidden
+                      className="transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:translate-x-1"
+                    >
+                      →
+                    </span>
+                  </Link>
+                )}
+              </Reveal>
+            </div>
+          </div>
+        </>
+      )}
     </section>
   );
 }
