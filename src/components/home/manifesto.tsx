@@ -46,10 +46,28 @@ export async function Manifesto() {
   );
 
   return (
-    <section className="relative overflow-hidden bg-[#241811] text-[var(--color-cream-light)]">
-      <div className="mx-auto grid w-full max-w-[var(--container-page)] items-center gap-12 px-4 py-24 md:grid-cols-12 md:gap-16 md:px-10 md:py-36">
-        {/* Texto */}
-        <div className="md:col-span-6 lg:col-span-6">
+    <section className="relative w-full overflow-hidden bg-[#241811] text-[var(--color-cream-light)]">
+      {/* Imagem cobrindo toda a seção */}
+      <div className="absolute inset-0">
+        <EditableImage
+          id="home.manifesto.imagem"
+          src={imagem.url}
+          alt={imagem.alt ?? "Peça Patuá"}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        {/* Degradê escuro sobre a imagem (esquerda), pra legibilidade do texto */}
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-r from-[#1c130c] via-[#1c130c]/88 to-transparent md:via-[#1c130c]/70 md:to-[58%]"
+        />
+      </div>
+
+      {/* Texto sobreposto */}
+      <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[var(--container-page)] items-center px-4 py-24 md:px-10 md:py-32">
+        <div className="max-w-[38rem]">
           <Reveal>
             <Editable
               id="home.manifesto.eyebrow"
@@ -60,13 +78,13 @@ export async function Manifesto() {
             </Editable>
           </Reveal>
 
-          <div className="mt-10 space-y-6">
+          <div className="mt-9 space-y-5">
             {paragrafos.map((p, i) => (
               <Reveal key={p.key} delay={0.1 + i * 0.08}>
                 <Editable
                   id={p.key}
                   as="p"
-                  className="max-w-[46ch] text-lg leading-[var(--leading-body)] text-[var(--color-cream-light)]/90 md:text-xl"
+                  className="max-w-[44ch] text-lg leading-[var(--leading-body)] text-[var(--color-cream-light)]/95 md:text-xl"
                 >
                   {p.text}
                 </Editable>
@@ -74,7 +92,7 @@ export async function Manifesto() {
             ))}
           </div>
 
-          <Reveal delay={0.5} className="mt-12">
+          <Reveal delay={0.5} className="mt-11">
             <span
               aria-hidden
               className="block h-px w-14 bg-[var(--color-amber)]/70"
@@ -82,33 +100,17 @@ export async function Manifesto() {
             <Editable
               id="home.manifesto.assinatura"
               as="p"
-              className="font-display mt-8 text-[clamp(2rem,4vw,3rem)] italic leading-[1.05] tracking-[var(--tracking-tight)] text-[var(--color-amber)]"
+              className="mt-7 font-[family-name:var(--font-script)] text-[clamp(2.25rem,4.5vw,3.5rem)] leading-none text-[var(--color-amber)]"
             >
               {assinatura}
             </Editable>
             <Editable
               id="home.manifesto.assinatura_sub"
               as="p"
-              className="mt-4 max-w-[40ch] text-base leading-[var(--leading-body)] text-[var(--color-cream-light)]/80 md:text-lg"
+              className="mt-4 max-w-[40ch] text-base leading-[var(--leading-body)] text-[var(--color-cream-light)]/85 md:text-lg"
             >
               {assinaturaSub}
             </Editable>
-          </Reveal>
-        </div>
-
-        {/* Peça */}
-        <div className="md:col-span-6 lg:col-span-6">
-          <Reveal delay={0.2}>
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2px] md:aspect-[5/6]">
-              <EditableImage
-                id="home.manifesto.imagem"
-                src={imagem.url}
-                alt={imagem.alt ?? "Peça Patuá"}
-                fill
-                sizes="(max-width: 768px) 100vw, 45vw"
-                className="object-cover"
-              />
-            </div>
           </Reveal>
         </div>
       </div>
