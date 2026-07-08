@@ -58,10 +58,10 @@ export async function Manifesto() {
           sizes="100vw"
           className="object-cover"
         />
-        {/* Degradê escuro sobre a imagem: 100% na esquerda → 0% na direita */}
+        {/* Degradê linear liso: 100% escuro na esquerda → 0% (transparente) na direita */}
         <div
           aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(to_right,#1c130c_0%,rgba(28,19,12,0.92)_52%,rgba(28,19,12,0.45)_100%)] md:bg-[linear-gradient(to_right,#1c130c_0%,#1c130c_42%,transparent_90%)]"
+          className="absolute inset-0 bg-[linear-gradient(to_right,#241811_0%,rgba(36,24,17,0.6)_100%)] md:bg-[linear-gradient(to_right,#241811_0%,transparent_92%)]"
         />
       </div>
 
