@@ -61,7 +61,7 @@ export async function Manifesto() {
         {/* Degradê linear liso: 100% escuro na esquerda → 0% (transparente) na direita */}
         <div
           aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(to_right,#241811_0%,rgba(36,24,17,0.6)_100%)] md:bg-[linear-gradient(to_right,#241811_0%,transparent_92%)]"
+          className="absolute inset-0 bg-[linear-gradient(to_right,#180d07_0%,rgba(24,13,7,0.82)_58%,rgba(24,13,7,0.5)_100%)] md:bg-[linear-gradient(to_right,#180d07_0%,rgba(24,13,7,0.92)_46%,transparent_96%)]"
         />
       </div>
 
