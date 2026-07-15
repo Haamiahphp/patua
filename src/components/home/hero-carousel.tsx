@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -19,6 +20,8 @@ export type Slide = {
   bg?: string;
   /** Ajuste de enquadramento da imagem (object-position / zoom por slide). */
   focusClass?: string;
+  /** Arte alternativa (vertical) usada só no mobile. */
+  mobileImage?: string;
 };
 
 const DURATION = 6500;
@@ -87,14 +90,37 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
           transition={{ opacity: { duration: 1.2 }, scale: { duration: 7, ease: "linear" } }}
           className="absolute inset-0"
         >
-          <EditableImage
-            id={`${current.key}.imagem`}
-            src={current.image.url}
-            alt={current.image.alt ?? current.piece}
-            fill
-            priority
-            className={`object-cover ${current.focusClass ?? ""}`}
-          />
+          {current.mobileImage ? (
+            <>
+              {/* Mobile: arte vertical dedicada */}
+              <Image
+                src={current.mobileImage}
+                alt={current.image.alt ?? current.piece}
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover md:hidden"
+              />
+              {/* Desktop: arte horizontal */}
+              <EditableImage
+                id={`${current.key}.imagem`}
+                src={current.image.url}
+                alt={current.image.alt ?? current.piece}
+                fill
+                priority
+                className={`hidden object-cover md:block ${current.focusClass ?? ""}`}
+              />
+            </>
+          ) : (
+            <EditableImage
+              id={`${current.key}.imagem`}
+              src={current.image.url}
+              alt={current.image.alt ?? current.piece}
+              fill
+              priority
+              className={`object-cover ${current.focusClass ?? ""}`}
+            />
+          )}
         </motion.div>
       </AnimatePresence>
 

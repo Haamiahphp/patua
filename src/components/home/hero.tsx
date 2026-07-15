@@ -15,6 +15,8 @@ type SlideSeed = {
   bg?: string;
   /** Enquadramento por slide (object-position / zoom). */
   focusClass?: string;
+  /** Arte alternativa (vertical) usada só no mobile. */
+  mobileImage?: string;
 };
 
 // 6 banners rotativos, na ordem definida pela cliente:
@@ -27,6 +29,7 @@ const SLIDES: SlideSeed[] = [
     href: "",
     cta: "",
     image: "/images/hero/slogan.jpg",
+    mobileImage: "/images/hero/slogan-mobile.jpg",
     plain: true,
     bg: "#ddd3ba",
   },
@@ -94,6 +97,7 @@ export async function Hero() {
       plain: s.plain,
       bg: s.bg,
       focusClass: s.focusClass,
+      mobileImage: s.mobileImage,
     })),
   );
 
