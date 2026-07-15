@@ -119,10 +119,6 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
       <div className="absolute inset-0 z-10 flex items-center">
         <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">
           <div className="max-w-[42rem]">
-            <p className="font-mono text-sm uppercase tracking-[var(--tracking-eyebrow)] text-white/80">
-              Patuá
-            </p>
-
             <AnimatePresence mode="wait">
               <motion.div
                 key={current.piece}
@@ -134,7 +130,7 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
                 <Editable
                   id={`${current.key}.titulo`}
                   as="h1"
-                  className="font-display mt-5 text-[clamp(2.75rem,5.6vw,5.5rem)] font-medium leading-[var(--leading-display)] tracking-[var(--tracking-tight)] text-white"
+                  className="font-display text-[clamp(2.75rem,5.6vw,5.5rem)] font-medium leading-[var(--leading-display)] tracking-[var(--tracking-tight)] text-white"
                 >
                   {current.piece}
                 </Editable>
