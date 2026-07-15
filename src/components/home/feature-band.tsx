@@ -132,42 +132,38 @@ export async function FeatureBand({
     );
   }
 
-  // "stack": no mobile vira um split reduzido (texto à esquerda, foto à direita,
-  // sem sobrepor); no desktop, imagem full-bleed com o texto sobreposto.
+  // "stack": imagem full-bleed com o texto sobreposto à esquerda. No mobile o texto
+  // fica estreito (quebra em mais linhas) pra não invadir a peça que fica à direita.
   return (
-    <section className="relative w-full overflow-hidden bg-[var(--color-bark)] text-white md:h-[82vh] md:min-h-[560px]">
-      {/* Imagem — coluna à direita no mobile, full-bleed no desktop */}
-      <div className="absolute inset-y-0 right-0 w-[42%] md:inset-0 md:w-full">
-        <EditableImage
-          id={`${base}.imagem`}
-          src={img.url}
-          alt={img.alt ?? imageAlt}
-          fill
-          sizes="(max-width: 768px) 42vw, 100vw"
-          className={`object-cover ${imageClass ?? ""}`}
-        />
+    <section className="relative h-[82vh] min-h-[560px] w-full overflow-hidden bg-[var(--color-bark)]">
+      <EditableImage
+        id={`${base}.imagem`}
+        src={img.url}
+        alt={img.alt ?? imageAlt}
+        fill
+        sizes="100vw"
+        className={`object-cover ${imageClass ?? ""}`}
+      />
 
-        {/* Degradê lateral — só no desktop, pro texto sobreposto */}
-        <div
-          aria-hidden
-          className={`absolute inset-0 hidden md:block ${
-            reverse
-              ? "bg-gradient-to-l from-black/60 via-black/25 to-transparent md:to-[62%]"
-              : "bg-gradient-to-r from-black/60 via-black/25 to-transparent md:to-[62%]"
-          }`}
-        />
-      </div>
+      {/* Degradê lateral para legibilidade do texto */}
+      <div
+        aria-hidden
+        className={`absolute inset-0 ${
+          reverse
+            ? "bg-gradient-to-l from-black/70 via-black/30 to-transparent md:to-[62%]"
+            : "bg-gradient-to-r from-black/70 via-black/30 to-transparent md:to-[62%]"
+        }`}
+      />
 
-      {/* Texto — coluna à esquerda no mobile, sobreposto centralizado no desktop */}
-      <div className="relative z-10 flex min-h-[56vh] items-center md:absolute md:inset-0 md:min-h-0">
-        <div className="w-[58%] pl-4 pr-3 md:mx-auto md:w-full md:max-w-[var(--container-page)] md:px-10">
+      <div className="absolute inset-0 z-10 flex items-center">
+        <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">
           <Reveal
             className={`flex max-w-[40rem] flex-col ${reverse ? "ml-auto items-start text-left md:items-end md:text-right" : "items-start text-left"}`}
           >
             <Editable
               id={`${base}.titulo`}
               as="h2"
-              className="font-display max-w-[18ch] text-2xl leading-[1.12] tracking-[var(--tracking-snug)] text-white md:text-[clamp(2rem,4.4vw,3.75rem)] md:leading-[var(--leading-tight)]"
+              className="font-display max-w-[48vw] text-[clamp(2rem,4.4vw,3.75rem)] leading-[var(--leading-tight)] tracking-[var(--tracking-snug)] text-white md:max-w-[18ch]"
             >
               {renderTitle(tt, boldWord)}
             </Editable>
@@ -176,7 +172,7 @@ export async function FeatureBand({
               <Editable
                 id={`${base}.corpo`}
                 as="p"
-                className="mt-4 max-w-[42ch] text-sm leading-[var(--leading-body)] text-white/85 md:mt-6 md:text-lg"
+                className="mt-6 max-w-[48vw] text-base leading-[var(--leading-body)] text-white/85 md:max-w-[42ch] md:text-lg"
               >
                 {bd}
               </Editable>
@@ -185,7 +181,7 @@ export async function FeatureBand({
             {showCta && (
               <Link
                 href={href!}
-                className="group mt-6 inline-flex items-center gap-3 text-sm font-medium text-white md:mt-9"
+                className="group mt-9 inline-flex items-center gap-3 text-sm font-medium text-white"
               >
                 <Editable
                   id={`${base}.cta`}

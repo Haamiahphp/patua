@@ -22,7 +22,6 @@ export default function Home() {
         boldWord="brasilidade"
         image="/images/colecao.jpg"
         imageAlt="Coleção Patuá em tramado colorido"
-        imageClass="object-right md:object-center"
       />
 
       {/* 4 — Para arquitetos e designers (B2B) */}
