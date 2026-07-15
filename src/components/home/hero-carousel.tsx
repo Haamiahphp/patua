@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useEditor } from "@/components/editor/editor-provider";
 import { Editable } from "@/components/editor/editable";
 import { EditableImage } from "@/components/editor/editable-image";
@@ -27,6 +27,8 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
   const { editMode } = useEditor();
   const [index, setIndex] = useState(0);
   const [hovering, setHovering] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [heroCoversHeader, setHeroCoversHeader] = useState(true);
 
   const go = useCallback(
     (dir: 1 | -1) => {
@@ -44,8 +46,33 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
 
   const current = slides[index];
 
+  // Enquanto o herói (banner "plain", que já traz a logo na arte) estiver sob o
+  // cabeçalho, esconde a logo do menu pra não duplicar. Volta ao rolar/trocar slide.
+  useEffect(() => {
+    const onScroll = () => {
+      const el = sectionRef.current;
+      if (el) setHeroCoversHeader(el.getBoundingClientRect().bottom > 100);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const hide = Boolean(current.plain) && heroCoversHeader;
+    if (hide) root.setAttribute("data-hero-hide-logo", "");
+    else root.removeAttribute("data-hero-hide-logo");
+    return () => root.removeAttribute("data-hero-hide-logo");
+  }, [current.plain, heroCoversHeader]);
+
   return (
     <section
+      ref={sectionRef}
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
       style={current.plain && current.bg ? { backgroundColor: current.bg } : undefined}

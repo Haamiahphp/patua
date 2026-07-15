@@ -137,6 +137,12 @@ html.lenis body {
   font-family: var(--font-mono);
 }
 
+/* Logo do menu some quando o herói mostra um banner que já traz a logo na arte */
+[data-hero-hide-logo] .site-logo {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .balanced {
   text-wrap: balance;
 }

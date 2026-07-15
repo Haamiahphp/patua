@@ -54,7 +54,11 @@ export function SiteHeader({ content }: { content: HeaderContent }) {
           className="pointer-events-none absolute inset-x-0 top-0 h-[160px] bg-gradient-to-b from-black/35 via-black/15 to-transparent"
         />
         <div className="relative mx-auto flex h-[88px] w-full max-w-[var(--container-page)] items-center justify-between px-4 md:px-10">
-          <Link href="/" aria-label="Patuá Ateliê — início" className="block">
+          <Link
+            href="/"
+            aria-label="Patuá Ateliê — início"
+            className="site-logo block transition-opacity duration-500"
+          >
             <EditableImage
               id="site.header.logo"
               src={logo.url}
