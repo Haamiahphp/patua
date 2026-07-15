@@ -25,9 +25,6 @@ export default function Home() {
         imageClass="object-left md:object-center"
       />
 
-      {/* Respiro entre a coleção e o B2B */}
-      <div aria-hidden className="h-14 bg-[var(--color-cream-light)] md:h-24" />
-
       {/* 4 — Para arquitetos e designers (B2B) */}
       <B2BSection />
 

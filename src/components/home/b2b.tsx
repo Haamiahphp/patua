@@ -64,27 +64,30 @@ export async function B2BSection() {
           </Reveal>
         </div>
 
-        {/* Fotos ambientadas — no mobile fica só a primeira; no desktop, as duas */}
-        <div className="grid min-h-[62vh] grid-cols-1 gap-1.5 md:min-h-[80vh] md:grid-cols-2 md:gap-2">
-          <div className="relative overflow-hidden">
-            <EditableImage
-              id="home.b2b.imagem1"
-              src={img1.url}
-              alt={img1.alt ?? "Ambiente com peça Patuá"}
-              fill
-              sizes="(max-width: 768px) 100vw, 31vw"
-              className="object-cover"
-            />
-          </div>
-          <div className="relative hidden overflow-hidden md:block">
-            <EditableImage
-              id="home.b2b.imagem2"
-              src={img2.url}
-              alt={img2.alt ?? "Projeto com peça Patuá"}
-              fill
-              sizes="31vw"
-              className="object-cover"
-            />
+        {/* Fotos ambientadas — respiro igual em cima e embaixo, produto centralizado.
+            No mobile fica só a primeira; no desktop, as duas. */}
+        <div className="flex items-stretch py-8 md:py-14 lg:py-20">
+          <div className="grid min-h-[320px] w-full grid-cols-1 gap-1.5 md:min-h-[420px] md:grid-cols-2 md:gap-2">
+            <div className="relative overflow-hidden">
+              <EditableImage
+                id="home.b2b.imagem1"
+                src={img1.url}
+                alt={img1.alt ?? "Ambiente com peça Patuá"}
+                fill
+                sizes="(max-width: 768px) 100vw, 31vw"
+                className="object-cover object-center"
+              />
+            </div>
+            <div className="relative hidden overflow-hidden md:block">
+              <EditableImage
+                id="home.b2b.imagem2"
+                src={img2.url}
+                alt={img2.alt ?? "Projeto com peça Patuá"}
+                fill
+                sizes="31vw"
+                className="object-cover object-center"
+              />
+            </div>
           </div>
         </div>
       </div>
