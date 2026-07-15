@@ -85,7 +85,7 @@ export async function ProcessSection() {
   );
 
   return (
-    <section className="relative bg-[var(--color-terracotta-deep)] py-24 text-[var(--color-cream-light)] md:py-32">
+    <section className="relative bg-[#c64f3f] py-24 text-[var(--color-cream-light)] md:py-32">
       <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">
         {/* Cabeçalho */}
         <div className="text-center">

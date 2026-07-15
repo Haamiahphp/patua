@@ -75,7 +75,7 @@ export async function B2BSection() {
                 alt={img1.alt ?? "Ambiente com peça Patuá"}
                 fill
                 sizes="(max-width: 768px) 100vw, 31vw"
-                className="object-cover object-center"
+                className="object-cover object-[center_66%]"
               />
             </div>
             <div className="relative hidden overflow-hidden md:block">
