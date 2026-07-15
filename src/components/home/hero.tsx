@@ -8,6 +8,11 @@ type SlideSeed = {
   href: string;
   cta: string;
   image: string;
+  /** Banner "só imagem": a arte já tem o texto embutido, então o site não
+   *  sobrepõe título/CTA/degradê — mostra a imagem inteira (object-contain). */
+  plain?: boolean;
+  /** Cor de fundo por trás da arte (quando plain), pra o letterbox combinar. */
+  bg?: string;
 };
 
 // 6 banners rotativos, na ordem definida pela cliente:
@@ -28,6 +33,16 @@ const SLIDES: SlideSeed[] = [
     href: "/about",
     cta: "Conheça a história",
     image: "/images/hero/carol.jpg",
+  },
+  {
+    key: "home.hero.ecommerce",
+    piece: "Escolha a sua peça Patuá",
+    description: "",
+    href: "",
+    cta: "",
+    image: "/images/hero/ecommerce.jpg",
+    plain: true,
+    bg: "#e5d9bf",
   },
   {
     key: "home.hero.cabeceira",
@@ -66,6 +81,8 @@ export async function Hero() {
       href: s.href,
       cta: await getContent(`${s.key}.cta`, s.cta),
       image: await getContent(`${s.key}.imagem`, { url: s.image, alt: s.piece }),
+      plain: s.plain,
+      bg: s.bg,
     })),
   );
 

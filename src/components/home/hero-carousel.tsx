@@ -14,6 +14,9 @@ export type Slide = {
   href: string;
   cta: string;
   image: { url: string; alt?: string };
+  /** Banner "só imagem": arte com texto embutido, sem overlay do site. */
+  plain?: boolean;
+  bg?: string;
 };
 
 const DURATION = 6500;
@@ -43,12 +46,13 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
     <section
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
+      style={current.plain && current.bg ? { backgroundColor: current.bg } : undefined}
       className="relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-[var(--color-bark)]"
     >
       <AnimatePresence mode="sync">
         <motion.div
           key={current.image.url}
-          initial={{ opacity: 0, scale: 1.06 }}
+          initial={{ opacity: 0, scale: current.plain ? 1 : 1.06 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
           transition={{ opacity: { duration: 1.2 }, scale: { duration: 7, ease: "linear" } }}
@@ -60,24 +64,29 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
             alt={current.image.alt ?? current.piece}
             fill
             priority
-            className="object-cover"
+            className={current.plain ? "object-contain" : "object-cover"}
           />
         </motion.div>
       </AnimatePresence>
 
-      {/* Degradê escuro bem suave atrás do texto (lateral esquerda) */}
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/20 to-transparent md:via-black/15 md:to-[65%]"
-      />
+      {!current.plain && (
+        <>
+          {/* Degradê escuro bem suave atrás do texto (lateral esquerda) */}
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/20 to-transparent md:via-black/15 md:to-[65%]"
+          />
 
-      {/* Fusão com o Manifesto (fundo quente escuro) logo abaixo */}
-      <div
-        aria-hidden
-        className="absolute inset-x-0 bottom-0 h-[140px] bg-gradient-to-t from-[#241811] to-transparent"
-      />
+          {/* Fusão com o Manifesto (fundo quente escuro) logo abaixo */}
+          <div
+            aria-hidden
+            className="absolute inset-x-0 bottom-0 h-[140px] bg-gradient-to-t from-[#241811] to-transparent"
+          />
+        </>
+      )}
 
-      {/* Texto — lateral esquerda, centralizado na vertical */}
+      {/* Texto — lateral esquerda, centralizado na vertical (só quando não é banner "plain") */}
+      {!current.plain && (
       <div className="absolute inset-0 z-10 flex items-center">
         <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">
           <div className="max-w-[34rem]">
@@ -132,6 +141,7 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
           </div>
         </div>
       </div>
+      )}
 
       {/* Navegação */}
       <div className="absolute bottom-8 right-4 z-20 flex items-center gap-2 md:bottom-10 md:right-10">
