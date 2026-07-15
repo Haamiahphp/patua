@@ -35,7 +35,7 @@ export async function B2BSection() {
             <Editable
               id="home.b2b.eyebrow"
               as="span"
-              className="font-mono text-xs uppercase tracking-[var(--tracking-eyebrow)] text-[var(--color-terracotta)]"
+              className="font-mono text-sm uppercase tracking-[var(--tracking-eyebrow)] text-[var(--color-terracotta)] md:text-base"
             >
               {eyebrow}
             </Editable>

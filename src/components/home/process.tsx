@@ -85,7 +85,7 @@ export async function ProcessSection() {
   );
 
   return (
-    <section className="relative bg-[#43421c] py-24 text-[var(--color-cream-light)] md:py-32">
+    <section className="relative bg-[var(--color-terracotta-deep)] py-24 text-[var(--color-cream-light)] md:py-32">
       <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">
         {/* Cabeçalho */}
         <div className="text-center">
@@ -119,17 +119,10 @@ export async function ProcessSection() {
           {steps.map((s, i) => (
             <Reveal key={s.base} delay={i * 0.08}>
               <li className="flex h-full flex-col">
-                {/* Número + ícone */}
-                <div className="flex items-center gap-4">
-                  <span className="font-display text-3xl leading-none text-[var(--color-amber)] md:text-4xl">
-                    {s.n}
-                  </span>
-                  <s.Icon
-                    className="h-6 w-6 text-[var(--color-cream-light)]/80"
-                    strokeWidth={1.4}
-                    aria-hidden
-                  />
-                </div>
+                {/* Número */}
+                <span className="font-display text-3xl leading-none text-[var(--color-amber)] md:text-4xl">
+                  {s.n}
+                </span>
 
                 {/* Foto */}
                 <div className="relative mt-6 aspect-square overflow-hidden rounded-[2px]">

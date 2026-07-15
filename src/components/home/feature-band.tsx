@@ -7,7 +7,6 @@ import { EditableImage } from "@/components/editor/editable-image";
 export type FeatureBandProps = {
   /** Prefixo das chaves de conteúdo, ex.: "home.colecao" */
   base: string;
-  eyebrow: string;
   title: string;
   image: string;
   imageAlt: string;
@@ -26,6 +25,8 @@ export type FeatureBandProps = {
    * Breton "design brasileiro"), subtítulo embaixo à direita.
    */
   variant?: "stack" | "split";
+  /** Classe extra na imagem (object-position no mobile / zoom por seção). */
+  imageClass?: string;
 };
 
 /** Destaca `boldWord` dentro do título mantendo o restante em peso normal. */
@@ -50,7 +51,6 @@ function renderTitle(title: string, boldWord?: string): React.ReactNode {
  */
 export async function FeatureBand({
   base,
-  eyebrow,
   title,
   image,
   imageAlt,
@@ -60,9 +60,9 @@ export async function FeatureBand({
   boldWord,
   reverse = false,
   variant = "stack",
+  imageClass,
 }: FeatureBandProps) {
-  const [eb, tt, bd, ct, img] = await Promise.all([
-    getContent(`${base}.eyebrow`, eyebrow),
+  const [tt, bd, ct, img] = await Promise.all([
     getContent(`${base}.titulo`, title),
     getContent(`${base}.corpo`, body ?? ""),
     getContent(`${base}.cta`, cta ?? ""),
@@ -80,7 +80,7 @@ export async function FeatureBand({
         alt={img.alt ?? imageAlt}
         fill
         sizes="100vw"
-        className="object-cover"
+        className={`object-cover ${imageClass ?? ""}`}
       />
 
       {variant === "split" ? (
@@ -91,19 +91,7 @@ export async function FeatureBand({
           <div className="absolute inset-0 z-10 flex items-center">
             <div className="mx-auto w-full max-w-[var(--container-prose)] px-6 md:px-14 lg:px-20">
               <Reveal>
-                {/* Marca ── título (mesma linha no desktop) */}
-                <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-10">
-                  <Editable
-                    id={`${base}.eyebrow`}
-                    as="span"
-                    className="font-mono text-xs uppercase tracking-[var(--tracking-eyebrow)] text-white/85 md:whitespace-nowrap"
-                  >
-                    {eb}
-                  </Editable>
-                  <span
-                    aria-hidden
-                    className="hidden h-px flex-1 bg-white/40 md:block"
-                  />
+                <div className="flex flex-col md:items-end">
                   <Editable
                     id={`${base}.titulo`}
                     as="h2"
@@ -138,11 +126,6 @@ export async function FeatureBand({
                     <span aria-hidden>→</span>
                   </Link>
                 )}
-
-                <span
-                  aria-hidden
-                  className="mt-10 block h-px w-16 bg-white/40 md:mx-auto"
-                />
               </Reveal>
             </div>
           </div>
@@ -164,23 +147,10 @@ export async function FeatureBand({
               <Reveal
                 className={`flex max-w-[40rem] flex-col ${reverse ? "ml-auto items-start text-left md:items-end md:text-right" : "items-start text-left"}`}
               >
-                <div
-                  className={`flex items-center gap-5 ${reverse ? "md:flex-row-reverse" : ""}`}
-                >
-                  <Editable
-                    id={`${base}.eyebrow`}
-                    as="span"
-                    className="font-mono text-xs uppercase tracking-[var(--tracking-eyebrow)] text-white/85"
-                  >
-                    {eb}
-                  </Editable>
-                  <span aria-hidden className="h-px w-20 bg-white/45 md:w-28" />
-                </div>
-
                 <Editable
                   id={`${base}.titulo`}
                   as="h2"
-                  className="font-display mt-6 max-w-[18ch] text-[clamp(2rem,4.4vw,3.75rem)] leading-[var(--leading-tight)] tracking-[var(--tracking-snug)] text-white"
+                  className="font-display max-w-[18ch] text-[clamp(2rem,4.4vw,3.75rem)] leading-[var(--leading-tight)] tracking-[var(--tracking-snug)] text-white"
                 >
                   {renderTitle(tt, boldWord)}
                 </Editable>

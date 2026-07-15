@@ -22,7 +22,7 @@ export async function SiteFooter() {
   );
   const script = await getContent(
     "site.footer.script",
-    "quando é Patuá você sente",
+    "Quando é Patuá, você sente.",
   );
   const endereco = await getContent(
     "site.footer.endereco",
@@ -63,7 +63,7 @@ export async function SiteFooter() {
               <Editable
                 id="site.footer.script"
                 as="p"
-                className="mt-7 font-[family-name:var(--font-script)] text-[clamp(1.75rem,3vw,2.5rem)] leading-none text-[var(--color-terracotta)]"
+                className="mt-7 font-display text-[clamp(1.75rem,3vw,2.5rem)] italic leading-none text-[var(--color-terracotta)]"
               >
                 {script}
               </Editable>

@@ -22,7 +22,6 @@ const TILES = [
 ];
 
 export async function TramadosSection() {
-  const eyebrow = await getContent("home.tramados.eyebrow", "Tramados");
   const titulo = await getContent(
     "home.tramados.titulo",
     "Explore nossos tramados",
@@ -47,23 +46,10 @@ export async function TramadosSection() {
           {/* Texto — canto superior esquerdo do bento */}
           <div className="col-span-2 flex flex-col justify-center pb-4 pr-2 md:row-span-2 md:pb-0 md:pr-8">
             <Reveal>
-              <div className="flex items-center gap-4">
-                <Editable
-                  id="home.tramados.eyebrow"
-                  as="span"
-                  className="font-mono text-xs uppercase tracking-[var(--tracking-eyebrow)] text-[var(--color-terracotta)]"
-                >
-                  {eyebrow}
-                </Editable>
-                <span
-                  aria-hidden
-                  className="h-px w-12 bg-[var(--color-terracotta)]/40"
-                />
-              </div>
               <Editable
                 id="home.tramados.titulo"
                 as="h2"
-                className="font-display mt-5 max-w-[12ch] text-[clamp(1.875rem,3.4vw,3rem)] leading-[var(--leading-tight)] tracking-[var(--tracking-snug)]"
+                className="font-display max-w-[12ch] text-[clamp(1.875rem,3.4vw,3rem)] leading-[var(--leading-tight)] tracking-[var(--tracking-snug)]"
               >
                 {titulo}
               </Editable>

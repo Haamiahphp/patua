@@ -33,13 +33,10 @@ export async function CtaSection() {
       <div className="mx-auto grid w-full max-w-[var(--container-page)] items-center gap-10 px-4 md:grid-cols-2 md:gap-16 md:px-10">
         {/* Texto */}
         <Reveal>
-          <span className="font-mono text-xs uppercase tracking-[var(--tracking-eyebrow)] text-[var(--color-terracotta)]">
-            Fale Conosco
-          </span>
           <Editable
             id="home.faleconosco.titulo"
             as="h2"
-            className="font-display mt-6 max-w-[16ch] text-[clamp(2rem,4.4vw,3.5rem)] leading-[1.05] tracking-[var(--tracking-tight)]"
+            className="font-display max-w-[16ch] text-[clamp(2rem,4.4vw,3.5rem)] leading-[1.05] tracking-[var(--tracking-tight)]"
           >
             {heading}
           </Editable>
