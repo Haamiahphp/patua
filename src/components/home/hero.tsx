@@ -21,10 +21,12 @@ const SLIDES: SlideSeed[] = [
   {
     key: "home.hero.slogan",
     piece: "Quando é Patuá, você sente.",
-    description: "O cuidado com cada detalhe faz diferença.",
-    href: "/collections",
-    cta: "Conheça a Patuá",
+    description: "",
+    href: "",
+    cta: "",
     image: "/images/hero/slogan.jpg",
+    plain: true,
+    bg: "#ddd3ba",
   },
   {
     key: "home.hero.carol",
