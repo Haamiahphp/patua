@@ -26,7 +26,7 @@ const SLIDES: SlideSeed[] = [
     key: "home.hero.slogan",
     piece: "Quando é Patuá, você sente.",
     description: "",
-    href: "",
+    href: "/about",
     cta: "",
     image: "/images/hero/slogan.jpg",
     mobileImage: "/images/hero/slogan-mobile.jpg",

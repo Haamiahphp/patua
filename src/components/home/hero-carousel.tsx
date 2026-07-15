@@ -124,6 +124,15 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
         </motion.div>
       </AnimatePresence>
 
+      {/* Banner "plain" clicável (ex.: slogan → /about) */}
+      {current.plain && current.href && (
+        <Link
+          href={current.href}
+          aria-label={current.piece}
+          className="absolute inset-0 z-10"
+        />
+      )}
+
       {!current.plain && (
         <>
           {/* Degradê escuro bem suave atrás do texto (lateral esquerda) */}
