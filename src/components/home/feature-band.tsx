@@ -132,18 +132,18 @@ export async function FeatureBand({
     );
   }
 
-  // "stack": no mobile empilha (imagem em cima mostrando a peça, texto embaixo);
-  // no desktop mantém a imagem full-bleed com o texto sobreposto.
+  // "stack": no mobile vira um split reduzido (texto à esquerda, foto à direita,
+  // sem sobrepor); no desktop, imagem full-bleed com o texto sobreposto.
   return (
     <section className="relative w-full overflow-hidden bg-[var(--color-bark)] text-white md:h-[82vh] md:min-h-[560px]">
-      {/* Imagem — bloco no topo (mobile) / preenche a seção (desktop) */}
-      <div className="relative h-[52vh] min-h-[340px] w-full md:absolute md:inset-0 md:h-full md:min-h-0">
+      {/* Imagem — coluna à direita no mobile, full-bleed no desktop */}
+      <div className="absolute inset-y-0 right-0 w-[42%] md:inset-0 md:w-full">
         <EditableImage
           id={`${base}.imagem`}
           src={img.url}
           alt={img.alt ?? imageAlt}
           fill
-          sizes="100vw"
+          sizes="(max-width: 768px) 42vw, 100vw"
           className={`object-cover ${imageClass ?? ""}`}
         />
 
@@ -158,16 +158,16 @@ export async function FeatureBand({
         />
       </div>
 
-      {/* Texto — abaixo da imagem (mobile) / sobreposto centralizado (desktop) */}
-      <div className="relative z-10 md:absolute md:inset-0 md:flex md:items-center">
-        <div className="mx-auto w-full max-w-[var(--container-page)] px-4 py-10 md:px-10 md:py-0">
+      {/* Texto — coluna à esquerda no mobile, sobreposto centralizado no desktop */}
+      <div className="relative z-10 flex min-h-[56vh] items-center md:absolute md:inset-0 md:min-h-0">
+        <div className="w-[58%] pl-4 pr-3 md:mx-auto md:w-full md:max-w-[var(--container-page)] md:px-10">
           <Reveal
             className={`flex max-w-[40rem] flex-col ${reverse ? "ml-auto items-start text-left md:items-end md:text-right" : "items-start text-left"}`}
           >
             <Editable
               id={`${base}.titulo`}
               as="h2"
-              className="font-display max-w-[18ch] text-[clamp(2rem,4.4vw,3.75rem)] leading-[var(--leading-tight)] tracking-[var(--tracking-snug)] text-white"
+              className="font-display max-w-[18ch] text-2xl leading-[1.12] tracking-[var(--tracking-snug)] text-white md:text-[clamp(2rem,4.4vw,3.75rem)] md:leading-[var(--leading-tight)]"
             >
               {renderTitle(tt, boldWord)}
             </Editable>
@@ -176,7 +176,7 @@ export async function FeatureBand({
               <Editable
                 id={`${base}.corpo`}
                 as="p"
-                className="mt-6 max-w-[42ch] text-base leading-[var(--leading-body)] text-white/85 md:text-lg"
+                className="mt-4 max-w-[42ch] text-sm leading-[var(--leading-body)] text-white/85 md:mt-6 md:text-lg"
               >
                 {bd}
               </Editable>
@@ -185,7 +185,7 @@ export async function FeatureBand({
             {showCta && (
               <Link
                 href={href!}
-                className="group mt-9 inline-flex items-center gap-3 text-sm font-medium text-white"
+                className="group mt-6 inline-flex items-center gap-3 text-sm font-medium text-white md:mt-9"
               >
                 <Editable
                   id={`${base}.cta`}
