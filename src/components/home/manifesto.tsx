@@ -56,7 +56,7 @@ export async function Manifesto() {
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className="object-cover md:scale-[1.2] md:origin-[38%_52%]"
         />
         {/* Degradê linear liso: 100% escuro na esquerda → 0% (transparente) na direita */}
         <div
@@ -72,7 +72,7 @@ export async function Manifesto() {
             <Editable
               id="home.manifesto.eyebrow"
               as="p"
-              className="font-mono text-xs uppercase tracking-[var(--tracking-eyebrow)] text-[var(--color-amber)]"
+              className="font-mono text-sm uppercase tracking-[var(--tracking-eyebrow)] text-[var(--color-amber)] md:text-base"
             >
               {eyebrow}
             </Editable>
@@ -93,14 +93,10 @@ export async function Manifesto() {
           </div>
 
           <Reveal delay={0.5} className="mt-11">
-            <span
-              aria-hidden
-              className="block h-px w-14 bg-[var(--color-amber)]/70"
-            />
             <Editable
               id="home.manifesto.assinatura"
               as="p"
-              className="mt-7 font-[family-name:var(--font-script)] text-[clamp(2.25rem,4.5vw,3.5rem)] leading-none text-[var(--color-amber)]"
+              className="font-[family-name:var(--font-script)] text-[clamp(2.25rem,4.5vw,3.5rem)] leading-none text-[var(--color-amber)]"
             >
               {assinatura}
             </Editable>

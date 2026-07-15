@@ -17,6 +17,8 @@ export type Slide = {
   /** Banner "só imagem": arte com texto embutido, sem overlay do site. */
   plain?: boolean;
   bg?: string;
+  /** Ajuste de enquadramento da imagem (object-position / zoom por slide). */
+  focusClass?: string;
 };
 
 const DURATION = 6500;
@@ -47,7 +49,7 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
       style={current.plain && current.bg ? { backgroundColor: current.bg } : undefined}
-      className="relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-[var(--color-bark)]"
+      className="relative w-full overflow-hidden bg-[var(--color-bark)] h-[86svh] min-h-[500px] sm:h-auto sm:min-h-0 sm:aspect-[16/9]"
     >
       <AnimatePresence mode="sync">
         <motion.div
@@ -64,7 +66,7 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
             alt={current.image.alt ?? current.piece}
             fill
             priority
-            className="object-cover"
+            className={`object-cover ${current.focusClass ?? ""}`}
           />
         </motion.div>
       </AnimatePresence>
@@ -89,8 +91,8 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
       {!current.plain && (
       <div className="absolute inset-0 z-10 flex items-center">
         <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">
-          <div className="max-w-[34rem]">
-            <p className="font-mono text-xs uppercase tracking-[var(--tracking-eyebrow)] text-white/80">
+          <div className="max-w-[42rem]">
+            <p className="font-mono text-sm uppercase tracking-[var(--tracking-eyebrow)] text-white/80">
               Patuá
             </p>
 
@@ -105,7 +107,7 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
                 <Editable
                   id={`${current.key}.titulo`}
                   as="h1"
-                  className="font-display mt-5 text-[clamp(2.25rem,4.6vw,4.25rem)] font-medium leading-[var(--leading-display)] tracking-[var(--tracking-tight)] text-white"
+                  className="font-display mt-5 text-[clamp(2.75rem,5.6vw,5.5rem)] font-medium leading-[var(--leading-display)] tracking-[var(--tracking-tight)] text-white"
                 >
                   {current.piece}
                 </Editable>
@@ -121,18 +123,18 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
                 transition={{ duration: 0.6, delay: 0.05 }}
-                className="mt-6 max-w-md"
+                className="mt-6 max-w-xl"
               >
                 <Editable
                   id={`${current.key}.descricao`}
                   as="p"
-                  className="text-[var(--text-base)] leading-[var(--leading-body)] text-white/85"
+                  className="text-lg leading-[var(--leading-body)] text-white/85 md:text-2xl"
                 >
                   {current.description}
                 </Editable>
                 <Link
                   href={current.href}
-                  className="mt-6 inline-block border-b border-white/40 pb-1 text-sm text-white transition-colors hover:border-white"
+                  className="mt-7 inline-block border-b border-white/40 pb-1 text-base text-white transition-colors hover:border-white md:text-lg"
                 >
                   {current.cta}
                 </Link>

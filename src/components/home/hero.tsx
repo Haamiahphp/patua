@@ -13,6 +13,8 @@ type SlideSeed = {
   plain?: boolean;
   /** Cor de fundo por trás da arte (quando plain), pra o letterbox combinar. */
   bg?: string;
+  /** Enquadramento por slide (object-position / zoom). */
+  focusClass?: string;
 };
 
 // 6 banners rotativos, na ordem definida pela cliente:
@@ -35,6 +37,8 @@ const SLIDES: SlideSeed[] = [
     href: "/about",
     cta: "Conheça a história",
     image: "/images/hero/carol.jpg",
+    // Enquadra a partir da linha do cabelo pra não cortar o rosto no banner wide.
+    focusClass: "object-[50%_32%]",
   },
   {
     key: "home.hero.ecommerce",
@@ -54,6 +58,8 @@ const SLIDES: SlideSeed[] = [
     href: "/services/cabeceira",
     cta: "Saiba mais",
     image: "/images/hero/cabeceira.jpg",
+    // Aproxima na cabeceira (zoom em cima da peça).
+    focusClass: "scale-[1.28] origin-[50%_35%]",
   },
   {
     key: "home.hero.poltrona",
@@ -62,7 +68,9 @@ const SLIDES: SlideSeed[] = [
       "Releitura de uma peça clássica. Linhas retas, ergonomia precisa e tramado autoral.",
     href: "/services/poltronas",
     cta: "Saiba mais",
-    image: "/images/hero/hero-poltrona-diretor.png",
+    image: "/images/hero/poltrona-diretor.jpg",
+    // Ancora embaixo pra não cortar os pés da peça.
+    focusClass: "object-bottom",
   },
   {
     key: "home.hero.cadeira",
@@ -85,6 +93,7 @@ export async function Hero() {
       image: await getContent(`${s.key}.imagem`, { url: s.image, alt: s.piece }),
       plain: s.plain,
       bg: s.bg,
+      focusClass: s.focusClass,
     })),
   );
 
