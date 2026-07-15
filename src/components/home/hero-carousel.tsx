@@ -64,7 +64,7 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
             alt={current.image.alt ?? current.piece}
             fill
             priority
-            className={current.plain ? "object-contain" : "object-cover"}
+            className="object-cover"
           />
         </motion.div>
       </AnimatePresence>
