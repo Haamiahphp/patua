@@ -50,6 +50,7 @@ const SLIDES: SlideSeed[] = [
     href: "",
     cta: "",
     image: "/images/hero/ecommerce.jpg",
+    mobileImage: "/images/hero/ecommerce-mobile.jpg",
     plain: true,
     bg: "#e5d9bf",
   },
