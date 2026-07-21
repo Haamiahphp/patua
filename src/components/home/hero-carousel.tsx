@@ -92,14 +92,16 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
         >
           {current.mobileImage ? (
             <>
-              {/* Mobile: arte vertical dedicada */}
+              {/* Mobile: arte vertical dedicada. object-contain pra NÃO cortar a
+                  marca no topo da arte (a cliente sinalizou o corte). O letterbox
+                  usa o bg do slide. */}
               <Image
                 src={current.mobileImage}
                 alt={current.image.alt ?? current.piece}
                 fill
                 priority
                 sizes="100vw"
-                className="object-cover md:hidden"
+                className="object-contain md:hidden"
               />
               {/* Desktop: arte horizontal */}
               <EditableImage
@@ -124,13 +126,51 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
         </motion.div>
       </AnimatePresence>
 
-      {/* Banner "plain" clicável (ex.: slogan → /about) */}
+      {/* Banner "plain" clicável (slogan → /about#manifesto, e-commerce → loja).
+          Href externo (http) abre em nova aba; interno usa o Link do Next. */}
       {current.plain && current.href && (
-        <Link
-          href={current.href}
-          aria-label={current.piece}
-          className="absolute inset-0 z-10"
-        />
+        <>
+          {current.href.startsWith("http") ? (
+            <a
+              href={current.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={current.cta || current.piece}
+              className="absolute inset-0 z-10"
+            />
+          ) : (
+            <Link
+              href={current.href}
+              aria-label={current.cta || current.piece}
+              className="absolute inset-0 z-10"
+            />
+          )}
+
+          {/* Affordance visível (ex.: "Compre online") quando o slide tem CTA. */}
+          {current.cta && (
+            <div className="pointer-events-none absolute inset-x-0 bottom-24 z-20 flex justify-center px-4 md:bottom-28">
+              {current.href.startsWith("http") ? (
+                <a
+                  href={current.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="pointer-events-auto inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-7 py-3.5 text-sm font-medium text-[var(--color-cream-light)] shadow-lg shadow-black/10 transition-colors hover:bg-[var(--color-terracotta-deep)]"
+                >
+                  {current.cta}
+                  <span aria-hidden>→</span>
+                </a>
+              ) : (
+                <Link
+                  href={current.href}
+                  className="pointer-events-auto inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-7 py-3.5 text-sm font-medium text-[var(--color-cream-light)] shadow-lg shadow-black/10 transition-colors hover:bg-[var(--color-terracotta-deep)]"
+                >
+                  {current.cta}
+                  <span aria-hidden>→</span>
+                </Link>
+              )}
+            </div>
+          )}
+        </>
       )}
 
       {!current.plain && (
@@ -149,9 +189,21 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
         </>
       )}
 
+      {/* Banner não-"plain" inteiro clicável (a cliente pediu todos os banners
+          clicáveis). Fora do modo edição, pra não bloquear a edição inline do texto. */}
+      {!current.plain && current.href && !editMode && (
+        <Link
+          href={current.href}
+          aria-label={current.cta || current.piece}
+          className="absolute inset-0 z-[5]"
+        />
+      )}
+
       {/* Texto — lateral esquerda, centralizado na vertical (só quando não é banner "plain") */}
       {!current.plain && (
-      <div className="absolute inset-0 z-10 flex items-center">
+      <div
+        className={`absolute inset-0 z-10 flex items-center ${editMode ? "" : "pointer-events-none"}`}
+      >
         <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">
           <div className="max-w-[42rem]">
             <AnimatePresence mode="wait">
@@ -192,7 +244,7 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
                 </Editable>
                 <Link
                   href={current.href}
-                  className="mt-7 inline-block border-b border-white/40 pb-1 text-base text-white transition-colors hover:border-white md:text-lg"
+                  className="pointer-events-auto mt-7 inline-block border-b border-white/40 pb-1 text-base text-white transition-colors hover:border-white md:text-lg"
                 >
                   {current.cta}
                 </Link>

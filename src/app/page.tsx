@@ -40,7 +40,9 @@ export default function Home() {
         image="/images/restauro-band.jpg"
         imageAlt="Peça restaurada pela Patuá"
         variant="split"
-        imageClass="scale-[1.15]"
+        // Mobile: enquadra na cadeira à esquerda (a cliente pediu foco na poltrona,
+        // não no banco de terrazzo do centro, que não é restauro da Patuá). Desktop mantém.
+        imageClass="object-[28%_center] scale-[1.45] md:object-center md:scale-[1.15]"
       />
 
       {/* 7 — Explore nossos tramados */}

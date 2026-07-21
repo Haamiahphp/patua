@@ -26,7 +26,7 @@ const SLIDES: SlideSeed[] = [
     key: "home.hero.slogan",
     piece: "Quando é Patuá, você sente.",
     description: "",
-    href: "/about",
+    href: "/about#manifesto",
     cta: "",
     image: "/images/hero/slogan.jpg",
     mobileImage: "/images/hero/slogan-mobile.jpg",
@@ -37,7 +37,7 @@ const SLIDES: SlideSeed[] = [
     key: "home.hero.carol",
     piece: "Carol Risi",
     description: "Design como gesto, escuta e construção de sentido.",
-    href: "/about",
+    href: "/about#quem-desenha",
     cta: "Conheça a história",
     image: "/images/hero/carol.jpg",
     // Enquadra a partir da linha do cabelo pra não cortar o rosto no banner wide.
@@ -47,8 +47,10 @@ const SLIDES: SlideSeed[] = [
     key: "home.hero.ecommerce",
     piece: "Escolha a sua peça Patuá",
     description: "",
-    href: "",
-    cta: "",
+    // Loja: "COMPRE ONLINE". TODO: a Patuá tem loja própria — trocar por essa URL
+    // quando a cliente enviar. Por ora aponta pro Casoca (única URL de compra que temos).
+    href: "https://casoca.com.br/patua-artesania-brasileira.html",
+    cta: "Compre online",
     image: "/images/hero/ecommerce.jpg",
     mobileImage: "/images/hero/ecommerce-mobile.jpg",
     plain: true,
@@ -59,7 +61,7 @@ const SLIDES: SlideSeed[] = [
     piece: "Cabeceira Andança",
     description:
       "Cabeceira, quadro, duas faces. Uma peça que muda junto com você.",
-    href: "/services/cabeceira",
+    href: "/collections",
     cta: "Saiba mais",
     image: "/images/hero/cabeceira.jpg",
     // Aproxima na cabeceira (zoom em cima da peça).
@@ -70,7 +72,7 @@ const SLIDES: SlideSeed[] = [
     piece: "Poltrona Diretor",
     description:
       "Releitura de uma peça clássica. Linhas retas, ergonomia precisa e tramado autoral.",
-    href: "/services/poltronas",
+    href: "/collections",
     cta: "Saiba mais",
     image: "/images/hero/poltrona-diretor.jpg",
     // Ancora embaixo pra não cortar os pés da peça.
@@ -80,9 +82,11 @@ const SLIDES: SlideSeed[] = [
     key: "home.hero.cadeira",
     piece: "Cadeira Abraço",
     description: "Uma peça com estrutura leve, desenhada para acolher.",
-    href: "/services/cadeiras",
+    href: "/collections",
     cta: "Saiba mais",
-    image: "/images/hero/hero-cadeira-abraco.png",
+    image: "/images/hero/cadeira-abraco-quarto.jpg",
+    // Nova arte (quarto): no mobile enquadra à direita pra manter a cadeira; no desktop, centro.
+    focusClass: "object-[68%_center] md:object-center",
   },
 ];
 

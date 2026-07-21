@@ -98,7 +98,7 @@ export default async function AboutPage() {
     alt: "Carol Risi — direção criativa",
   });
   const carolEyebrow = await getContent("about.carol.eyebrow", "Direção criativa");
-  const carolNome = await getContent("about.carol.nome", "Carol Risi.");
+  const carolNome = await getContent("about.carol.nome", "Carol Risi");
   const carolP1 = await getContent(
     "about.carol.p1",
     "Acredito que o design começa muito antes do desenho. É na escuta, na observação e na compreensão de como cada pessoa vive e se relaciona com os seus espaços que tudo inicia.",
@@ -175,8 +175,11 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      {/* MANIFESTO — Patuá e você. */}
-      <section className="bg-[var(--color-stone)] text-[var(--color-cream-light)]">
+      {/* MANIFESTO — Patuá e você. (âncora do banner "slogan" da home) */}
+      <section
+        id="manifesto"
+        className="scroll-mt-28 bg-[var(--color-stone)] text-[var(--color-cream-light)]"
+      >
         <div className="mx-auto w-full max-w-[var(--container-prose)] px-4 py-28 text-center md:px-10 md:py-40">
           <Reveal>
             <Editable
@@ -276,8 +279,11 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      {/* QUEM DESENHA COM VOCÊ */}
-      <section className="bg-[var(--color-cream-light)] py-28 md:py-36">
+      {/* QUEM DESENHA COM VOCÊ (âncora do banner "Carol Risi" da home) */}
+      <section
+        id="quem-desenha"
+        className="scroll-mt-28 bg-[var(--color-cream-light)] py-28 md:py-36"
+      >
         <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">
           <Reveal>
             <div className="mx-auto max-w-[var(--container-prose)] text-center">

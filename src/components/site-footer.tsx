@@ -7,8 +7,8 @@ import { Editable } from "@/components/editor/editable";
 const WHATSAPP = "https://wa.me/5521975397680";
 const INSTAGRAM = "https://www.instagram.com/patua.atelie";
 const FACEBOOK = "https://www.facebook.com/patua.atelie";
-// TODO: substituir pelo link real da página da Patuá no Casoca (cliente vai enviar)
-const CASOCA = "https://www.casoca.com.br";
+// Página da Patuá no Casoca (marketplace para arquitetos e designers).
+const CASOCA = "https://casoca.com.br/patua-artesania-brasileira.html";
 
 const CREAM = "#fff3db";
 const GREEN = "#3e3f1f";

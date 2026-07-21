@@ -20,6 +20,7 @@ const NAV_PRIMARY = [
 ];
 
 const NAV_SECONDARY = [
+  { label: "Para profissionais", href: "/professionals" },
   { label: "Universo", href: "/blog" },
   { label: "Entre em contato", href: "/contact-us" },
 ];
