@@ -3,6 +3,7 @@ import { Reveal } from "@/components/reveal";
 import { getContent } from "@/lib/content";
 import { Editable } from "@/components/editor/editable";
 import { EditableImage } from "@/components/editor/editable-image";
+import { EditAwareLink } from "@/components/edit-aware-link";
 
 export type FeatureBandProps = {
   /** Prefixo das chaves de conteúdo, ex.: "home.colecao" */
@@ -87,7 +88,16 @@ export async function FeatureBand({
         {/* Scrim uniforme para o texto que atravessa a faixa toda */}
         <div aria-hidden className="absolute inset-0 bg-black/35" />
 
-        <div className="absolute inset-0 z-10 flex items-center">
+        {/* Mobile: reforço embaixo pra o texto (que desce pro piso de madeira,
+            fora da poltrona) ganhar leitura. Some no desktop. */}
+        <div
+          aria-hidden
+          className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/75 via-black/35 to-transparent md:hidden"
+        />
+
+        {/* No mobile o texto ancora embaixo (sobre o piso de madeira, não sobre a
+            poltrona); no desktop volta a centralizar à direita. */}
+        <div className="absolute inset-0 z-10 flex items-end pb-14 md:items-center md:pb-0">
           <div className="mx-auto w-full max-w-[var(--container-prose)] px-6 md:px-14 lg:px-20">
             <Reveal>
               <div className="flex flex-col md:items-end">
@@ -128,6 +138,15 @@ export async function FeatureBand({
             </Reveal>
           </div>
         </div>
+
+        {/* Faixa inteira clicável (quando `href` é passado), preservando a edição inline. */}
+        {href && (
+          <EditAwareLink
+            href={href}
+            ariaLabel={ct || tt}
+            className="absolute inset-0 z-20"
+          />
+        )}
       </section>
     );
   }
@@ -201,6 +220,15 @@ export async function FeatureBand({
           </Reveal>
         </div>
       </div>
+
+      {/* Faixa inteira clicável (quando `href` é passado), preservando a edição inline. */}
+      {href && (
+        <EditAwareLink
+          href={href}
+          ariaLabel={ct || tt}
+          className="absolute inset-0 z-20"
+        />
+      )}
     </section>
   );
 }

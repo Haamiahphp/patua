@@ -47,9 +47,9 @@ const SLIDES: SlideSeed[] = [
     key: "home.hero.ecommerce",
     piece: "Escolha a sua peça Patuá",
     description: "",
-    // Loja: "COMPRE ONLINE". TODO: a Patuá tem loja própria — trocar por essa URL
-    // quando a cliente enviar. Por ora aponta pro Casoca (única URL de compra que temos).
-    href: "https://casoca.com.br/patua-artesania-brasileira.html",
+    // "COMPRE ONLINE" → loja virtual própria da Patuá (endereço confirmado pela
+    // cliente; a loja fica no ar em breve).
+    href: "https://patuaartesania.com.br/loja",
     cta: "Compre online",
     image: "/images/hero/ecommerce.jpg",
     mobileImage: "/images/hero/ecommerce-mobile.jpg",
@@ -61,7 +61,8 @@ const SLIDES: SlideSeed[] = [
     piece: "Cabeceira Andança",
     description:
       "Cabeceira, quadro, duas faces. Uma peça que muda junto com você.",
-    href: "/collections",
+    // Abre direto na coleção da peça (a cliente pediu que cada banner leve à sua coleção).
+    href: "/collections/andanca",
     cta: "Saiba mais",
     image: "/images/hero/cabeceira.jpg",
     // Aproxima na cabeceira (zoom em cima da peça).
@@ -72,6 +73,8 @@ const SLIDES: SlideSeed[] = [
     piece: "Poltrona Diretor",
     description:
       "Releitura de uma peça clássica. Linhas retas, ergonomia precisa e tramado autoral.",
+    // TODO(coleções): apontar pra coleção da Poltrona Diretor quando a página
+    // COLEÇÕES for finalizada (hoje esta peça não tem coleção própria).
     href: "/collections",
     cta: "Saiba mais",
     image: "/images/hero/poltrona-diretor.jpg",
@@ -82,6 +85,8 @@ const SLIDES: SlideSeed[] = [
     key: "home.hero.cadeira",
     piece: "Cadeira Abraço",
     description: "Uma peça com estrutura leve, desenhada para acolher.",
+    // TODO(coleções): apontar pra coleção da Cadeira Abraço quando a página
+    // COLEÇÕES for finalizada (hoje esta peça não tem coleção própria).
     href: "/collections",
     cta: "Saiba mais",
     image: "/images/hero/cadeira-abraco-quarto.jpg",

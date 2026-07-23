@@ -15,7 +15,7 @@ export default function Home() {
       {/* 2 — Manifesto */}
       <Manifesto />
 
-      {/* 3 — Conheça a nossa coleção */}
+      {/* 3 — Conheça a nossa coleção (faixa inteira clicável → Coleções) */}
       <FeatureBand
         base="home.colecao"
         title="Coleções que celebram a brasilidade em cada detalhe."
@@ -23,6 +23,7 @@ export default function Home() {
         image="/images/colecao.jpg"
         imageAlt="Coleção Patuá em tramado colorido"
         imageClass="object-[60%_center] md:object-center"
+        href="/collections"
       />
 
       {/* 4 — Para arquitetos e designers (B2B) */}

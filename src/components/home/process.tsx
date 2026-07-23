@@ -4,6 +4,7 @@ import { Reveal } from "@/components/reveal";
 import { getContent } from "@/lib/content";
 import { Editable } from "@/components/editor/editable";
 import { EditableImage } from "@/components/editor/editable-image";
+import { EditAwareLink } from "@/components/edit-aware-link";
 
 type Step = {
   n: string;
@@ -118,39 +119,46 @@ export async function ProcessSection() {
         <ol className="mt-16 grid gap-y-14 md:mt-20 md:grid-cols-5 md:gap-x-6 lg:gap-x-8">
           {steps.map((s, i) => (
             <Reveal key={s.base} delay={i * 0.08}>
-              <li className="flex h-full flex-col">
-                {/* Número */}
-                <span className="font-display text-3xl leading-none text-[var(--color-amber)] md:text-4xl">
-                  {s.n}
-                </span>
-
-                {/* Foto */}
-                <div className="relative mt-6 aspect-square overflow-hidden rounded-[2px]">
-                  <EditableImage
-                    id={`${s.base}.imagem`}
-                    src={s.image.url}
-                    alt={s.image.alt ?? s.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 18vw"
-                    className="object-cover"
-                  />
-                </div>
-
-                {/* Texto */}
-                <Editable
-                  id={`${s.base}.titulo`}
-                  as="h3"
-                  className="mt-6 text-sm font-semibold uppercase tracking-[var(--tracking-wide)] text-[var(--color-cream-light)]"
+              {/* Cada etapa é clicável e leva pra "Como funciona a coautoria". */}
+              <li className="h-full">
+                <EditAwareLink
+                  href="/coautoria"
+                  ariaLabel={`${s.title} — como funciona a coautoria`}
+                  className="group flex h-full flex-col"
                 >
-                  {s.title}
-                </Editable>
-                <Editable
-                  id={`${s.base}.corpo`}
-                  as="p"
-                  className="mt-3 text-sm leading-[var(--leading-body)] text-[var(--color-cream-light)]/75"
-                >
-                  {s.body}
-                </Editable>
+                  {/* Número */}
+                  <span className="font-display text-3xl leading-none text-[var(--color-amber)] md:text-4xl">
+                    {s.n}
+                  </span>
+
+                  {/* Foto */}
+                  <div className="relative mt-6 aspect-square overflow-hidden rounded-[2px]">
+                    <EditableImage
+                      id={`${s.base}.imagem`}
+                      src={s.image.url}
+                      alt={s.image.alt ?? s.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 18vw"
+                      className="object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.05]"
+                    />
+                  </div>
+
+                  {/* Texto */}
+                  <Editable
+                    id={`${s.base}.titulo`}
+                    as="h3"
+                    className="mt-6 text-sm font-semibold uppercase tracking-[var(--tracking-wide)] text-[var(--color-cream-light)] transition-colors group-hover:text-[var(--color-amber)]"
+                  >
+                    {s.title}
+                  </Editable>
+                  <Editable
+                    id={`${s.base}.corpo`}
+                    as="p"
+                    className="mt-3 text-sm leading-[var(--leading-body)] text-[var(--color-cream-light)]/75"
+                  >
+                    {s.body}
+                  </Editable>
+                </EditAwareLink>
               </li>
             </Reveal>
           ))}
