@@ -31,13 +31,20 @@ async function fetchContent(key: string): Promise<ContentValue | null> {
   }
 }
 
+// O Data Cache do Vercel persiste ENTRE deploys e "congela" o fallback antigo:
+// mudança de conteúdo no código só aparecia após um save no CMS (e imagem
+// deletada virava 404). Atrelar a URL única do deploy à chave força releitura a
+// cada deploy, sem perder o cache entre requests do MESMO deploy. Os valores
+// reais do CMS continuam vencendo o fallback normalmente.
+const CACHE_VERSION = process.env.VERCEL_URL ?? "local";
+
 export function getContent<T extends ContentValue>(
   key: string,
   fallback: T,
 ): Promise<T> {
   const cached = unstable_cache(
     async () => ((await fetchContent(key)) as T | null) ?? fallback,
-    ["content", key],
+    ["content", CACHE_VERSION, key],
     { tags: [tagFor(key), "content"] },
   );
   return cached();
