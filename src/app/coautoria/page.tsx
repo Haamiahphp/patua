@@ -20,7 +20,7 @@ type Step = {
 
 export default async function CoautoriaPage() {
   const heroImagem = await getContent("coautoria.hero.imagem", {
-    url: "/images/coautoria/hero.png",
+    url: "/images/coautoria/hero.jpg",
     alt: "Processo de criação em coautoria na Patuá",
   });
 
@@ -68,23 +68,23 @@ export default async function CoautoriaPage() {
       "Com o desenho aprovado, iniciamos a produção artesanal. Cada tramado é confeccionado manualmente, unindo precisão técnica, cuidado nos acabamentos e o tempo necessário para transformar uma ideia em uma peça única.",
     ),
     getContent("coautoria.escuta.imagem", {
-      url: "/images/coautoria/escuta.png",
+      url: "/images/coautoria/escuta.jpg",
       alt: "Escuta — conversa que inicia o projeto",
     }),
     getContent("coautoria.criacao.imagem", {
-      url: "/images/coautoria/criacao.png",
+      url: "/images/coautoria/criacao.jpg",
       alt: "Criação — desenvolvimento do tramado",
     }),
     getContent("coautoria.coautoria.imagem", {
-      url: "/images/coautoria/coautoria.png",
+      url: "/images/coautoria/coautoria.jpg",
       alt: "Coautoria — refino colaborativo do desenho",
     }),
     getContent("coautoria.artesania.imagem1", {
-      url: "/images/coautoria/artesania-1.png",
+      url: "/images/coautoria/artesania-1.jpg",
       alt: "Artesania — produção manual do tramado",
     }),
     getContent("coautoria.artesania.imagem2", {
-      url: "/images/coautoria/artesania-2.png",
+      url: "/images/coautoria/artesania-2.jpg",
       alt: "Artesania — acabamento da peça",
     }),
     getContent(
