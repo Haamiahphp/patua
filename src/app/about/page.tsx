@@ -12,7 +12,6 @@ export const metadata: Metadata = {
 
 export default async function AboutPage() {
   // HERO
-  const heroEyebrow = await getContent("about.hero.eyebrow", "Sobre a Patuá");
   const heroTitulo = await getContent(
     "about.hero.titulo",
     "Escolhemos criar para permanecer.",
@@ -53,10 +52,6 @@ export default async function AboutPage() {
   );
 
   // HISTÓRIA DA PATUÁ (substitui "O que atravessa cada peça")
-  const historiaEyebrow = await getContent(
-    "about.historiamarca.eyebrow",
-    "História da marca",
-  );
   const historiaTitulo = await getContent(
     "about.historiamarca.titulo",
     "A história da Patuá",
@@ -154,20 +149,11 @@ export default async function AboutPage() {
         />
 
         <div className="relative z-10 mx-auto flex h-full w-full max-w-[var(--container-page)] flex-col items-center justify-end px-4 pb-20 text-center md:px-10 md:pb-28">
-          <Reveal>
-            <Editable
-              id="about.hero.eyebrow"
-              as="span"
-              className="text-xs uppercase tracking-[0.3em] text-[var(--color-cream-light)]/80"
-            >
-              {heroEyebrow}
-            </Editable>
-          </Reveal>
           <Reveal delay={0.1}>
             <Editable
               id="about.hero.titulo"
               as="h1"
-              className="font-display mt-5 max-w-[20ch] text-[clamp(2rem,4.6vw,4rem)] leading-[1.03] tracking-[var(--tracking-tight)]"
+              className="font-display max-w-[20ch] text-[clamp(2rem,4.6vw,4rem)] leading-[1.03] tracking-[var(--tracking-tight)]"
             >
               {heroTitulo}
             </Editable>
@@ -235,16 +221,9 @@ export default async function AboutPage() {
             <div className="md:col-span-5">
               <Reveal>
                 <Editable
-                  id="about.historiamarca.eyebrow"
-                  as="span"
-                  className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--color-terracotta)]"
-                >
-                  {historiaEyebrow}
-                </Editable>
-                <Editable
                   id="about.historiamarca.titulo"
                   as="h2"
-                  className="font-display mt-5 max-w-[12ch] text-[clamp(2.25rem,4.4vw,4rem)] leading-[1.04] tracking-[var(--tracking-tight)]"
+                  className="font-display max-w-[12ch] text-[clamp(2.25rem,4.4vw,4rem)] leading-[1.04] tracking-[var(--tracking-tight)]"
                 >
                   {historiaTitulo}
                 </Editable>

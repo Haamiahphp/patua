@@ -46,7 +46,7 @@ export default async function ProfessionalsPage() {
   );
   const parceriaP1 = await getContent(
     "professionals.parceria.corpo1",
-    "Criamos as peças acompanhando o desenvolvimento do projeto do espaço, para encontrar a combinação mais adequada entre cores, tramados, materiais, proporções e acabamentos — respeitando a linguagem concebida pelo profissional.",
+    "Criamos as peças acompanhando o desenvolvimento do projeto do espaço, para encontrar a combinação mais adequada entre cores, tramados, materiais, proporções e acabamentos, respeitando a linguagem concebida pelo profissional.",
   );
   const parceriaP2 = await getContent(
     "professionals.parceria.corpo2",
@@ -127,14 +127,11 @@ export default async function ProfessionalsPage() {
     "É uma forma de ampliar as possibilidades do projeto, conciliando novas criações com o cuidado por objetos que merecem continuar fazendo parte da vida das pessoas.",
   );
 
-  // CATÁLOGO
+  // CATÁLOGO — só o título + PDF clicável (sem texto de apoio, a pedido da cliente).
+  // Será um catálogo único reunindo todas as coleções.
   const catalogoTitulo = await getContent(
     "professionals.catalogo.titulo",
     "Catálogo de peças",
-  );
-  const catalogoDescricao = await getContent(
-    "professionals.catalogo.descricao",
-    "Reunimos a coleção autoral em um catálogo completo, com especificações e possibilidades de personalização — para consultar online ou baixar em PDF.",
   );
 
   // CTA FINAL
@@ -382,7 +379,9 @@ export default async function ProfessionalsPage() {
         </div>
       </section>
 
-      {/* CATÁLOGO — placeholder (PDF ainda em ajustes) */}
+      {/* CATÁLOGO — só título + PDF clicável pra baixar (a cliente pediu sem texto
+          de apoio). Fica "Disponível em breve" até o PDF único (todas as coleções)
+          ser enviado: colocar em public/catalogo-patua.pdf e ligar CATALOGO_PRONTO. */}
       <section className="bg-[var(--color-cream)] pb-24 md:pb-32">
         <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">
           <Reveal>
@@ -398,13 +397,6 @@ export default async function ProfessionalsPage() {
                   className="font-display mt-4 text-[clamp(1.75rem,3.2vw,2.75rem)] leading-[1.08] tracking-[var(--tracking-tight)] text-[var(--color-bark)]"
                 >
                   {catalogoTitulo}
-                </Editable>
-                <Editable
-                  id="professionals.catalogo.descricao"
-                  as="p"
-                  className="mt-4 text-base leading-[var(--leading-body)] text-[var(--color-bark)]/75 md:text-lg"
-                >
-                  {catalogoDescricao}
                 </Editable>
               </div>
 

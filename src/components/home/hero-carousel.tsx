@@ -79,7 +79,10 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
       style={current.plain && current.bg ? { backgroundColor: current.bg } : undefined}
-      className="relative w-full overflow-hidden bg-[var(--color-bark)] h-[86svh] min-h-[500px] sm:h-auto sm:min-h-0 sm:aspect-[16/9]"
+      // Mobile: mesma proporção da arte vertical (24/43 ≈ 9:16) pra a arte "só imagem"
+      // preencher a faixa inteira, sem sobra (a cliente sinalizou banner menor que o
+      // espaço). Desktop: 16/9. O ponto de troca acompanha a troca da arte (md).
+      className="relative w-full overflow-hidden bg-[var(--color-bark)] aspect-[24/43] md:aspect-[16/9]"
     >
       <AnimatePresence mode="sync">
         <motion.div

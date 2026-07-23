@@ -13,17 +13,26 @@ export type HeaderContent = {
   tagline: string;
 };
 
-const NAV_PRIMARY = [
+// Loja virtual da Patuá (fica pronta em breve — a cliente confirmou o endereço).
+const LOJA = "https://patuaartesania.com.br/loja";
+
+type NavItem = {
+  label: string;
+  href: string;
+  external?: boolean;
+  highlight?: boolean;
+};
+
+const NAV_PRIMARY: NavItem[] = [
   { label: "Sobre", href: "/about" },
-  { label: "Peças", href: "/services" },
   { label: "Coleções", href: "/collections" },
 ];
 
-const NAV_SECONDARY = [
+const NAV_SECONDARY: NavItem[] = [
   { label: "Para profissionais", href: "/professionals" },
   { label: "Como funciona a coautoria", href: "/coautoria" },
-  { label: "Universo", href: "/blog" },
   { label: "Entre em contato", href: "/contact-us" },
+  { label: "Compre online", href: LOJA, external: true, highlight: true },
 ];
 
 const WHATSAPP = "https://wa.me/5521975397680";
@@ -180,8 +189,7 @@ export function SiteHeader({ content }: { content: HeaderContent }) {
                     {NAV_PRIMARY.map((item, i) => (
                       <MenuItem
                         key={item.href}
-                        href={item.href}
-                        label={item.label}
+                        item={item}
                         size="lg"
                         delay={0.1 + i * 0.06}
                         onClick={() => setOpen(false)}
@@ -190,8 +198,7 @@ export function SiteHeader({ content }: { content: HeaderContent }) {
                     {NAV_SECONDARY.map((item, i) => (
                       <MenuItem
                         key={item.href}
-                        href={item.href}
-                        label={item.label}
+                        item={item}
                         size="sm"
                         delay={0.1 + (NAV_PRIMARY.length + i) * 0.06}
                         onClick={() => setOpen(false)}
@@ -245,35 +252,50 @@ export function SiteHeader({ content }: { content: HeaderContent }) {
 }
 
 function MenuItem({
-  href,
-  label,
+  item,
   size,
   delay,
   onClick,
 }: {
-  href: string;
-  label: string;
+  item: NavItem;
   size: "lg" | "sm";
   delay: number;
   onClick: () => void;
 }) {
+  const { href, label, external, highlight } = item;
   const sizeClass =
     size === "lg"
       ? "text-[clamp(2rem,3.6vw,3.25rem)]"
       : "text-[clamp(1.35rem,2vw,1.6rem)]";
+  const colorClass = highlight
+    ? "text-[var(--color-terracotta)]"
+    : "text-[var(--color-bark)]";
+  const cls = `inline-flex items-center gap-2 font-display leading-[1] tracking-[var(--tracking-tight)] transition-opacity hover:opacity-75 ${colorClass} ${sizeClass}`;
+
   return (
     <motion.li
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
     >
-      <Link
-        href={href}
-        onClick={onClick}
-        className={`inline-flex items-start gap-2 font-display leading-[1] tracking-[var(--tracking-tight)] text-[var(--color-bark)] transition-opacity hover:opacity-75 ${sizeClass}`}
-      >
-        <span>{label}</span>
-      </Link>
+      {external ? (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={onClick}
+          className={cls}
+        >
+          <span>{label}</span>
+          <span aria-hidden className="text-[0.7em]">
+            →
+          </span>
+        </a>
+      ) : (
+        <Link href={href} onClick={onClick} className={cls}>
+          <span>{label}</span>
+        </Link>
+      )}
     </motion.li>
   );
 }
