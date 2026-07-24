@@ -54,7 +54,7 @@ export async function B2BSection() {
               {body}
             </Editable>
             <Link
-              href="/contact-us"
+              href="/professionals"
               className="mt-9 inline-flex items-center justify-center self-start rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-7 py-3.5 text-sm font-medium text-[var(--color-cream-light)] transition-colors hover:bg-[var(--color-terracotta-deep)]"
             >
               <Editable id="home.b2b.cta" as="span">

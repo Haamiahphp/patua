@@ -278,7 +278,9 @@ export const COLECOES: Colecao[] = [
       {
         slug: "poltrona-diretor",
         nome: "Poltrona Diretor",
-        imagem: "/images/collections/outras/poltrona-diretor.jpg",
+        // Foto da peça inteira, com os pés à mostra (a cliente pediu "mostrar a
+        // poltrona por inteiro"). A anterior era um close-up do tramado.
+        imagem: "/images/catalog/produtos/poltronas/poltrona-diretor.png",
         paragrafos: [
           "A Poltrona Diretor revisita a clássica cadeira de diretor sob uma nova perspectiva, unindo estrutura metálica, apoio de braços em madeira maciça e tramado artesanal em fio náutico.",
           "O encontro entre precisão estrutural e gesto manual resulta em uma peça confortável, leve e visualmente marcante. As proporções generosas e a ergonomia cuidadosa fazem da Diretor uma poltrona pensada para permanecer no cotidiano, oferecendo conforto sem abrir mão da elegância.",

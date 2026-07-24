@@ -1,14 +1,13 @@
 import Image from "next/image";
+import Link from "next/link";
 import { MapPin, Mail } from "lucide-react";
 import { WhatsappIcon, InstagramIcon, FacebookIcon } from "@/components/icons";
 import { getContent } from "@/lib/content";
 import { Editable } from "@/components/editor/editable";
 
 const WHATSAPP = "https://wa.me/5521975397680";
-const INSTAGRAM = "https://www.instagram.com/patua.atelie";
-const FACEBOOK = "https://www.facebook.com/patua.atelie";
-// Página da Patuá no Casoca (marketplace para arquitetos e designers).
-const CASOCA = "https://casoca.com.br/patua-artesania-brasileira.html";
+const INSTAGRAM = "https://www.instagram.com/patuaartesania";
+const FACEBOOK = "https://www.facebook.com/patuaartesania";
 
 const CREAM = "#fff3db";
 const GREEN = "#3e3f1f";
@@ -132,11 +131,9 @@ export async function SiteFooter() {
                 </a>
               </div>
 
-              {/* Para arquitetos e designers */}
-              <a
-                href={CASOCA}
-                target="_blank"
-                rel="noopener noreferrer"
+              {/* Para arquitetos e designers → página Para profissionais */}
+              <Link
+                href="/professionals"
                 className="inline-flex w-fit items-center gap-2.5 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-6 py-3.5 text-sm font-medium text-[var(--color-cream-light)] transition-colors hover:bg-[var(--color-terracotta-deep)]"
               >
                 <svg
@@ -158,7 +155,7 @@ export async function SiteFooter() {
                 <Editable id="site.footer.casoca" as="span">
                   {casocaLabel}
                 </Editable>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

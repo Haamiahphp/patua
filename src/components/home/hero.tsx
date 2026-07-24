@@ -73,8 +73,8 @@ const SLIDES: SlideSeed[] = [
     piece: "Poltrona Diretor",
     description:
       "Releitura de uma peça clássica. Linhas retas, ergonomia precisa e tramado autoral.",
-    // Abre na coleção da peça (a Poltrona Diretor faz parte de "Outras Peças").
-    href: "/collections/outras-pecas",
+    // Abre direto na peça (a cliente pediu que o banner leve à Poltrona Diretor).
+    href: "/collections/outras-pecas/poltrona-diretor",
     cta: "Saiba mais",
     image: "/images/hero/poltrona-diretor.jpg",
     // Ancora embaixo pra não cortar os pés da peça.
@@ -84,8 +84,8 @@ const SLIDES: SlideSeed[] = [
     key: "home.hero.cadeira",
     piece: "Cadeira Abraço",
     description: "Uma peça com estrutura leve, desenhada para acolher.",
-    // Abre na coleção da peça (a Cadeira Abraço faz parte de "Outras Peças").
-    href: "/collections/outras-pecas",
+    // Abre direto na peça (a cliente pediu que o banner leve à Cadeira Abraço).
+    href: "/collections/outras-pecas/cadeira-abraco",
     cta: "Saiba mais",
     image: "/images/hero/cadeira-abraco-quarto.jpg",
     // Nova arte (quarto): no mobile enquadra à direita pra manter a cadeira; no desktop, centro.

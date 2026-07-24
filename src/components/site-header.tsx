@@ -36,8 +36,8 @@ const NAV_SECONDARY: NavItem[] = [
 ];
 
 const WHATSAPP = "https://wa.me/5521975397680";
-const INSTAGRAM = "https://www.instagram.com/patua.atelie";
-const TWITTER = "https://twitter.com/patua_atelie";
+const INSTAGRAM = "https://www.instagram.com/patuaartesania";
+const FACEBOOK = "https://www.facebook.com/patuaartesania";
 const EMAIL = "contato@patuaartesania.com.br";
 
 export function SiteHeader({ content }: { content: HeaderContent }) {
@@ -234,12 +234,12 @@ export function SiteHeader({ content }: { content: HeaderContent }) {
                     Instagram
                   </a>
                   <a
-                    href={TWITTER}
+                    href={FACEBOOK}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:opacity-75"
                   >
-                    Twitter
+                    Facebook
                   </a>
                 </div>
               </div>

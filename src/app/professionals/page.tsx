@@ -15,9 +15,9 @@ export const metadata: Metadata = {
 
 const WHATSAPP = "https://wa.me/5521975397680";
 const CASOCA = "https://casoca.com.br/patua-artesania-brasileira.html";
-// TODO: quando o catálogo em PDF estiver pronto, colocar o arquivo em
-// public/catalogo-patua.pdf e trocar CATALOGO_PRONTO para true.
-const CATALOGO_PRONTO = false;
+// Catálogo único (todas as coleções) enviado pela cliente, em
+// public/catalogo-patua.pdf.
+const CATALOGO_PRONTO = true;
 const CATALOGO_PDF = "/catalogo-patua.pdf";
 
 export default async function ProfessionalsPage() {
@@ -287,9 +287,6 @@ export default async function ProfessionalsPage() {
                       key={i}
                       className="flex items-baseline gap-4 py-4 text-base text-[var(--color-bark)]/85 md:text-lg"
                     >
-                      <span className="font-mono text-sm text-[var(--color-terracotta)]">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
                       <Editable
                         id={`professionals.personalizacao.item${i + 1}`}
                         as="span"
