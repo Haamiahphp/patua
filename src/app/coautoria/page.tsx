@@ -12,7 +12,6 @@ export const metadata: Metadata = {
 
 type Step = {
   key: string;
-  numero: string;
   titulo: string;
   corpo: string;
   imagens: { key: string; url: string; alt: string }[];
@@ -101,28 +100,24 @@ export default async function CoautoriaPage() {
   const steps: Step[] = [
     {
       key: "escuta",
-      numero: "01",
       titulo: "Escuta",
       corpo: escutaCorpo,
       imagens: [{ key: "coautoria.escuta.imagem", ...escutaImg }],
     },
     {
       key: "criacao",
-      numero: "02",
       titulo: "Criação",
       corpo: criacaoCorpo,
       imagens: [{ key: "coautoria.criacao.imagem", ...criacaoImg }],
     },
     {
       key: "coautoria",
-      numero: "03",
       titulo: "Coautoria",
       corpo: coautoriaCorpo,
       imagens: [{ key: "coautoria.coautoria.imagem", ...coautoriaImg }],
     },
     {
       key: "artesania",
-      numero: "04",
       titulo: "Artesania",
       corpo: artesaniaCorpo,
       imagens: [
@@ -221,9 +216,6 @@ export default async function CoautoriaPage() {
                   <div
                     className={`md:col-span-5 ${flip ? "md:order-1" : "md:order-2"}`}
                   >
-                    <span className="font-mono text-sm text-[var(--color-terracotta)]">
-                      {step.numero}
-                    </span>
                     <Editable
                       id={`coautoria.${step.key}.titulo`}
                       as="h2"
