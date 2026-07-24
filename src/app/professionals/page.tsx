@@ -127,12 +127,17 @@ export default async function ProfessionalsPage() {
     "É uma forma de ampliar as possibilidades do projeto, conciliando novas criações com o cuidado por objetos que merecem continuar fazendo parte da vida das pessoas.",
   );
 
-  // CATÁLOGO — só o título + PDF clicável (sem texto de apoio, a pedido da cliente).
-  // Será um catálogo único reunindo todas as coleções.
+  // CATÁLOGO — título + capa + PDF clicável (sem texto de apoio, a pedido da
+  // cliente). É um catálogo único reunindo todas as coleções.
   const catalogoTitulo = await getContent(
     "professionals.catalogo.titulo",
     "Catálogo de peças",
   );
+  // Capa = primeira página do PDF. Editável pelo CMS caso o catálogo mude.
+  const catalogoCapa = await getContent("professionals.catalogo.capa", {
+    url: "/images/professionals/catalogo-capa.jpg",
+    alt: "Capa do catálogo Patuá — Artesania Brasileira",
+  });
 
   // CTA FINAL
   const ctaTitulo = await getContent(
@@ -376,13 +381,14 @@ export default async function ProfessionalsPage() {
         </div>
       </section>
 
-      {/* CATÁLOGO — só título + PDF clicável pra baixar (a cliente pediu sem texto
-          de apoio). Fica "Disponível em breve" até o PDF único (todas as coleções)
-          ser enviado: colocar em public/catalogo-patua.pdf e ligar CATALOGO_PRONTO. */}
+      {/* CATÁLOGO — título + capa (1ª página do PDF) + PDF clicável pra baixar (a
+          cliente pediu sem texto de apoio). Fica "Disponível em breve" até o PDF
+          único (todas as coleções) ser enviado: colocar em
+          public/catalogo-patua.pdf e ligar CATALOGO_PRONTO. */}
       <section className="bg-[var(--color-cream)] pb-24 md:pb-32">
         <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">
           <Reveal>
-            <div className="flex flex-col items-start gap-8 border-t border-[color:var(--color-bark)]/15 pt-12 md:flex-row md:items-center md:justify-between md:pt-16">
+            <div className="flex flex-col items-center gap-12 border-t border-[color:var(--color-bark)]/15 pt-12 text-center md:flex-row md:items-center md:justify-between md:gap-16 md:pt-16 md:text-left">
               <div className="max-w-[46ch]">
                 <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.28em] text-[var(--color-terracotta)]">
                   <FileText className="h-4 w-4" strokeWidth={1.6} aria-hidden />
@@ -397,29 +403,51 @@ export default async function ProfessionalsPage() {
                 </Editable>
               </div>
 
-              <div className="flex shrink-0 flex-col items-start gap-3">
+              {/* Capa + ações, centralizadas uma sob a outra */}
+              <div className="flex shrink-0 flex-col items-center gap-7">
                 {CATALOGO_PRONTO ? (
                   <>
                     <a
                       href={CATALOGO_PDF}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-7 py-3.5 text-sm font-medium text-[var(--color-cream-light)] transition-colors hover:bg-[var(--color-terracotta-deep)]"
+                      aria-label="Abrir o catálogo da Patuá"
+                      className="group block"
                     >
-                      <FileText className="h-4 w-4" strokeWidth={1.8} aria-hidden />
-                      Ver catálogo
+                      <div className="relative aspect-[1080/1920] w-[210px] overflow-hidden bg-[var(--color-cream-light)] shadow-lg shadow-black/10 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-translate-y-1.5 md:w-[240px]">
+                        <EditableImage
+                          id="professionals.catalogo.capa"
+                          src={catalogoCapa.url}
+                          alt={catalogoCapa.alt ?? "Capa do catálogo Patuá"}
+                          fill
+                          sizes="240px"
+                          className="object-cover"
+                        />
+                      </div>
                     </a>
-                    <a
-                      href={CATALOGO_PDF}
-                      download
-                      className="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-bark)] transition-opacity hover:opacity-70"
-                    >
-                      <Download className="h-4 w-4" strokeWidth={1.8} aria-hidden />
-                      Baixar PDF
-                    </a>
+
+                    <div className="flex flex-col items-center gap-3">
+                      <a
+                        href={CATALOGO_PDF}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-7 py-3.5 text-sm font-medium text-[var(--color-cream-light)] transition-colors hover:bg-[var(--color-terracotta-deep)]"
+                      >
+                        <FileText className="h-4 w-4" strokeWidth={1.8} aria-hidden />
+                        Ver catálogo
+                      </a>
+                      <a
+                        href={CATALOGO_PDF}
+                        download
+                        className="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-bark)] transition-opacity hover:opacity-70"
+                      >
+                        <Download className="h-4 w-4" strokeWidth={1.8} aria-hidden />
+                        Baixar PDF
+                      </a>
+                    </div>
                   </>
                 ) : (
-                  <>
+                  <div className="flex flex-col items-center gap-3">
                     <span
                       aria-disabled
                       className="inline-flex cursor-not-allowed items-center gap-2 rounded-[var(--radius-pill)] border border-[color:var(--color-bark)]/25 px-7 py-3.5 text-sm font-medium text-[var(--color-bark)]/45"
@@ -430,7 +458,7 @@ export default async function ProfessionalsPage() {
                     <span className="font-mono text-xs uppercase tracking-[0.22em] text-[var(--color-bark)]/45">
                       Disponível em breve
                     </span>
-                  </>
+                  </div>
                 )}
               </div>
             </div>
