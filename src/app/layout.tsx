@@ -7,6 +7,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { getSession } from "@/lib/session";
 import { getContent } from "@/lib/content";
+import { SITE_URL } from "@/lib/site";
 import { EditorProvider } from "@/components/editor/editor-provider";
 import { EditToolbar } from "@/components/editor/edit-toolbar";
 import { HideOnAdmin } from "@/components/hide-on-admin";
@@ -47,13 +48,31 @@ export const metadata: Metadata = {
   title: "Patuá Ateliê — Móveis e objetos autorais",
   description:
     "Encante-se com peças que unem brasilidade, design autoral e contemporaneidade. Cadeiras, mesas e objetos autorais feitos à mão no Rio de Janeiro.",
-  metadataBase: new URL("https://patua.local"),
+  metadataBase: new URL(SITE_URL),
+  alternates: { canonical: "/" },
   openGraph: {
     title: "Patuá Ateliê — Móveis e objetos autorais",
     description:
       "Encante-se com peças que unem brasilidade, design autoral e contemporaneidade.",
     type: "website",
     locale: "pt_BR",
+    siteName: "Patuá Artesania Brasileira",
+    url: "/",
+    images: [
+      {
+        url: "/og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Quando é Patuá, você sente.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Patuá Ateliê — Móveis e objetos autorais",
+    description:
+      "Encante-se com peças que unem brasilidade, design autoral e contemporaneidade.",
+    images: ["/og.jpg"],
   },
 };
 
