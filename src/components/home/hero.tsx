@@ -47,9 +47,9 @@ const SLIDES: SlideSeed[] = [
     key: "home.hero.ecommerce",
     piece: "Escolha a sua peça Patuá",
     description: "",
-    // "COMPRE ONLINE" → loja virtual própria da Patuá (endereço confirmado pela
-    // cliente; a loja fica no ar em breve).
-    href: "https://patuaartesania.com.br/loja",
+    // "COMPRE ONLINE" → /loja. Enquanto a loja virtual não abre, essa rota serve
+    // a página de aviso ("em breve") do próprio site.
+    href: "/loja",
     cta: "Compre online",
     image: "/images/hero/ecommerce.jpg",
     mobileImage: "/images/hero/ecommerce-mobile.jpg",

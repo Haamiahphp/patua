@@ -13,8 +13,9 @@ export type HeaderContent = {
   tagline: string;
 };
 
-// Loja virtual da Patuá (fica pronta em breve — a cliente confirmou o endereço).
-const LOJA = "https://patuaartesania.com.br/loja";
+// Loja virtual da Patuá. Enquanto a loja não abre, /loja é a página de aviso
+// ("em breve") servida pelo próprio site — por isso é link interno.
+const LOJA = "/loja";
 
 type NavItem = {
   label: string;
@@ -32,7 +33,7 @@ const NAV_SECONDARY: NavItem[] = [
   { label: "Para profissionais", href: "/professionals" },
   { label: "Como funciona a coautoria", href: "/coautoria" },
   { label: "Entre em contato", href: "/contact-us" },
-  { label: "Compre online", href: LOJA, external: true, highlight: true },
+  { label: "Compre online", href: LOJA, highlight: true },
 ];
 
 const WHATSAPP = "https://wa.me/5521975397680";
