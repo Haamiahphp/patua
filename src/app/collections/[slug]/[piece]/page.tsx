@@ -35,7 +35,7 @@ export default async function PecaPage({ params }: { params: Params }) {
   const found = getPeca(slug, piece);
   if (!found) notFound();
   const { colecao, peca } = found;
-  // A galeria já começa pela capa reenquadrada; sem galeria, mostra só a capa.
+  // A galeria já começa pela capa; sem galeria, mostra só a capa.
   const fotos = peca.galeria?.length ? peca.galeria : [peca.imagem];
 
   return (

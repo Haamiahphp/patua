@@ -11,8 +11,9 @@ export type Peca = {
   /** Capa dos grids (index de coleções e lista de peças). */
   imagem: string;
   /**
-   * Fotos do carrossel da página da peça, já normalizadas em 4:5 — a primeira
-   * é a própria capa reenquadrada, pra abrir o carrossel com a foto que a
+   * Fotos do carrossel da página da peça, na proporção original de cada uma —
+   * a moldura 4:5 é feita no CSS, e a foto ampliada (modal) mostra o arquivo
+   * inteiro. A primeira é a própria capa, pra o carrossel abrir na foto que a
    * pessoa clicou. Sem galeria, a página mostra só a capa.
    */
   galeria?: string[];
