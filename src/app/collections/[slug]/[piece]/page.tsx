@@ -25,7 +25,7 @@ export async function generateMetadata({
   const found = getPeca(slug, piece);
   if (!found) return {};
   return {
-    title: `${found.peca.nome} · ${found.colecao.nome} · Patuá Ateliê`,
+    title: `${found.peca.nome} · ${found.colecao.nome} · Patuá Artesania Brasileira`,
     description: found.peca.paragrafos[0],
   };
 }

@@ -5,7 +5,7 @@ import { EditableImage } from "@/components/editor/editable-image";
 import { getContent } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Sobre · Patuá Ateliê",
+  title: "Sobre · Patuá Artesania Brasileira",
   description:
     "Patuá e você. Mobiliário autoral brasileiro, feito à mão e criado em coautoria — a história de uma marca que escolheu criar para permanecer.",
 };

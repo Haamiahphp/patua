@@ -32,7 +32,7 @@ export async function generateMetadata({
   const found = getProduct(categoria, produto);
   if (!found) return {};
   return {
-    title: `${found.product.name} · ${found.category.name} · Patuá Ateliê`,
+    title: `${found.product.name} · ${found.category.name} · Patuá Artesania Brasileira`,
     description: found.product.description,
   };
 }

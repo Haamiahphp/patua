@@ -45,13 +45,13 @@ const dancingScript = Dancing_Script({
 });
 
 export const metadata: Metadata = {
-  title: "Patuá Ateliê — Móveis e objetos autorais",
+  title: "Patuá Artesania Brasileira — Móveis e objetos autorais",
   description:
     "Encante-se com peças que unem brasilidade, design autoral e contemporaneidade. Cadeiras, mesas e objetos autorais feitos à mão no Rio de Janeiro.",
   metadataBase: new URL(SITE_URL),
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Patuá Ateliê — Móveis e objetos autorais",
+    title: "Patuá Artesania Brasileira — Móveis e objetos autorais",
     description:
       "Encante-se com peças que unem brasilidade, design autoral e contemporaneidade.",
     type: "website",
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Patuá Ateliê — Móveis e objetos autorais",
+    title: "Patuá Artesania Brasileira — Móveis e objetos autorais",
     description:
       "Encante-se com peças que unem brasilidade, design autoral e contemporaneidade.",
     images: ["/og.jpg"],
@@ -87,7 +87,7 @@ export default async function RootLayout({
     }),
     retrato: await getContent("site.header.retrato", {
       url: MENU_PORTRAIT,
-      alt: "Patuá Ateliê",
+      alt: "Patuá Artesania Brasileira",
     }),
     tagline: await getContent(
       "site.header.tagline",

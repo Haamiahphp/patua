@@ -7,7 +7,7 @@ import { Editable } from "@/components/editor/editable";
 import { getContent } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Entre em contato · Patuá Ateliê",
+  title: "Entre em contato · Patuá Artesania Brasileira",
   description:
     "Se você tem uma ideia, um espaço ou deseja uma peça autoral, entre em contato. Cada criação nasce através do diálogo, da matéria e do processo.",
 };
