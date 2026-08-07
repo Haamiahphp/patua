@@ -149,7 +149,7 @@ export default async function LojaPage() {
                     href={WHATSAPP_AVISO}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-2.5 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-7 py-3.5 text-sm font-medium text-[var(--color-cream-light)] transition-colors hover:bg-[var(--color-terracotta-deep)]"
+                    className="group inline-flex items-center gap-2.5 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-7 py-3.5 text-sm font-medium text-white transition-colors hover:bg-[var(--color-terracotta-deep)]"
                   >
                     <WhatsappIcon className="h-4 w-4" />
                     <Editable id="loja.hero.botao" as="span">

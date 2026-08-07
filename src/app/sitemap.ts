@@ -20,8 +20,18 @@ const STATIC_ROUTES: Array<{
   { path: "/blog", priority: 0.6, changeFrequency: "weekly" },
 ];
 
+/**
+ * Data da última revisão real do conteúdo.
+ *
+ * Antes isto era `new Date()`: todo deploy carimbava "modificado agora" em
+ * todas as URLs, inclusive nas que não mudaram há meses. Para o Google isso é
+ * ruído — ele aprende que o `lastmod` do site não significa nada e passa a
+ * ignorar o sinal. Atualize esta data quando o conteúdo mudar de verdade.
+ */
+const REVISADO_EM = new Date("2026-08-07T00:00:00.000Z");
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
+  const lastModified = REVISADO_EM;
 
   const colecoes = COLECOES.flatMap((colecao) => [
     {

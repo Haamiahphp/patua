@@ -169,7 +169,7 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
                   href={current.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="pointer-events-auto inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-7 py-3.5 text-sm font-medium text-[var(--color-cream-light)] shadow-lg shadow-black/10 transition-colors hover:bg-[var(--color-terracotta-deep)]"
+                  className="pointer-events-auto inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-7 py-3.5 text-sm font-medium text-white shadow-lg shadow-black/10 transition-colors hover:bg-[var(--color-terracotta-deep)]"
                 >
                   {current.cta}
                   <span aria-hidden>→</span>
@@ -177,7 +177,7 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
               ) : (
                 <Link
                   href={current.href}
-                  className="pointer-events-auto inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-7 py-3.5 text-sm font-medium text-[var(--color-cream-light)] shadow-lg shadow-black/10 transition-colors hover:bg-[var(--color-terracotta-deep)]"
+                  className="pointer-events-auto inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-7 py-3.5 text-sm font-medium text-white shadow-lg shadow-black/10 transition-colors hover:bg-[var(--color-terracotta-deep)]"
                 >
                   {current.cta}
                   <span aria-hidden>→</span>

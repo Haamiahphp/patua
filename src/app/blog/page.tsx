@@ -63,7 +63,7 @@ export default async function BlogPage() {
             <div className="mt-16 flex flex-wrap gap-4 md:mt-24">
               <Link
                 href="/services"
-                className="inline-flex items-center justify-center rounded-[var(--radius-pill)] bg-[var(--color-bark)] px-6 py-3 text-sm font-medium text-[var(--color-cream-light)] transition-colors hover:bg-[var(--color-terracotta)]"
+                className="inline-flex items-center justify-center rounded-[var(--radius-pill)] bg-[var(--color-bark)] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[var(--color-terracotta)]"
               >
                 Ver peças
               </Link>

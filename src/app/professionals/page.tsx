@@ -432,7 +432,7 @@ export default async function ProfessionalsPage() {
                         href={CATALOGO_PDF}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-7 py-3.5 text-sm font-medium text-[var(--color-cream-light)] transition-colors hover:bg-[var(--color-terracotta-deep)]"
+                        className="inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-7 py-3.5 text-sm font-medium text-white transition-colors hover:bg-[var(--color-terracotta-deep)]"
                       >
                         <FileText className="h-4 w-4" strokeWidth={1.8} aria-hidden />
                         Ver catálogo
