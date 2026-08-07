@@ -12,6 +12,7 @@ import {
   type Product,
 } from "@/lib/catalog";
 import { COLLECTIONS } from "@/lib/collections";
+import { urlDaPecaPorSlug } from "@/lib/colecoes";
 
 type Params = Promise<{ categoria: string; produto: string }>;
 
@@ -31,9 +32,13 @@ export async function generateMetadata({
   const { categoria, produto } = await params;
   const found = getProduct(categoria, produto);
   if (!found) return {};
+  // Peça que também vive em /collections: aquela é a URL oficial. Sem isto o
+  // Google vê duas páginas iguais e divide o sinal entre as duas.
+  const canonical = urlDaPecaPorSlug(produto);
   return {
     title: `${found.product.name} · ${found.category.name} · Patuá Artesania Brasileira`,
     description: found.product.description,
+    ...(canonical ? { alternates: { canonical } } : {}),
   };
 }
 

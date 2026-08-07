@@ -4,11 +4,28 @@ import { FeatureBand } from "@/components/home/feature-band";
 import { B2BSection } from "@/components/home/b2b";
 import { ProcessSection } from "@/components/home/process";
 import { TramadosSection } from "@/components/home/tramados";
+import type { Metadata } from "next";
 import { CtaSection } from "@/components/home/cta";
+
+// Só o canonical: title, description e Open Graph continuam vindo do layout.
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   return (
     <>
+      {/*
+        A home não tinha nenhum H1: o título do topo vive dentro da arte do
+        banner, como pixel. Sem heading, nem o Google nem um leitor de tela
+        sabem do que a página trata. Este H1 diz em texto o que o banner diz em
+        imagem — some visualmente, mas conta para ambos.
+      */}
+      <h1 className="sr-only">
+        Patuá Artesania Brasileira — móveis e objetos autorais feitos à mão no
+        Rio de Janeiro
+      </h1>
+
       {/* 1 — Banners principais (6 rotativos) */}
       <Hero />
 

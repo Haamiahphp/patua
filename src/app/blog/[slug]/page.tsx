@@ -18,6 +18,7 @@ export async function generateMetadata({
   return {
     title: `${post.title} · Patuá Artesania Brasileira`,
     description: post.excerpt ?? undefined,
+    alternates: { canonical: `/blog/${slug}` },
     openGraph: post.coverUrl ? { images: [post.coverUrl] } : undefined,
   };
 }

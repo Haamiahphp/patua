@@ -7,6 +7,7 @@ import { getContent } from "@/lib/content";
 import { COLECOES } from "@/lib/colecoes";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/collections" },
   title: "Coleções · Patuá Artesania Brasileira",
   description:
     "Celebrar a brasilidade é transformar a diversidade do Brasil em design. Conheça as coleções Cobogó, Xodó, Andança, Palafita e outras peças autorais da Patuá.",

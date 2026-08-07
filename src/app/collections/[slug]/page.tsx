@@ -3,7 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Reveal } from "@/components/reveal";
+import { JsonLd, breadcrumbJsonLd } from "@/components/seo/json-ld";
 import { COLECOES, getColecao } from "@/lib/colecoes";
+import { SITE_URL } from "@/lib/site";
 
 type Params = Promise<{ slug: string }>;
 
@@ -19,7 +21,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const col = getColecao(slug);
   if (!col) return {};
-  return { title: `${col.nome} · Patuá Artesania Brasileira`, description: col.intro };
+  return {
+    title: `${col.nome} · Patuá Artesania Brasileira`,
+    description: col.intro,
+    alternates: { canonical: `/collections/${col.slug}` },
+  };
 }
 
 export default async function ColecaoPage({ params }: { params: Params }) {
@@ -29,6 +35,33 @@ export default async function ColecaoPage({ params }: { params: Params }) {
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { nome: "Coleções", url: "/collections" },
+          { nome: col.nome, url: `/collections/${col.slug}` },
+        ])}
+      />
+      {/* Lista as peças da coleção para o Google enxergar o catálogo. */}
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: col.nome,
+          description: col.intro,
+          url: `${SITE_URL}/collections/${col.slug}`,
+          mainEntity: {
+            "@type": "ItemList",
+            numberOfItems: col.pecas.length,
+            itemListElement: col.pecas.map((p, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              name: p.nome,
+              url: `${SITE_URL}/collections/${col.slug}/${p.slug}`,
+            })),
+          },
+        }}
+      />
+
       {/* HEADER — nome da coleção */}
       <section className="bg-[var(--color-cream)] pt-32 pb-10 md:pt-40 md:pb-14">
         <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">

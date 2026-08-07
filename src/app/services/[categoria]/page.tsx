@@ -22,6 +22,7 @@ export async function generateMetadata({
   return {
     title: `${cat.name} · Patuá Artesania Brasileira`,
     description: cat.description,
+    alternates: { canonical: `/services/${cat.slug}` },
   };
 }
 

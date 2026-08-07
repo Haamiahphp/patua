@@ -11,6 +11,7 @@ import { SITE_URL } from "@/lib/site";
 import { EditorProvider } from "@/components/editor/editor-provider";
 import { EditToolbar } from "@/components/editor/edit-toolbar";
 import { HideOnAdmin } from "@/components/hide-on-admin";
+import { JsonLd, SITE_JSON_LD } from "@/components/seo/json-ld";
 import type { HeaderContent } from "@/components/site-header";
 import "./globals.css";
 
@@ -49,7 +50,10 @@ export const metadata: Metadata = {
   description:
     "Encante-se com peças que unem brasilidade, design autoral e contemporaneidade. Cadeiras, mesas e objetos autorais feitos à mão no Rio de Janeiro.",
   metadataBase: new URL(SITE_URL),
-  alternates: { canonical: "/" },
+  // ATENÇÃO: nada de `alternates.canonical` aqui. Metadata de layout é herdada,
+  // então um canonical "/" no raiz fazia TODAS as páginas declararem a home como
+  // URL oficial — o site inteiro pedindo pro Google não indexar nada além dela.
+  // Cada página declara o seu.
   openGraph: {
     title: "Patuá Artesania Brasileira — Móveis e objetos autorais",
     description:
@@ -100,6 +104,7 @@ export default async function RootLayout({
       className={`${rawline.variable} ${fragmentMono.variable} ${dancingScript.variable}`}
     >
       <body className="bg-[var(--color-cream)] text-[var(--color-bark)] antialiased">
+        <JsonLd data={SITE_JSON_LD} />
         <EditorProvider isEditor={!!session}>
           <SmoothScroll>
             <ScrollToTop />

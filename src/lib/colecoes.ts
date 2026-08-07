@@ -493,3 +493,20 @@ export function getPeca(
   if (!colecao || !peca) return undefined;
   return { colecao, peca };
 }
+
+/**
+ * URL da peça em /collections a partir do slug, sem saber a coleção.
+ *
+ * Oito peças aparecem tanto no catálogo antigo (/services) quanto nas coleções.
+ * São duas URLs para o mesmo conteúdo, o que divide o sinal no Google: usamos
+ * isto para apontar o canonical de /services para a página das coleções, que é
+ * a que está no menu e recebe os links do site.
+ */
+export function urlDaPecaPorSlug(pecaSlug: string): string | undefined {
+  for (const colecao of COLECOES) {
+    if (colecao.pecas.some((p) => p.slug === pecaSlug)) {
+      return `/collections/${colecao.slug}/${pecaSlug}`;
+    }
+  }
+  return undefined;
+}

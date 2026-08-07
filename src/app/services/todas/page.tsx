@@ -7,6 +7,7 @@ import { CATEGORIES } from "@/lib/catalog";
 import { getContent } from "@/lib/content";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/services/todas" },
   title: "Todas as peças · Patuá Artesania Brasileira",
   description:
     "Todas as peças autorais do Patuá reunidas em um só lugar — bancos, banquetas, cadeiras, poltronas, cabeceiras e objetos tecidos à mão.",
