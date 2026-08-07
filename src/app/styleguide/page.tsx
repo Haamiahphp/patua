@@ -4,7 +4,7 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { Section } from "@/components/ui/section";
 
 export const metadata: Metadata = {
-  title: "Style Guide — Patuá Ateliê",
+  title: "Style Guide — Patuá Artesania Brasileira",
   robots: { index: false, follow: false },
 };
 

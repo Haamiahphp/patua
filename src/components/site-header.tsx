@@ -68,7 +68,7 @@ export function SiteHeader({ content }: { content: HeaderContent }) {
         <div className="relative mx-auto flex h-[88px] w-full max-w-[var(--container-page)] items-center justify-between px-4 md:px-10">
           <Link
             href="/"
-            aria-label="Patuá Ateliê — início"
+            aria-label="Patuá Artesania Brasileira — início"
             className="site-logo block transition-opacity duration-500"
           >
             <EditableImage
@@ -118,7 +118,7 @@ export function SiteHeader({ content }: { content: HeaderContent }) {
                 <Link
                   href="/"
                   onClick={() => setOpen(false)}
-                  aria-label="Patuá Ateliê"
+                  aria-label="Patuá Artesania Brasileira"
                 >
                   <Image
                     src={logo.url}
@@ -136,7 +136,7 @@ export function SiteHeader({ content }: { content: HeaderContent }) {
                   <EditableImage
                     id="site.header.retrato"
                     src={retrato.url}
-                    alt={retrato.alt ?? "Patuá Ateliê"}
+                    alt={retrato.alt ?? "Patuá Artesania Brasileira"}
                     fill
                     sizes="(max-width: 768px) 0, 30vw"
                     className="object-cover"
@@ -154,7 +154,7 @@ export function SiteHeader({ content }: { content: HeaderContent }) {
                   {tagline}
                 </Editable>
                 <p className="text-center text-[var(--color-cream-light)]/70">
-                  © {year}. Patuá Ateliê
+                  © {year}. Patuá Artesania Brasileira
                 </p>
               </div>
             </motion.div>

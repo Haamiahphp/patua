@@ -9,12 +9,12 @@ import { EditableImage } from "@/components/editor/editable-image";
 import { getContent } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Loja virtual · Patuá Ateliê",
+  title: "Loja virtual · Patuá Artesania Brasileira",
   description:
     "A loja virtual da Patuá está chegando. Em breve será possível escolher suas peças, conhecer todos os detalhes e levar para casa o design autoral da Patuá.",
   alternates: { canonical: "/loja" },
   openGraph: {
-    title: "Loja virtual · Patuá Ateliê",
+    title: "Loja virtual · Patuá Artesania Brasileira",
     description:
       "Um novo jeito de sentir a Patuá está chegando. Nossa loja virtual está nos últimos ajustes para receber você.",
     url: "/loja",

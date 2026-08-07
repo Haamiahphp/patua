@@ -19,7 +19,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const col = getColecao(slug);
   if (!col) return {};
-  return { title: `${col.nome} · Patuá Ateliê`, description: col.intro };
+  return { title: `${col.nome} · Patuá Artesania Brasileira`, description: col.intro };
 }
 
 export default async function ColecaoPage({ params }: { params: Params }) {

@@ -7,7 +7,7 @@ import { getContent } from "@/lib/content";
 import { listPublished } from "@/lib/blog";
 
 export const metadata: Metadata = {
-  title: "Textos · Patuá Ateliê",
+  title: "Textos · Patuá Artesania Brasileira",
   description:
     "Reflexões sobre fazer manual, processo, autoria e brasilidade — direto do ateliê em Laranjeiras.",
 };

@@ -16,7 +16,7 @@ export async function generateMetadata({
   const post = await getPublishedBySlug(slug);
   if (!post) return {};
   return {
-    title: `${post.title} · Patuá Ateliê`,
+    title: `${post.title} · Patuá Artesania Brasileira`,
     description: post.excerpt ?? undefined,
     openGraph: post.coverUrl ? { images: [post.coverUrl] } : undefined,
   };

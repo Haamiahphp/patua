@@ -5,7 +5,7 @@ import { EditableImage } from "@/components/editor/editable-image";
 import { getContent } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Como funciona a coautoria · Patuá Ateliê",
+  title: "Como funciona a coautoria · Patuá Artesania Brasileira",
   description:
     "Na Patuá, a coautoria é um processo de criação compartilhado: escuta, criação, coautoria e artesania — um tramado personalizado, desenvolvido especialmente para você.",
 };

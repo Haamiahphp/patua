@@ -20,7 +20,7 @@ export async function generateMetadata({
   const cat = getCategory(categoria);
   if (!cat) return {};
   return {
-    title: `${cat.name} · Patuá Ateliê`,
+    title: `${cat.name} · Patuá Artesania Brasileira`,
     description: cat.description,
   };
 }
