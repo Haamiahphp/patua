@@ -75,7 +75,7 @@ export async function FeatureBand({
 
   if (variant === "split") {
     return (
-      <section className="relative h-[82vh] min-h-[560px] w-full overflow-hidden bg-[var(--color-bark)]">
+      <section className="relative h-[82vh] min-h-[440px] w-full overflow-hidden bg-[var(--color-bark)]">
         <EditableImage
           id={`${base}.imagem`}
           src={img.url}
@@ -154,7 +154,7 @@ export async function FeatureBand({
   // "stack": imagem full-bleed com o texto sobreposto à esquerda. No mobile o texto
   // fica estreito (quebra em mais linhas) pra não invadir a peça que fica à direita.
   return (
-    <section className="relative h-[82vh] min-h-[560px] w-full overflow-hidden bg-[var(--color-bark)]">
+    <section className="relative h-[82vh] min-h-[440px] w-full overflow-hidden bg-[var(--color-bark)]">
       <EditableImage
         id={`${base}.imagem`}
         src={img.url}

@@ -129,8 +129,10 @@ export default async function CoautoriaPage() {
 
   return (
     <>
-      {/* HERO — foto grande, sem texto sobreposto (ref. Expormim) */}
-      <section className="relative h-[70vh] min-h-[440px] w-full overflow-hidden bg-[var(--color-bark)] md:h-[86vh]">
+      {/* HERO — foto de abertura, sem texto sobreposto (ref. Expormim). Altura
+          contida (a cliente pediu imagem menor e texto mais perto) pra a foto e
+          a introdução aparecerem juntas já na entrada da página. */}
+      <section className="relative h-[46vh] min-h-[280px] w-full overflow-hidden bg-[var(--color-bark)] md:h-[54vh] md:max-h-[560px]">
         <EditableImage
           id="coautoria.hero.imagem"
           src={heroImagem.url}
@@ -143,7 +145,7 @@ export default async function CoautoriaPage() {
       </section>
 
       {/* INTRO */}
-      <section className="bg-[var(--color-cream)] py-24 md:py-32">
+      <section className="bg-[var(--color-cream)] py-12 md:py-16">
         <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">
           <div className="grid gap-8 md:grid-cols-12 md:gap-16">
             <div className="md:col-span-5">

@@ -8,7 +8,14 @@ export type Spec = { label: string; value: string };
 export type Peca = {
   slug: string;
   nome: string;
+  /** Capa dos grids (index de coleções e lista de peças). */
   imagem: string;
+  /**
+   * Fotos do carrossel da página da peça, já normalizadas em 4:5 — a primeira
+   * é a própria capa reenquadrada, pra abrir o carrossel com a foto que a
+   * pessoa clicou. Sem galeria, a página mostra só a capa.
+   */
+  galeria?: string[];
   paragrafos: string[];
   ficha: Spec[];
 };
@@ -34,7 +41,12 @@ export const COLECOES: Colecao[] = [
       {
         slug: "cadeira-cobogo",
         nome: "Cadeira Cobogó",
-        imagem: "/images/collections/cobogo/cadeira-cobogo.jpg",
+        imagem: "/images/collections/cobogo/cadeira-cobogo-ambiente.jpg",
+        galeria: [
+          "/images/collections/galeria/cadeira-cobogo/00.jpg",
+          "/images/collections/galeria/cadeira-cobogo/01.jpg",
+          "/images/collections/galeria/cadeira-cobogo/02.jpg",
+        ],
         paragrafos: [
           "Desenvolvida para mesas de jantar, copas e áreas gourmet cobertas, a Cadeira Cobogó alia ergonomia e funcionalidade a um desenho autoral cuidadosamente equilibrado.",
           "Seu encosto acolhedor e vazado, combinado à leveza da estrutura, favorece tanto o uso prolongado quanto a fluidez do espaço, facilitando a composição e a movimentação no cotidiano.",
@@ -55,6 +67,18 @@ export const COLECOES: Colecao[] = [
         slug: "banqueta-alta-cobogo",
         nome: "Banqueta Alta Cobogó",
         imagem: "/images/collections/cobogo/banqueta-alta.jpg",
+        galeria: [
+          "/images/collections/galeria/banqueta-alta-cobogo/00.jpg",
+          "/images/collections/galeria/banqueta-alta-cobogo/01.jpg",
+          "/images/collections/galeria/banqueta-alta-cobogo/02.jpg",
+          "/images/collections/galeria/banqueta-alta-cobogo/03.jpg",
+          "/images/collections/galeria/banqueta-alta-cobogo/04.jpg",
+          "/images/collections/galeria/banqueta-alta-cobogo/05.jpg",
+          "/images/collections/galeria/banqueta-alta-cobogo/06.jpg",
+          "/images/collections/galeria/banqueta-alta-cobogo/07.jpg",
+          "/images/collections/galeria/banqueta-alta-cobogo/08.jpg",
+          "/images/collections/galeria/banqueta-alta-cobogo/09.jpg",
+        ],
         paragrafos: [
           "A Banqueta Alta Cobogó articula leveza visual e solidez estrutural. Sua estrutura tubular em aço sustenta o tramado artesanal em fio náutico, criando uma peça equilibrada, na qual forma, função e gesto manual coexistem com naturalidade.",
           "O desenho privilegia a fluidez e o conforto, integrando-se de maneira orgânica a bancadas, cozinhas integradas e mesas bistrô. A banqueta participa da composição do espaço, estabelece diálogo com a arquitetura e valoriza o cotidiano com uma presença discreta e durável.",
@@ -72,7 +96,19 @@ export const COLECOES: Colecao[] = [
       {
         slug: "banco-cobogo",
         nome: "Banco Cobogó",
-        imagem: "/images/collections/cobogo/banco-cobogo.jpg",
+        imagem: "/images/collections/cobogo/banco-cobogo-trama.jpg",
+        galeria: [
+          "/images/collections/galeria/banco-cobogo/00.jpg",
+          "/images/collections/galeria/banco-cobogo/01.jpg",
+          "/images/collections/galeria/banco-cobogo/02.jpg",
+          "/images/collections/galeria/banco-cobogo/03.jpg",
+          "/images/collections/galeria/banco-cobogo/04.jpg",
+          "/images/collections/galeria/banco-cobogo/05.jpg",
+          "/images/collections/galeria/banco-cobogo/06.jpg",
+          "/images/collections/galeria/banco-cobogo/07.jpg",
+          "/images/collections/galeria/banco-cobogo/08.jpg",
+          "/images/collections/galeria/banco-cobogo/09.jpg",
+        ],
         paragrafos: [
           "O Banco Cobogó combina estrutura tubular em aço e tramado artesanal em fio náutico. O encontro entre esses materiais resulta em uma peça de desenho leve, cuja presença é marcada pela textura e pelo trabalho manual.",
           "Pensado para o uso cotidiano, pode funcionar como assento, apoio ou mesa baixa, transitando com naturalidade entre espaços residenciais e comerciais. A simplicidade de suas formas permite que o banco dialogue com diferentes materiais e atmosferas, como madeira, concreto, tecidos e fibras.",
@@ -93,6 +129,15 @@ export const COLECOES: Colecao[] = [
         slug: "banco-sapateira-cobogo",
         nome: "Banco Sapateira Cobogó",
         imagem: "/images/collections/cobogo/banco-sapateira.jpg",
+        galeria: [
+          "/images/collections/galeria/banco-sapateira-cobogo/00.jpg",
+          "/images/collections/galeria/banco-sapateira-cobogo/01.jpg",
+          "/images/collections/galeria/banco-sapateira-cobogo/02.jpg",
+          "/images/collections/galeria/banco-sapateira-cobogo/03.jpg",
+          "/images/collections/galeria/banco-sapateira-cobogo/04.jpg",
+          "/images/collections/galeria/banco-sapateira-cobogo/05.jpg",
+          "/images/collections/galeria/banco-sapateira-cobogo/06.jpg",
+        ],
         paragrafos: [
           "O Banco Sapateira Cobogó expressa a essência da coleção em uma peça multifuncional, na qual forma e uso se articulam de maneira integrada.",
           "Com estrutura vazada em aço tubular e acabamento em pintura eletrostática, preserva a leveza visual e a fluidez das linhas orgânicas inspiradas nos elementos vazados da arquitetura brasileira.",
@@ -114,6 +159,14 @@ export const COLECOES: Colecao[] = [
         slug: "cadeira-infantil-cobogo",
         nome: "Cadeira Infantil Cobogó",
         imagem: "/images/collections/cobogo/cadeira-infantil.jpg",
+        galeria: [
+          "/images/collections/galeria/cadeira-infantil-cobogo/00.jpg",
+          "/images/collections/galeria/cadeira-infantil-cobogo/01.jpg",
+          "/images/collections/galeria/cadeira-infantil-cobogo/02.jpg",
+          "/images/collections/galeria/cadeira-infantil-cobogo/03.jpg",
+          "/images/collections/galeria/cadeira-infantil-cobogo/04.jpg",
+          "/images/collections/galeria/cadeira-infantil-cobogo/05.jpg",
+        ],
         paragrafos: [
           "A Cadeira Infantil Cobogó preserva a linguagem visual da cadeira original em uma escala pensada especialmente para a infância.",
           "Sua estrutura em aço tubular, com acabamento em pintura eletrostática, cria uma peça vazada e leve, tanto visualmente quanto no peso. O desenho entre cheios e vazios, elemento central da coleção, ganha a companhia do tramado artesanal em fio náutico, que acrescenta cor, textura e identidade.",
@@ -136,7 +189,7 @@ export const COLECOES: Colecao[] = [
   {
     slug: "xodo",
     nome: "Coleção Xodó",
-    capa: "/images/collections/capas/xodo.jpg",
+    capa: "/images/collections/capas/colecao-xodo.jpg",
     introImagem: "/images/collections/xodo/intro.jpg",
     intro:
       "A Coleção Xodó resgata memórias afetivas do mobiliário brasileiro e as traduz em uma linguagem contemporânea. A madeira maciça, as formas suaves e o tramado artesanal criam peças acolhedoras, que convidam ao uso e ao convívio.",
@@ -145,6 +198,12 @@ export const COLECOES: Colecao[] = [
         slug: "banco-xodo-p",
         nome: "Banco Xodó P",
         imagem: "/images/collections/xodo/banco-xodo-p.jpg",
+        galeria: [
+          "/images/collections/galeria/banco-xodo-p/00.jpg",
+          "/images/collections/galeria/banco-xodo-p/01.jpg",
+          "/images/collections/galeria/banco-xodo-p/02.jpg",
+          "/images/collections/galeria/banco-xodo-p/03.jpg",
+        ],
         paragrafos: [
           "Na versão P, o Banco Xodó funciona como assento individual ou apoio, integrando-se a composições mais sutis e flexíveis.",
           "Seu tamanho compacto permite que a peça transite com facilidade entre salas, quartos, halls e outros espaços. A estrutura torneada em madeira maciça e o assento tramado manualmente reúnem matéria, textura e memória em um objeto versátil, pensado para acompanhar diferentes momentos do cotidiano.",
@@ -165,6 +224,13 @@ export const COLECOES: Colecao[] = [
         slug: "banco-xodo-g",
         nome: "Banco Xodó G",
         imagem: "/images/collections/xodo/banco-xodo-g.jpg",
+        galeria: [
+          "/images/collections/galeria/banco-xodo-g/00.jpg",
+          "/images/collections/galeria/banco-xodo-g/01.jpg",
+          "/images/collections/galeria/banco-xodo-g/02.jpg",
+          "/images/collections/galeria/banco-xodo-g/03.jpg",
+          "/images/collections/galeria/banco-xodo-g/04.jpg",
+        ],
         paragrafos: [
           "Na versão G, o Banco Xodó assume o papel de banco, peseira ou elemento de composição, estruturando quartos, salas e halls com equilíbrio e funcionalidade.",
           "Suas proporções alongadas valorizam o desenho arredondado da estrutura e ampliam a presença do tramado artesanal. Versátil, integra-se com naturalidade a diferentes contextos arquitetônicos, estabelecendo relações com madeira, fibras, tecidos e outros materiais.",
@@ -196,6 +262,17 @@ export const COLECOES: Colecao[] = [
         slug: "cabeceira-andanca",
         nome: "Cabeceira Andança",
         imagem: "/images/collections/andanca/cabeceira.jpg",
+        galeria: [
+          "/images/collections/galeria/cabeceira-andanca/00.jpg",
+          "/images/collections/galeria/cabeceira-andanca/01.jpg",
+          "/images/collections/galeria/cabeceira-andanca/02.jpg",
+          "/images/collections/galeria/cabeceira-andanca/03.jpg",
+          "/images/collections/galeria/cabeceira-andanca/04.jpg",
+          "/images/collections/galeria/cabeceira-andanca/05.jpg",
+          "/images/collections/galeria/cabeceira-andanca/06.jpg",
+          "/images/collections/galeria/cabeceira-andanca/07.jpg",
+          "/images/collections/galeria/cabeceira-andanca/08.jpg",
+        ],
         paragrafos: [
           "Obra têxtil desenvolvida sob medida, a Cabeceira Andança é confeccionada manualmente em fio náutico a partir de uma leitura atenta do espaço e da forma de habitar de cada cliente.",
           "Cada tramado nasce da escuta e da intenção de transformar o gesto manual em linguagem estética. A peça constrói a atmosfera do quarto por meio do encontro entre matéria, proporção e sensibilidade, traduzindo o tempo dedicado ao fazer em presença, identidade e permanência.",
@@ -219,7 +296,7 @@ export const COLECOES: Colecao[] = [
   {
     slug: "palafita",
     nome: "Coleção Palafita",
-    capa: "/images/collections/capas/palafita.jpg",
+    capa: "/images/collections/capas/colecao-palafita.jpg",
     introImagem: "/images/collections/palafita/intro.jpg",
     intro:
       "Inspirada nos princípios construtivos das arquiteturas palafíticas brasileiras, a Coleção Palafita traduz elevação, leveza e permanência em uma linguagem contemporânea. O tramado integra a própria arquitetura do objeto, enquanto o vidro permite que a luz atravesse a composição e revele o trabalho manual.",
@@ -228,6 +305,12 @@ export const COLECOES: Colecao[] = [
         slug: "mesa-palafita",
         nome: "Mesa Palafita",
         imagem: "/images/collections/palafita/mesa-palafita.jpg",
+        galeria: [
+          "/images/collections/galeria/mesa-palafita/00.jpg",
+          "/images/collections/galeria/mesa-palafita/01.jpg",
+          "/images/collections/galeria/mesa-palafita/02.jpg",
+          "/images/collections/galeria/mesa-palafita/03.jpg",
+        ],
         paragrafos: [
           "Versátil e atemporal, a Mesa Palafita pode ser utilizada como mesa lateral, mesa de cabeceira ou apoio em salas, quartos, consultórios e espaços de acolhimento. Uma peça de presença discreta, funcional e afetiva, pensada para atravessar diferentes ambientes e momentos de uso.",
           "Sua estrutura combina aço tubular, madeira maciça, superfície tramada artesanalmente e tampo de vidro, criando uma composição em que matéria, transparência e vazio se equilibram para produzir uma sutil sensação de flutuação.",
@@ -260,6 +343,13 @@ export const COLECOES: Colecao[] = [
         slug: "cadeira-abraco",
         nome: "Cadeira Abraço",
         imagem: "/images/collections/outras/cadeira-abraco.jpg",
+        galeria: [
+          "/images/collections/galeria/cadeira-abraco/00.jpg",
+          "/images/collections/galeria/cadeira-abraco/01.jpg",
+          "/images/collections/galeria/cadeira-abraco/02.jpg",
+          "/images/collections/galeria/cadeira-abraco/03.jpg",
+          "/images/collections/galeria/cadeira-abraco/04.jpg",
+        ],
         paragrafos: [
           "A Cadeira Abraço nasce da releitura de um clássico das décadas de 1960 e 1970, reinterpretado pela Patuá por meio do encontro entre estrutura metálica e tramado artesanal em fio náutico.",
           "O gesto do tramar confere textura, ritmo e conforto, enquanto o desenho preciso da estrutura proporciona leveza visual e estabilidade. O resultado é uma peça que acolhe o corpo com naturalidade e valoriza o tempo dedicado ao fazer manual.",
@@ -281,6 +371,12 @@ export const COLECOES: Colecao[] = [
         // Foto da peça inteira, com os pés à mostra (a cliente pediu "mostrar a
         // poltrona por inteiro"). A anterior era um close-up do tramado.
         imagem: "/images/catalog/produtos/poltronas/poltrona-diretor.png",
+        galeria: [
+          "/images/collections/galeria/poltrona-diretor/00.jpg",
+          "/images/collections/galeria/poltrona-diretor/01.jpg",
+          "/images/collections/galeria/poltrona-diretor/02.jpg",
+          "/images/collections/galeria/poltrona-diretor/03.jpg",
+        ],
         paragrafos: [
           "A Poltrona Diretor revisita a clássica cadeira de diretor sob uma nova perspectiva, unindo estrutura metálica, apoio de braços em madeira maciça e tramado artesanal em fio náutico.",
           "O encontro entre precisão estrutural e gesto manual resulta em uma peça confortável, leve e visualmente marcante. As proporções generosas e a ergonomia cuidadosa fazem da Diretor uma poltrona pensada para permanecer no cotidiano, oferecendo conforto sem abrir mão da elegância.",
@@ -300,6 +396,15 @@ export const COLECOES: Colecao[] = [
         slug: "trio-encaixe",
         nome: "Trio Encaixe",
         imagem: "/images/collections/outras/trio-encaixe.jpg",
+        galeria: [
+          "/images/collections/galeria/trio-encaixe/00.jpg",
+          "/images/collections/galeria/trio-encaixe/01.jpg",
+          "/images/collections/galeria/trio-encaixe/02.jpg",
+          "/images/collections/galeria/trio-encaixe/03.jpg",
+          "/images/collections/galeria/trio-encaixe/04.jpg",
+          "/images/collections/galeria/trio-encaixe/05.jpg",
+          "/images/collections/galeria/trio-encaixe/06.jpg",
+        ],
         paragrafos: [
           "O Trio Encaixe é uma composição em madeira maciça com assentos tramados manualmente em fio náutico, concebida para unir desenho, funcionalidade e versatilidade.",
           "Disponíveis em três tamanhos, os bancos se encaixam perfeitamente entre si, formando um conjunto compacto que pode ser reorganizado conforme a necessidade. O desenho permite diferentes usos no cotidiano, funcionando como assento, mesa lateral, apoio ou suporte.",
@@ -319,6 +424,12 @@ export const COLECOES: Colecao[] = [
         slug: "banco-sapateira-madeira",
         nome: "Banco Sapateira de Madeira",
         imagem: "/images/collections/outras/banco-sapateira-madeira.jpg",
+        galeria: [
+          "/images/collections/galeria/banco-sapateira-madeira/00.jpg",
+          "/images/collections/galeria/banco-sapateira-madeira/01.jpg",
+          "/images/collections/galeria/banco-sapateira-madeira/02.jpg",
+          "/images/collections/galeria/banco-sapateira-madeira/03.jpg",
+        ],
         paragrafos: [
           "O Banco Sapateira de Madeira transforma um objeto do cotidiano em uma peça de design. Confeccionado em madeira maciça, com assento tramado à mão em fio náutico, combina organização, conforto e presença em um único desenho.",
           "Sua estrutura foi pensada para acomodar calçados sem comprometer a leveza visual do ambiente. Ao mesmo tempo, funciona como banco para calçar, apoio lateral ou elemento de composição, adaptando-se naturalmente a halls de entrada, quartos e closets.",
@@ -341,6 +452,14 @@ export const COLECOES: Colecao[] = [
         slug: "puff",
         nome: "Puff",
         imagem: "/images/collections/outras/puff.jpg",
+        galeria: [
+          "/images/collections/galeria/puff/00.jpg",
+          "/images/collections/galeria/puff/01.jpg",
+          "/images/collections/galeria/puff/02.jpg",
+          "/images/collections/galeria/puff/03.jpg",
+          "/images/collections/galeria/puff/04.jpg",
+          "/images/collections/galeria/puff/05.jpg",
+        ],
         paragrafos: [
           "Confeccionado manualmente em fio de poliéster, o Puff Patuá foi pensado para acompanhar diferentes momentos do cotidiano com conforto e leveza.",
           "Seu enchimento removível proporciona praticidade no uso e na manutenção, enquanto a textura do tramado valoriza o trabalho artesanal e acrescenta personalidade ao ambiente. Compacto e versátil, pode funcionar como assento auxiliar, apoio para os pés ou elemento decorativo, integrando-se com naturalidade a salas, quartos, varandas cobertas e espaços de convivência.",
