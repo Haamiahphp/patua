@@ -12,7 +12,11 @@
   --color-mustard: #bfa035;
   --color-olive: #746d16;
   --color-amber: #e39e2a;
-  --color-stone: #727566;          /* texto secundário/legenda  */
+  /* Texto secundário. Era #727566, que dava contraste 4.29 sobre o cream-light
+     e 3.74 sobre o cream — abaixo do mínimo legível (4.5). Escurecido o
+     suficiente pra passar nos dois fundos (5.37 e 4.68) mantendo o mesmo
+     cinza-oliva. É token de texto, não cor de marca. */
+  --color-stone: #636654;          /* texto secundário/legenda  */
   --color-mist: #ababab;           /* divisores/desabilitado    */
   --color-ink: #000000;
   --color-paper: #ffffff;

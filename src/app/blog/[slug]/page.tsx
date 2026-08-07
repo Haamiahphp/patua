@@ -3,7 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Reveal } from "@/components/reveal";
+import { JsonLd, breadcrumbJsonLd, ORGANIZATION } from "@/components/seo/json-ld";
 import { getPublishedBySlug } from "@/lib/blog";
+import { SITE_URL } from "@/lib/site";
 
 type Params = Promise<{ slug: string }>;
 
@@ -39,6 +41,27 @@ export default async function PostPage({ params }: { params: Params }) {
 
   return (
     <article className="bg-[var(--color-cream)] pt-32 pb-32 md:pt-40 md:pb-40">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: post.title,
+          description: post.excerpt ?? undefined,
+          image: post.coverUrl ?? `${SITE_URL}/og.jpg`,
+          datePublished: post.publishedAt ?? undefined,
+          dateModified: post.publishedAt ?? undefined,
+          author: { "@id": ORGANIZATION["@id"] },
+          publisher: { "@id": ORGANIZATION["@id"] },
+          mainEntityOfPage: `${SITE_URL}/blog/${slug}`,
+          inLanguage: "pt-BR",
+        }}
+      />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { nome: "Textos", url: "/blog" },
+          { nome: post.title, url: `/blog/${slug}` },
+        ])}
+      />
       <div className="mx-auto w-full max-w-[var(--container-prose)] px-4 md:px-10">
         <Reveal>
           <Link

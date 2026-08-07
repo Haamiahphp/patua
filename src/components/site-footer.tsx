@@ -134,7 +134,7 @@ export async function SiteFooter() {
               {/* Para arquitetos e designers → página Para profissionais */}
               <Link
                 href="/professionals"
-                className="inline-flex w-fit items-center gap-2.5 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-6 py-3.5 text-sm font-medium text-[var(--color-cream-light)] transition-colors hover:bg-[var(--color-terracotta-deep)]"
+                className="inline-flex w-fit items-center gap-2.5 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-6 py-3.5 text-sm font-medium text-white transition-colors hover:bg-[var(--color-terracotta-deep)]"
               >
                 <svg
                   width="18"

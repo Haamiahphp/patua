@@ -51,7 +51,7 @@ export async function CtaSection() {
             href={`https://wa.me/${WHATSAPP_NUMBER}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-9 inline-flex items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-7 py-3.5 text-sm font-medium text-[var(--color-cream-light)] transition-colors hover:bg-[var(--color-terracotta-deep)]"
+            className="mt-9 inline-flex items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-7 py-3.5 text-sm font-medium text-white transition-colors hover:bg-[var(--color-terracotta-deep)]"
           >
             <WhatsappIcon className="h-4 w-4" />
             <Editable id="home.faleconosco.botao" as="span">

@@ -26,12 +26,21 @@ export async function generateMetadata({
   const { slug, piece } = await params;
   const found = getPeca(slug, piece);
   if (!found) return {};
+  const url = `/collections/${found.colecao.slug}/${found.peca.slug}`;
+  // Compartilhar a peça mostra a foto DELA, não a arte genérica do site.
+  const capa = found.peca.galeria?.[0] ?? found.peca.imagem;
   return {
     title: `${found.peca.nome} · ${found.colecao.nome} · Patuá Artesania Brasileira`,
     description: found.peca.paragrafos[0],
-    alternates: {
-      canonical: `/collections/${found.colecao.slug}/${found.peca.slug}`,
+    alternates: { canonical: url },
+    openGraph: {
+      title: `${found.peca.nome} · ${found.colecao.nome}`,
+      description: found.peca.paragrafos[0],
+      type: "website",
+      url,
+      images: [{ url: capa, alt: found.peca.nome }],
     },
+    twitter: { card: "summary_large_image", images: [capa] },
   };
 }
 
@@ -126,7 +135,7 @@ export default async function PecaPage({ params }: { params: Params }) {
                   href={WHATSAPP}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-9 inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-7 py-3.5 text-sm font-medium text-[var(--color-cream-light)] transition-colors hover:bg-[var(--color-terracotta-deep)]"
+                  className="mt-9 inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-7 py-3.5 text-sm font-medium text-white transition-colors hover:bg-[var(--color-terracotta-deep)]"
                 >
                   <WhatsappIcon className="h-4 w-4" />
                   Personalizar esta peça

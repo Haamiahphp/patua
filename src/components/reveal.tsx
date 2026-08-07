@@ -9,6 +9,12 @@ type RevealProps = {
   y?: number;
   className?: string;
   once?: boolean;
+  /**
+   * Tag renderizada. Dentro de `<ul>`/`<ol>` precisa ser `"li"`: a `div` padrão
+   * entre a lista e o item quebra o HTML (lista com filho que não é `<li>`) e o
+   * leitor de tela deixa de anunciar "lista de 5 itens".
+   */
+  as?: "div" | "li";
 };
 
 export function Reveal({
@@ -17,20 +23,22 @@ export function Reveal({
   y = 32,
   className,
   once = true,
+  as = "div",
 }: RevealProps) {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLElement | null>(null);
   const inView = useInView(ref, { once, margin: "-10% 0px -10% 0px" });
+  const Tag = as === "li" ? motion.li : motion.div;
 
   return (
-    <motion.div
-      ref={ref}
+    <Tag
+      ref={ref as never}
       initial={{ opacity: 0, y }}
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y }}
       transition={{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
       {children}
-    </motion.div>
+    </Tag>
   );
 }
 
