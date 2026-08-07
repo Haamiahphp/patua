@@ -28,7 +28,9 @@ const SLIDES: SlideSeed[] = [
     description: "",
     href: "/about#manifesto",
     cta: "",
-    image: "/images/hero/slogan.jpg",
+    // Versão larga (2.4:1) da arte, com as bordas estendidas em degradê — ver
+    // o comentário do `object-cover` no hero-carousel.
+    image: "/images/hero/slogan-wide.jpg",
     mobileImage: "/images/hero/slogan-mobile.jpg",
     plain: true,
     bg: "#ddd3ba",
@@ -51,7 +53,7 @@ const SLIDES: SlideSeed[] = [
     // a página de aviso ("em breve") do próprio site.
     href: "/loja",
     cta: "Compre online",
-    image: "/images/hero/ecommerce.jpg",
+    image: "/images/hero/ecommerce-wide.jpg",
     mobileImage: "/images/hero/ecommerce-mobile.jpg",
     plain: true,
     bg: "#e5d9bf",

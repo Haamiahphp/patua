@@ -8,10 +8,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
  * Carrossel das fotos da peça — miniaturas na lateral e foto grande ao lado
  * (referência boobam.com.br enviada pela cliente).
  *
- * As fotos são gravadas na proporção ORIGINAL. A moldura 4:5 é feita aqui: a
- * foto entra inteira (`object-contain`) sobre uma cópia desfocada dela mesma,
- * então nada é cortado, não sobra faixa vazia e o modal consegue mostrar o
- * arquivo cheio, sem borrão.
+ * As fotos são gravadas na proporção ORIGINAL. Na moldura 4:5 elas preenchem
+ * tudo (`object-cover`) — a cliente pediu sem faixa nem desfoque nas bordas.
+ * O que o enquadramento corta continua acessível: clicar abre a foto inteira,
+ * na proporção original.
  *
  * No desktop a coluna de miniaturas é posicionada de forma absoluta pra ter
  * exatamente a altura da foto grande (e rolar sozinha quando há muitas fotos).
@@ -70,23 +70,13 @@ export function PieceGallery({
               i === index ? "opacity-100" : "opacity-0"
             }`}
           >
-            {/* Cópia desfocada preenchendo a moldura por trás da foto. Fica
-                borrada, então basta uma versão pequena. */}
-            <Image
-              src={src}
-              alt=""
-              aria-hidden
-              fill
-              sizes="120px"
-              className="scale-125 object-cover blur-2xl"
-            />
             <Image
               src={src}
               alt={legenda(i)}
               fill
               priority={i === 0}
               sizes="(max-width: 768px) 100vw, 42vw"
-              className="object-contain"
+              className="object-cover"
             />
           </div>
         ))}

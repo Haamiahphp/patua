@@ -100,21 +100,6 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
           transition={{ opacity: { duration: 1.2 }, scale: { duration: 7, ease: "linear" } }}
           className="absolute inset-0"
         >
-          {/* Fundo dos banners "só imagem": quando a altura é limitada pela
-              janela, a arte (16/9) fica mais estreita que a faixa. Esta cópia
-              desfocada preenche as laterais com a própria cor da arte, em vez de
-              deixar duas barras chapadas. */}
-          {current.plain && (
-            <Image
-              src={current.image.url}
-              alt=""
-              aria-hidden
-              fill
-              sizes="100vw"
-              className="hidden scale-110 object-cover blur-2xl md:block"
-            />
-          )}
-
           {current.mobileImage ? (
             <>
               {/* Mobile: arte vertical dedicada. object-contain pra NÃO cortar a
@@ -128,16 +113,19 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
                 sizes="100vw"
                 className="object-contain md:hidden"
               />
-              {/* Desktop: arte horizontal. `object-contain` porque a arte já traz
-                  o texto embutido — quando a altura é limitada pela janela, o
-                  cover cortaria a arte. O letterbox usa o bg do slide. */}
+              {/* Desktop: arte horizontal em versão LARGA (2.4:1), com as bordas
+                  estendidas em degradê. Com `object-cover` o banner preenche a
+                  faixa inteira em qualquer notebook — sem faixa desfocada nas
+                  laterais e sem cortar a arte, porque o que sobra pros lados é
+                  justamente a extensão, não a composição. */}
               <EditableImage
                 id={`${current.key}.imagem`}
                 src={current.image.url}
                 alt={current.image.alt ?? current.piece}
                 fill
                 priority
-                className={`hidden object-contain md:block ${current.focusClass ?? ""}`}
+                sizes="100vw"
+                className={`hidden object-cover md:block ${current.focusClass ?? ""}`}
               />
             </>
           ) : (
@@ -147,7 +135,7 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
               alt={current.image.alt ?? current.piece}
               fill
               priority
-              className={`${current.plain ? "object-contain" : "object-cover"} ${current.focusClass ?? ""}`}
+              className={`object-cover ${current.focusClass ?? ""}`}
             />
           )}
         </motion.div>
