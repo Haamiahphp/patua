@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { MessageCircle, PenLine, Layers, Hand, Heart } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Reveal } from "@/components/reveal";
@@ -27,23 +28,25 @@ const STEPS: Step[] = [
   {
     n: "02",
     Icon: PenLine,
-    title: "Coautoria",
+    title: "Criação",
+    // A cliente pediu a troca das fotos entre as etapas 02 e 03: Criação fica
+    // com a foto dos materiais e Coautoria com a do desenho.
     body: "Desenhamos as possibilidades e apresentamos a você, de acordo com seus gostos e desejos.",
-    image: "/images/processo/etapa-2.jpg",
-    alt: "Desenho das possibilidades da peça",
-  },
-  {
-    n: "03",
-    Icon: Layers,
-    title: "Escolha de materiais",
-    body: "Escolhemos materiais, cores e tramados que traduzem identidade e dialogam com o ambiente.",
     image: "/images/processo/etapa-3.jpg",
     alt: "Fios e materiais para o tramado",
   },
   {
+    n: "03",
+    Icon: Layers,
+    title: "Coautoria",
+    body: "Escolhemos materiais, cores e tramados que traduzem identidade e dialogam com o ambiente.",
+    image: "/images/processo/etapa-2.jpg",
+    alt: "Desenho das possibilidades da peça",
+  },
+  {
     n: "04",
     Icon: Hand,
-    title: "Feito à mão",
+    title: "Artesania",
     body: "Cada peça é tramada cuidadosamente, com técnica e atenção a cada detalhe.",
     image: "/images/processo/etapa-4.jpg",
     alt: "Tramado feito à mão, fio a fio",
@@ -59,14 +62,13 @@ const STEPS: Step[] = [
 ];
 
 export async function ProcessSection() {
-  const titulo = await getContent("home.process.titulo", "Processo Criativo");
+  const titulo = await getContent(
+    "home.process.titulo",
+    "A criação acontece junto com você.",
+  );
   const subtitulo = await getContent(
     "home.process.subtitulo",
-    "Da conversa ao espaço.",
-  );
-  const descricao = await getContent(
-    "home.process.descricao",
-    "Como nasce uma peça Patuá em coautoria com você.",
+    "Como uma peça autoral ganha vida e chega até você.",
   );
   const rodape = await getContent(
     "home.process.rodape",
@@ -94,7 +96,7 @@ export async function ProcessSection() {
             <Editable
               id="home.process.titulo"
               as="h2"
-              className="font-display text-[clamp(2.5rem,5.5vw,4.5rem)] leading-[var(--leading-display)] tracking-[var(--tracking-tight)]"
+              className="font-display balanced mx-auto max-w-[16ch] text-[clamp(2.25rem,5vw,4.25rem)] leading-[var(--leading-tight)] tracking-[var(--tracking-tight)]"
             >
               {titulo}
             </Editable>
@@ -104,13 +106,6 @@ export async function ProcessSection() {
               className="mt-5 text-lg text-[var(--color-cream-light)]/90 md:text-xl"
             >
               {subtitulo}
-            </Editable>
-            <Editable
-              id="home.process.descricao"
-              as="p"
-              className="mt-1 text-base text-[var(--color-cream-light)]/75 md:text-lg"
-            >
-              {descricao}
             </Editable>
           </Reveal>
         </div>
@@ -126,13 +121,8 @@ export async function ProcessSection() {
                   ariaLabel={`${s.title} — como funciona a coautoria`}
                   className="group flex h-full flex-col"
                 >
-                  {/* Número */}
-                  <span className="font-display text-3xl leading-none text-[var(--color-amber)] md:text-4xl">
-                    {s.n}
-                  </span>
-
-                  {/* Foto */}
-                  <div className="relative mt-6 aspect-square overflow-hidden rounded-[2px]">
+                  {/* Foto (a cliente pediu a retirada da numeração 01–05) */}
+                  <div className="relative aspect-square overflow-hidden rounded-[2px]">
                     <EditableImage
                       id={`${s.base}.imagem`}
                       src={s.image.url}
@@ -164,9 +154,22 @@ export async function ProcessSection() {
           ))}
         </ol>
 
+        {/* Botão pra página "Como funciona a coautoria" */}
+        <Reveal delay={0.16}>
+          <div className="mt-14 flex justify-center md:mt-16">
+            <Link
+              href="/coautoria"
+              className="inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-cream-light)] px-8 py-4 text-sm font-medium tracking-[var(--tracking-snug)] text-[var(--color-terracotta-deep)] transition-colors hover:bg-white"
+            >
+              Saiba mais sobre a coautoria
+              <span aria-hidden>→</span>
+            </Link>
+          </div>
+        </Reveal>
+
         {/* Rodapé */}
         <Reveal delay={0.2}>
-          <div className="mx-auto mt-16 flex max-w-[60ch] flex-col items-center text-center md:mt-20">
+          <div className="mx-auto mt-14 flex max-w-[60ch] flex-col items-center text-center md:mt-16">
             <span
               aria-hidden
               className="mb-6 block h-px w-16 bg-[var(--color-amber)]/60"

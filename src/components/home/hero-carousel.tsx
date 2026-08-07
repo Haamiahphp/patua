@@ -81,8 +81,15 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
       style={current.plain && current.bg ? { backgroundColor: current.bg } : undefined}
       // Mobile: mesma proporção da arte vertical (24/43 ≈ 9:16) pra a arte "só imagem"
       // preencher a faixa inteira, sem sobra (a cliente sinalizou banner menor que o
-      // espaço). Desktop: 16/9. O ponto de troca acompanha a troca da arte (md).
-      className="relative w-full overflow-hidden bg-[var(--color-bark)] aspect-[24/43] md:aspect-[16/9]"
+      // espaço).
+      //
+      // Desktop: 16/9 é a proporção da arte, MAS a altura é limitada à janela.
+      // Só com o aspect-ratio a altura depende da LARGURA da tela, então em
+      // notebook de tela baixa (ex.: 1280×700) o banner passava de 700px e ficava
+      // cortado — foi o que a cliente viu comparando dois notebooks. Com o
+      // min(), o banner cabe inteiro em qualquer tela e sobra um respiro
+      // mostrando o início da próxima seção.
+      className="relative w-full overflow-hidden bg-[var(--color-bark)] aspect-[24/43] md:aspect-auto md:h-[min(56.25vw,calc(100svh_-_3rem))]"
     >
       <AnimatePresence mode="sync">
         <motion.div
@@ -93,6 +100,21 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
           transition={{ opacity: { duration: 1.2 }, scale: { duration: 7, ease: "linear" } }}
           className="absolute inset-0"
         >
+          {/* Fundo dos banners "só imagem": quando a altura é limitada pela
+              janela, a arte (16/9) fica mais estreita que a faixa. Esta cópia
+              desfocada preenche as laterais com a própria cor da arte, em vez de
+              deixar duas barras chapadas. */}
+          {current.plain && (
+            <Image
+              src={current.image.url}
+              alt=""
+              aria-hidden
+              fill
+              sizes="100vw"
+              className="hidden scale-110 object-cover blur-2xl md:block"
+            />
+          )}
+
           {current.mobileImage ? (
             <>
               {/* Mobile: arte vertical dedicada. object-contain pra NÃO cortar a
@@ -106,14 +128,16 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
                 sizes="100vw"
                 className="object-contain md:hidden"
               />
-              {/* Desktop: arte horizontal */}
+              {/* Desktop: arte horizontal. `object-contain` porque a arte já traz
+                  o texto embutido — quando a altura é limitada pela janela, o
+                  cover cortaria a arte. O letterbox usa o bg do slide. */}
               <EditableImage
                 id={`${current.key}.imagem`}
                 src={current.image.url}
                 alt={current.image.alt ?? current.piece}
                 fill
                 priority
-                className={`hidden object-cover md:block ${current.focusClass ?? ""}`}
+                className={`hidden object-contain md:block ${current.focusClass ?? ""}`}
               />
             </>
           ) : (
@@ -123,7 +147,7 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
               alt={current.image.alt ?? current.piece}
               fill
               priority
-              className={`object-cover ${current.focusClass ?? ""}`}
+              className={`${current.plain ? "object-contain" : "object-cover"} ${current.focusClass ?? ""}`}
             />
           )}
         </motion.div>

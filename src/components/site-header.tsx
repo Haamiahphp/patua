@@ -187,21 +187,11 @@ export function SiteHeader({ content }: { content: HeaderContent }) {
               <div className="flex flex-1 flex-col justify-center px-8 pt-24 md:px-16">
                 <nav>
                   <ul className="flex flex-col gap-8 md:gap-10">
-                    {NAV_PRIMARY.map((item, i) => (
+                    {[...NAV_PRIMARY, ...NAV_SECONDARY].map((item, i) => (
                       <MenuItem
                         key={item.href}
                         item={item}
-                        size="lg"
                         delay={0.1 + i * 0.06}
-                        onClick={() => setOpen(false)}
-                      />
-                    ))}
-                    {NAV_SECONDARY.map((item, i) => (
-                      <MenuItem
-                        key={item.href}
-                        item={item}
-                        size="sm"
-                        delay={0.1 + (NAV_PRIMARY.length + i) * 0.06}
                         onClick={() => setOpen(false)}
                       />
                     ))}
@@ -254,20 +244,16 @@ export function SiteHeader({ content }: { content: HeaderContent }) {
 
 function MenuItem({
   item,
-  size,
   delay,
   onClick,
 }: {
   item: NavItem;
-  size: "lg" | "sm";
   delay: number;
   onClick: () => void;
 }) {
   const { href, label, external, highlight } = item;
-  const sizeClass =
-    size === "lg"
-      ? "text-[clamp(2rem,3.6vw,3.25rem)]"
-      : "text-[clamp(1.35rem,2vw,1.6rem)]";
+  // Todos os itens no mesmo tamanho (a cliente pediu o menor como padrão).
+  const sizeClass = "text-[clamp(1.35rem,2vw,1.6rem)]";
   const colorClass = highlight
     ? "text-[var(--color-terracotta)]"
     : "text-[var(--color-bark)]";

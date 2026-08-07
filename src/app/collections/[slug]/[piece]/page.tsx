@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Reveal } from "@/components/reveal";
+import { PieceGallery } from "@/components/piece-gallery";
 import { WhatsappIcon } from "@/components/icons";
 import { COLECOES, getPeca } from "@/lib/colecoes";
 
@@ -35,6 +35,8 @@ export default async function PecaPage({ params }: { params: Params }) {
   const found = getPeca(slug, piece);
   if (!found) notFound();
   const { colecao, peca } = found;
+  // A galeria já começa pela capa reenquadrada; sem galeria, mostra só a capa.
+  const fotos = peca.galeria?.length ? peca.galeria : [peca.imagem];
 
   return (
     <>
@@ -64,18 +66,12 @@ export default async function PecaPage({ params }: { params: Params }) {
             </nav>
           </Reveal>
 
-          <div className="mt-8 grid gap-10 md:grid-cols-2 md:gap-16">
+          {/* `grid-cols-1` explícito + `min-w-0`: sem isso a faixa de miniaturas
+              (que sangra até a borda no mobile) alargava a coluna e criava
+              rolagem horizontal na página. */}
+          <div className="mt-8 grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-16">
             <Reveal>
-              <div className="relative aspect-[4/5] w-full overflow-hidden bg-[var(--color-cream-light)]">
-                <Image
-                  src={peca.imagem}
-                  alt={peca.nome}
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover"
-                />
-              </div>
+              <PieceGallery fotos={fotos} nome={peca.nome} />
             </Reveal>
 
             <Reveal delay={0.12}>
