@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
-import { COLECOES } from "@/lib/colecoes";
+import { COLECOES, urlDaPecaPorSlug } from "@/lib/colecoes";
 import { CATEGORIES } from "@/lib/catalog";
 
 const STATIC_ROUTES: Array<{
@@ -38,6 +38,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ]);
 
+  // Produto que também existe em /collections tem o canonical apontado pra lá —
+  // listar as duas URLs aqui pediria ao Google pra indexar uma página que a
+  // própria página diz não ser a oficial.
   const catalogo = CATEGORIES.flatMap((categoria) => [
     {
       url: `${SITE_URL}/services/${categoria.slug}`,
@@ -45,12 +48,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.7,
     },
-    ...categoria.products.map((produto) => ({
-      url: `${SITE_URL}/services/${categoria.slug}/${produto.slug}`,
-      lastModified,
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    })),
+    ...categoria.products
+      .filter((produto) => !urlDaPecaPorSlug(produto.slug))
+      .map((produto) => ({
+        url: `${SITE_URL}/services/${categoria.slug}/${produto.slug}`,
+        lastModified,
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+      })),
   ]);
 
   return [

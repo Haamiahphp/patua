@@ -8,6 +8,7 @@ import { EditableImage } from "@/components/editor/editable-image";
 import { getContent } from "@/lib/content";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/professionals" },
   title: "Para profissionais · Patuá Artesania Brasileira",
   description:
     "Patuá para arquitetos e designers de interiores. Mobiliário autoral brasileiro, feito à mão, com personalização a partir do projeto e acompanhamento em cada etapa.",

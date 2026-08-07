@@ -4,7 +4,9 @@ import { notFound } from "next/navigation";
 import { Reveal } from "@/components/reveal";
 import { PieceGallery } from "@/components/piece-gallery";
 import { WhatsappIcon } from "@/components/icons";
+import { JsonLd, breadcrumbJsonLd, ORGANIZATION } from "@/components/seo/json-ld";
 import { COLECOES, getPeca } from "@/lib/colecoes";
+import { SITE_URL } from "@/lib/site";
 
 type Params = Promise<{ slug: string; piece: string }>;
 
@@ -27,6 +29,9 @@ export async function generateMetadata({
   return {
     title: `${found.peca.nome} · ${found.colecao.nome} · Patuá Artesania Brasileira`,
     description: found.peca.paragrafos[0],
+    alternates: {
+      canonical: `/collections/${found.colecao.slug}/${found.peca.slug}`,
+    },
   };
 }
 
@@ -38,8 +43,40 @@ export default async function PecaPage({ params }: { params: Params }) {
   // A galeria já começa pela capa; sem galeria, mostra só a capa.
   const fotos = peca.galeria?.length ? peca.galeria : [peca.imagem];
 
+  // Peça sem preço nem estoque: o Product aqui serve pra o Google entender o
+  // catálogo e a marca, não pra gerar rich snippet de compra. Sem `offers` de
+  // propósito — inventar preço/disponibilidade seria informação falsa.
+  const produtoJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: peca.nome,
+    description: peca.paragrafos[0],
+    image: fotos.map((f) => `${SITE_URL}${f}`),
+    brand: { "@type": "Brand", name: ORGANIZATION.name },
+    manufacturer: { "@id": ORGANIZATION["@id"] },
+    category: colecao.nome,
+    url: `${SITE_URL}/collections/${colecao.slug}/${peca.slug}`,
+    additionalProperty: peca.ficha.map((spec) => ({
+      "@type": "PropertyValue",
+      name: spec.label,
+      value: spec.value,
+    })),
+  };
+
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { nome: "Coleções", url: "/collections" },
+          { nome: colecao.nome, url: `/collections/${colecao.slug}` },
+          {
+            nome: peca.nome,
+            url: `/collections/${colecao.slug}/${peca.slug}`,
+          },
+        ])}
+      />
+      <JsonLd data={produtoJsonLd} />
+
       {/* PEÇA — foto + texto lado a lado */}
       <section className="bg-[var(--color-cream)] pt-28 pb-20 md:pt-36 md:pb-28">
         <div className="mx-auto w-full max-w-[var(--container-page)] px-4 md:px-10">
