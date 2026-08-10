@@ -49,9 +49,9 @@ const SLIDES: SlideSeed[] = [
     key: "home.hero.ecommerce",
     piece: "Escolha a sua peça Patuá",
     description: "",
-    // "COMPRE ONLINE" → /loja. Enquanto a loja virtual não abre, essa rota serve
-    // a página de aviso ("em breve") do próprio site.
-    href: "/loja",
+    // "COMPRE ONLINE" abre a loja virtual, que fica em subdomínio próprio. O
+    // carrossel detecta href http e abre em nova aba.
+    href: "https://loja.patuaartesania.com.br",
     cta: "Compre online",
     image: "/images/hero/ecommerce-wide.jpg",
     mobileImage: "/images/hero/ecommerce-mobile.jpg",
