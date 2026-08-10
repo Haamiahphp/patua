@@ -27,6 +27,10 @@ type NavItem = {
 const NAV_PRIMARY: NavItem[] = [
   { label: "Sobre", href: "/about" },
   { label: "Coleções", href: "/collections" },
+  // "Loja" aqui em cima é o item de navegação; "Compre online" lá embaixo é o
+  // CTA em terracota. Vão pro mesmo lugar de propósito: quem procura a loja
+  // pelo nome acha junto das outras seções, sem depender de ler até o fim.
+  { label: "Loja", href: LOJA, external: true },
 ];
 
 const NAV_SECONDARY: NavItem[] = [
@@ -189,7 +193,9 @@ export function SiteHeader({ content }: { content: HeaderContent }) {
                   <ul className="flex flex-col gap-8 md:gap-10">
                     {[...NAV_PRIMARY, ...NAV_SECONDARY].map((item, i) => (
                       <MenuItem
-                        key={item.href}
+                        // Chave pelo label: "Loja" e "Compre online" dividem o
+                        // mesmo href, então href não é único aqui.
+                        key={item.label}
                         item={item}
                         delay={0.1 + i * 0.06}
                         onClick={() => setOpen(false)}
