@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Patuá — Seu pedido</title>
+
+<!--
+  PATUÁ — página de redirecionamento
+  Vive em public/pedidos/index.html e é servida em patuaartesania.com.br/pedidos.
+  É HTML puro: não passa pelo build do site.
+
+  O que ela faz: recebe o link curto da marca, repassa os parâmetros
+  (?p=UUID e os que a InfinitePay devolve) e manda para o app.
+
+  SE A URL DO APP MUDAR: troque a linha DESTINO logo abaixo.
+  A URL precisa terminar em /exec.
+-->
+
+<style>
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: #c64f3d;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .centro {
+    height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 24px;
+    box-sizing: border-box;
+  }
+  .marca {
+    color: #e2ceb5;
+    font-size: 40px;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .assinatura {
+    color: #e2ceb5;
+    opacity: 0.75;
+    font-size: 11px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+  .recado {
+    color: #f3e7d8;
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 320px;
+  }
+  .manual {
+    display: inline-block;
+    margin-top: 26px;
+    padding: 13px 26px;
+    background: #e2ceb5;
+    color: #8c3625;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .oculto { display: none; }
+</style>
+</head>
+<body>
+
+<div class="centro">
+  <div class="marca">PATUÁ</div>
+  <div class="assinatura">Artesania Brasileira</div>
+
+  <p class="recado" id="recado">Abrindo seu pedido…</p>
+
+  <a href="#" class="manual oculto" id="manual">Abrir meu pedido</a>
+</div>
+
+<script>
+(function () {
+  // >>> A URL DO APP. Precisa terminar em /exec. <<<
+  var DESTINO = 'https://script.google.com/macros/s/AKfycbyhrhq8wHS1XNuK8v0ECUoJ2xbOecN4VfCpb9HRvBKinrjW4iC-pV6t4Y1rNS8avXA/exec';
+
+  // Repassa tudo que veio depois do ? — o código do pedido e, na volta
+  // do pagamento, os dados que a InfinitePay devolve.
+  var parametros = window.location.search || '';
+  var alvo = DESTINO + parametros;
+
+  var manual = document.getElementById('manual');
+  manual.href = alvo;
+
+  // Se o redirecionamento não acontecer em 2,5s, mostra o botão.
+  setTimeout(function () {
+    document.getElementById('recado').textContent =
+      'Se a página não abrir sozinha, toque no botão abaixo.';
+    manual.className = 'manual';
+  }, 2500);
+
+  // replace em vez de href: o botão voltar não fica preso num laço.
+  window.location.replace(alvo);
+})();
+</script>
+
+</body>
+</html>
