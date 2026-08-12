@@ -141,48 +141,25 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
         </motion.div>
       </AnimatePresence>
 
-      {/* Banner "plain" clicável (slogan → /about#manifesto, e-commerce → loja).
-          Href externo (http) abre em nova aba; interno usa o Link do Next. */}
+      {/* Banner "plain" clicável (slogan → /about#manifesto, e-commerce → loja). */}
       {current.plain && current.href && (
         <>
-          {current.href.startsWith("http") ? (
-            <a
-              href={current.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={current.cta || current.piece}
-              className="absolute inset-0 z-10"
-            />
-          ) : (
-            <Link
-              href={current.href}
-              aria-label={current.cta || current.piece}
-              className="absolute inset-0 z-10"
-            />
-          )}
+          <SlideLink
+            href={current.href}
+            ariaLabel={current.cta || current.piece}
+            className="absolute inset-0 z-10"
+          />
 
           {/* Affordance visível (ex.: "Compre online") quando o slide tem CTA. */}
           {current.cta && (
             <div className="pointer-events-none absolute inset-x-0 bottom-24 z-20 flex justify-center px-4 md:bottom-28">
-              {current.href.startsWith("http") ? (
-                <a
-                  href={current.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="pointer-events-auto inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-7 py-3.5 text-sm font-medium text-white shadow-lg shadow-black/10 transition-colors hover:bg-[var(--color-terracotta-deep)]"
-                >
-                  {current.cta}
-                  <span aria-hidden>→</span>
-                </a>
-              ) : (
-                <Link
-                  href={current.href}
-                  className="pointer-events-auto inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-7 py-3.5 text-sm font-medium text-white shadow-lg shadow-black/10 transition-colors hover:bg-[var(--color-terracotta-deep)]"
-                >
-                  {current.cta}
-                  <span aria-hidden>→</span>
-                </Link>
-              )}
+              <SlideLink
+                href={current.href}
+                className="pointer-events-auto inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-terracotta)] px-7 py-3.5 text-sm font-medium text-white shadow-lg shadow-black/10 transition-colors hover:bg-[var(--color-terracotta-deep)]"
+              >
+                {current.cta}
+                <span aria-hidden>→</span>
+              </SlideLink>
             </div>
           )}
         </>
@@ -207,9 +184,9 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
       {/* Banner não-"plain" inteiro clicável (a cliente pediu todos os banners
           clicáveis). Fora do modo edição, pra não bloquear a edição inline do texto. */}
       {!current.plain && current.href && !editMode && (
-        <Link
+        <SlideLink
           href={current.href}
-          aria-label={current.cta || current.piece}
+          ariaLabel={current.cta || current.piece}
           className="absolute inset-0 z-[5]"
         />
       )}
@@ -257,12 +234,12 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
                 >
                   {current.description}
                 </Editable>
-                <Link
+                <SlideLink
                   href={current.href}
                   className="pointer-events-auto mt-7 inline-block border-b border-white/40 pb-1 text-base text-white transition-colors hover:border-white md:text-lg"
                 >
                   {current.cta}
-                </Link>
+                </SlideLink>
               </motion.div>
             </AnimatePresence>
           </div>
@@ -276,6 +253,37 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
         <NavButton dir="next" onClick={() => go(1)} />
       </div>
     </section>
+  );
+}
+
+/**
+ * Link de banner. Href externo (a loja virtual vive em loja.patuaartesania.com.br)
+ * sai como <a> simples — mesma aba, porque é a loja da própria marca e mandar a
+ * compra pra uma aba nova só atrapalha. Href interno usa o Link do Next.
+ */
+function SlideLink({
+  href,
+  className,
+  ariaLabel,
+  children,
+}: {
+  href: string;
+  className?: string;
+  ariaLabel?: string;
+  children?: React.ReactNode;
+}) {
+  if (href.startsWith("http")) {
+    return (
+      <a href={href} className={className} aria-label={ariaLabel}>
+        {children}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={href} className={className} aria-label={ariaLabel}>
+      {children}
+    </Link>
   );
 }
 

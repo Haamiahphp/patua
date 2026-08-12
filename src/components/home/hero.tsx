@@ -1,4 +1,5 @@
 import { getContent } from "@/lib/content";
+import { LOJA_URL } from "@/lib/site";
 import { HeroCarousel, type Slide } from "./hero-carousel";
 
 type SlideSeed = {
@@ -49,9 +50,9 @@ const SLIDES: SlideSeed[] = [
     key: "home.hero.ecommerce",
     piece: "Escolha a sua peça Patuá",
     description: "",
-    // "COMPRE ONLINE" → /loja. Enquanto a loja virtual não abre, essa rota serve
-    // a página de aviso ("em breve") do próprio site.
-    href: "/loja",
+    // "COMPRE ONLINE" → loja virtual, que fica num subdomínio próprio, fora
+    // deste app (o /loja do site redireciona pra mesma URL).
+    href: LOJA_URL,
     cta: "Compre online",
     image: "/images/hero/ecommerce-wide.jpg",
     mobileImage: "/images/hero/ecommerce-mobile.jpg",
