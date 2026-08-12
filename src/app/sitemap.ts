@@ -11,7 +11,8 @@ const STATIC_ROUTES: Array<{
   { path: "/", priority: 1, changeFrequency: "monthly" },
   { path: "/about", priority: 0.8, changeFrequency: "yearly" },
   { path: "/collections", priority: 0.9, changeFrequency: "monthly" },
-  { path: "/loja", priority: 0.9, changeFrequency: "weekly" },
+  // /loja saiu daqui de propósito: agora é redirect 308 pra loja.patuaartesania.com.br.
+  // URL que redireciona no sitemap é erro pro Google, e a loja tem sitemap próprio.
   { path: "/services", priority: 0.9, changeFrequency: "monthly" },
   { path: "/services/todas", priority: 0.7, changeFrequency: "monthly" },
   { path: "/professionals", priority: 0.8, changeFrequency: "monthly" },

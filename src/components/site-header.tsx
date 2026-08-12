@@ -6,16 +6,13 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Editable } from "@/components/editor/editable";
 import { EditableImage } from "@/components/editor/editable-image";
+import { LOJA_URL } from "@/lib/site";
 
 export type HeaderContent = {
   logo: { url: string; alt?: string };
   retrato: { url: string; alt?: string };
   tagline: string;
 };
-
-// Loja virtual da Patuá. Enquanto a loja não abre, /loja é a página de aviso
-// ("em breve") servida pelo próprio site — por isso é link interno.
-const LOJA = "/loja";
 
 type NavItem = {
   label: string;
@@ -33,7 +30,9 @@ const NAV_SECONDARY: NavItem[] = [
   { label: "Para profissionais", href: "/professionals" },
   { label: "Como funciona a coautoria", href: "/coautoria" },
   { label: "Entre em contato", href: "/contact-us" },
-  { label: "Compre online", href: LOJA, highlight: true },
+  // A loja virtual vive num subdomínio próprio (loja.patuaartesania.com.br),
+  // fora deste app — daí o link ser externo.
+  { label: "Compre online", href: LOJA_URL, external: true, highlight: true },
 ];
 
 const WHATSAPP = "https://wa.me/5521975397680";
@@ -266,13 +265,9 @@ function MenuItem({
       transition={{ delay, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
     >
       {external ? (
-        <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={onClick}
-          className={cls}
-        >
+        // Mesma aba: o único link externo do menu é a loja da própria marca, e
+        // abrir a compra numa aba nova só atrapalha o caminho de quem vai comprar.
+        <a href={href} onClick={onClick} className={cls}>
           <span>{label}</span>
           <span aria-hidden className="text-[0.7em]">
             →

@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { LOJA_URL } from "./src/lib/site";
 
 const nextConfig: NextConfig = {
   images: {
@@ -11,6 +12,16 @@ const nextConfig: NextConfig = {
   // da marca chegar nela. A query (?p=...) segue junto.
   async rewrites() {
     return [{ source: "/pedidos", destination: "/pedidos/index.html" }];
+  },
+  // A loja virtual saiu do site e virou subdomínio próprio. /loja existia como
+  // página "em breve" — agora manda pra loja de verdade, pra link antigo,
+  // print e resultado de busca não caírem em 404. 308 (permanent) porque a
+  // mudança é definitiva.
+  async redirects() {
+    return [
+      { source: "/loja", destination: LOJA_URL, permanent: true },
+      { source: "/loja/:path*", destination: LOJA_URL, permanent: true },
+    ];
   },
 };
 
