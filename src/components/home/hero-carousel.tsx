@@ -83,13 +83,15 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
       // preencher a faixa inteira, sem sobra (a cliente sinalizou banner menor que o
       // espaço).
       //
-      // Desktop: 16/9 é a proporção da arte, MAS a altura é limitada à janela.
-      // Só com o aspect-ratio a altura depende da LARGURA da tela, então em
-      // notebook de tela baixa (ex.: 1280×700) o banner passava de 700px e ficava
-      // cortado — foi o que a cliente viu comparando dois notebooks. Com o
-      // min(), o banner cabe inteiro em qualquer tela e sobra um respiro
-      // mostrando o início da próxima seção.
-      className="relative w-full overflow-hidden bg-[var(--color-bark)] aspect-[24/43] md:aspect-auto md:h-[min(56.25vw,calc(100svh_-_3rem))]"
+      // Desktop: 46.11vw é a proporção exata da arte larga aprovada
+      // (3123×1440 ≈ 2.17:1), então o banner do slogan aparece inteiro, sem
+      // corte nem faixa sobrando — era o que a cliente reclamava.
+      //
+      // A altura continua limitada à janela: só com o aspect-ratio ela depende
+      // da LARGURA da tela, e em notebook de tela baixa o banner passava da
+      // dobra e ficava cortado. Com o min(), cabe inteiro em qualquer tela e
+      // sobra um respiro mostrando o início da próxima seção.
+      className="relative w-full overflow-hidden bg-[var(--color-bark)] aspect-[24/43] md:aspect-auto md:h-[min(46.11vw,calc(100svh_-_3rem))]"
     >
       <AnimatePresence mode="sync">
         <motion.div
@@ -113,11 +115,10 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
                 sizes="100vw"
                 className="object-contain md:hidden"
               />
-              {/* Desktop: arte horizontal em versão LARGA (2.4:1), com as bordas
-                  estendidas em degradê. Com `object-cover` o banner preenche a
-                  faixa inteira em qualquer notebook — sem faixa desfocada nas
-                  laterais e sem cortar a arte, porque o que sobra pros lados é
-                  justamente a extensão, não a composição. */}
+              {/* Desktop: arte horizontal em versão larga. `object-cover` faz o
+                  banner preencher a faixa inteira em qualquer notebook, e como a
+                  altura da faixa segue a proporção da arte do slogan, o que
+                  sobra pros lados é margem da própria arte, nunca a composição. */}
               <EditableImage
                 id={`${current.key}.imagem`}
                 src={current.image.url}
