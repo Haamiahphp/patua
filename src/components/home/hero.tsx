@@ -29,12 +29,16 @@ const SLIDES: SlideSeed[] = [
     description: "",
     href: "/about#manifesto",
     cta: "",
-    // Versão larga (2.4:1) da arte, com as bordas estendidas em degradê — ver
-    // o comentário do `object-cover` no hero-carousel.
-    image: "/images/hero/slogan-wide.jpg",
+    // Arte larga oficial da cliente (3123×1440 ≈ 2.17:1). A faixa do herói usa
+    // exatamente essa proporção, então o banner aparece inteiro, sem corte.
+    image: "/images/hero/slogan-wide.webp",
     mobileImage: "/images/hero/slogan-mobile.jpg",
     plain: true,
     bg: "#ddd3ba",
+    // Só entra em jogo em tela ultrawide/baixa, quando a altura da janela limita
+    // a faixa: ancorar no topo protege a logo e o slogan, e o que sai é a barra
+    // de trama embaixo, que não tem informação.
+    focusClass: "object-top",
   },
   {
     key: "home.hero.carol",
@@ -58,6 +62,9 @@ const SLIDES: SlideSeed[] = [
     mobileImage: "/images/hero/ecommerce-mobile.jpg",
     plain: true,
     bg: "#e5d9bf",
+    // Essa arte é mais larga (2.4:1) que a faixa: ancorar à direita faz o corte
+    // sair todo da extensão em degradê da esquerda, e não da composição.
+    focusClass: "object-right",
   },
   {
     key: "home.hero.cabeceira",
