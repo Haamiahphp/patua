@@ -58,13 +58,16 @@ const SLIDES: SlideSeed[] = [
     // deste app (o /loja do site redireciona pra mesma URL).
     href: LOJA_URL,
     cta: "Compre online",
-    image: "/images/hero/ecommerce-wide.jpg",
+    // A arte da cliente é 16:9 e a faixa é mais larga, então alguma coisa tem
+    // que preencher a sobra. Aqui ela é a arte original inteira, ancorada à
+    // esquerda, com o degradê do fundo continuado à direita até 3:1 (gerado por
+    // scripts/extend-banner.py). Assim a peça e o texto ficam sempre intactos e
+    // o que aparece de extensão é só fundo liso, do lado que já era vazio.
+    image: "/images/hero/ecommerce-wide.webp",
     mobileImage: "/images/hero/ecommerce-mobile.jpg",
     plain: true,
     bg: "#e5d9bf",
-    // Essa arte é mais larga (2.4:1) que a faixa: ancorar à direita faz o corte
-    // sair todo da extensão em degradê da esquerda, e não da composição.
-    focusClass: "object-right",
+    focusClass: "object-left",
   },
   {
     key: "home.hero.cabeceira",
